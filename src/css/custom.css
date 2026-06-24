@@ -1,0 +1,176 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap');
+
+:root {
+  --ifm-color-primary: #0b7890;
+  --ifm-color-primary-dark: #096d82;
+  --ifm-color-primary-darker: #08677b;
+  --ifm-color-primary-darkest: #075565;
+  --ifm-color-primary-light: #0d839e;
+  --ifm-color-primary-lighter: #0e89a5;
+  --ifm-color-primary-lightest: #119bb9;
+  --ifm-font-family-base: 'DM Sans', system-ui, -apple-system, sans-serif;
+  --ifm-heading-font-family: 'Manrope', 'DM Sans', sans-serif;
+  --ifm-heading-font-weight: 750;
+  --ifm-navbar-height: 72px;
+  --ifm-code-font-size: 92%;
+  --ifm-global-radius: 12px;
+  --ifm-toc-border-color: #eee4eb;
+  --revenza-navy: #07314d;
+  --revenza-teal: #0f9792;
+  --revenza-sky: #1ba7e4;
+  --revenza-orange: #ff8a24;
+  --revenza-plum: #5c164d;
+  --revenza-plum-dark: #421039;
+  --revenza-ink: #24101f;
+  --revenza-muted: #675b64;
+  --revenza-cream: #fffdf9;
+  --revenza-line: #eee6eb;
+  --revenza-lilac-soft: #f4ecfa;
+  --revenza-apricot: #ff9b55;
+  --revenza-apricot-soft: #fff1e6;
+}
+
+[data-theme='dark'] {
+  --ifm-color-primary: #e6a7d8;
+  --ifm-background-color: #1c151b;
+  --ifm-background-surface-color: #261d24;
+  --ifm-toc-border-color: #44303e;
+  --revenza-plum: #e6a7d8;
+  --revenza-plum-dark: #f1c6e7;
+  --revenza-ink: #fff8fd;
+  --revenza-muted: #cdbfc9;
+  --revenza-cream: #1c151b;
+  --revenza-line: #44303e;
+  --revenza-lilac-soft: #33253a;
+  --revenza-apricot-soft: #3b2a23;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  color: var(--revenza-ink);
+  background: var(--ifm-background-color);
+}
+
+::selection {
+  color: white;
+  background: var(--revenza-plum);
+}
+
+.navbar {
+  border-bottom: 1px solid var(--revenza-line);
+  box-shadow: none;
+}
+
+.navbar__brand {
+  margin-right: 2rem;
+}
+
+.navbar__logo {
+  width: 42px;
+  height: 42px;
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+.navbar__logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.navbar__title,
+.navbar__link {
+  color: var(--revenza-ink);
+}
+
+.navbar__link--active {
+  color: var(--revenza-plum);
+}
+
+.theme-doc-sidebar-container {
+  border-right-color: var(--revenza-line) !important;
+}
+
+.menu {
+  padding: 1.4rem 1rem !important;
+}
+
+.menu__list-item-collapsible,
+.menu__link {
+  border-radius: 10px;
+}
+
+.menu__link--active:not(.menu__link--sublist) {
+  color: var(--revenza-plum);
+  background: var(--revenza-lilac-soft);
+}
+
+.theme-doc-markdown h1 {
+  font-size: clamp(2.35rem, 5vw, 4.5rem);
+  line-height: 1.04;
+  letter-spacing: -0.06em;
+}
+
+.theme-doc-markdown h2 {
+  margin-top: 2.5rem;
+  letter-spacing: -0.035em;
+}
+
+.theme-doc-markdown > p,
+.theme-doc-markdown li {
+  max-width: 68ch;
+  line-height: 1.75;
+}
+
+.theme-edit-this-page {
+  display: inline-flex;
+  align-items: center;
+  padding: 9px 13px;
+  color: var(--revenza-plum);
+  font-weight: 650;
+  background: var(--revenza-lilac-soft);
+  border-radius: 10px;
+}
+
+.pagination-nav__link {
+  border-color: var(--revenza-line);
+  border-radius: 14px;
+}
+
+.footer {
+  border-top: 1px solid var(--revenza-line);
+}
+
+.DocSearch-Button,
+.navbar__search-input {
+  border-radius: 10px !important;
+}
+
+@media (max-width: 996px) {
+  :root {
+    --ifm-navbar-height: 64px;
+  }
+
+  .navbar__title {
+    font-size: 1rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
+
