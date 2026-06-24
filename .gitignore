@@ -1,0 +1,10 @@
+node_modules/
+build/
+.docusaurus/
+.cache-loader/
+npm-debug.log*
+.env*
+!.env.example
+.design-reference/
+.superpowers/
+day-*.png

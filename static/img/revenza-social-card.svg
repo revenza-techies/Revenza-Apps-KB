@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#fffaf7"/>
+  <circle cx="1050" cy="100" r="270" fill="#fff0e4"/>
+  <circle cx="80" cy="600" r="260" fill="#f2e8f8"/>
+  <rect x="100" y="110" width="76" height="76" rx="19" fill="#5c164d"/>
+  <path d="m120 166 12-38h16c10 0 16 5 16 13s-5 13-13 14l10 11h-14l-8-11-4 11h-15Zm21-27-3 9h8c4 0 6-2 6-5 0-2-2-4-6-4h-5Z" fill="#fff"/>
+  <text x="204" y="164" fill="#24101f" font-family="Arial, sans-serif" font-size="48" font-weight="700">Revenza Help Center</text>
+  <text x="100" y="310" fill="#24101f" font-family="Arial, sans-serif" font-size="74" font-weight="700">Build better storefront</text>
+  <text x="100" y="396" fill="#24101f" font-family="Arial, sans-serif" font-size="74" font-weight="700">experiences.</text>
+  <text x="100" y="478" fill="#675b64" font-family="Arial, sans-serif" font-size="32">Guides and support for Revenza Shopify apps.</text>
+</svg>

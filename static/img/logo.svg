@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title">
+  <title id="title">Revenza</title>
+  <rect width="64" height="64" rx="16" fill="#5c164d"/>
+  <path d="M18 47 28 17h12c8 0 12 4 12 10 0 6-4 10-10 11l8 9H39l-7-9-3 9H18Zm17-21-2 7h6c3 0 5-2 5-4 0-2-2-3-5-3h-4Z" fill="#fff"/>
+</svg>

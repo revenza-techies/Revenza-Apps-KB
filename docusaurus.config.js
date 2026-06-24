@@ -79,12 +79,13 @@ const config = {
         name: 'keywords',
         content: 'Revenza, Shopify apps, Revenza Upsell, Shopify upsell app, help center',
       },
-      {name: 'theme-color', content: '#5c164d'},
+      {name: 'theme-color', content: '#fffefb'},
       {property: 'og:type', content: 'website'},
     ],
     colorMode: {
       defaultMode: 'light',
-      respectPrefersColorScheme: true,
+      disableSwitch: false,
+      respectPrefersColorScheme: false,
     },
     navbar: {
       title: 'Revenza Help Center',
@@ -126,6 +127,7 @@ const config = {
             {label: 'Changelog', to: '/changelog'},
             {label: 'FAQ', to: '/revenza-upsell/faq'},
             {label: 'Suggest an update', href: `${repositoryUrl}/issues/new`},
+            {label: 'Contact support', to: '/contact'},
           ],
         },
         {
@@ -147,9 +149,3 @@ const config = {
 };
 
 module.exports = config;
-
-
-
-
-
-

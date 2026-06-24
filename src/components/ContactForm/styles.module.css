@@ -1,6 +1,6 @@
 .form {
   padding: clamp(24px, 4vw, 40px);
-  background: var(--ifm-background-surface-color);
+  background: var(--revenza-surface);
   border: 1px solid var(--revenza-line);
   border-radius: 22px;
   box-shadow: 0 24px 70px rgba(7, 49, 77, 0.08);
@@ -11,7 +11,7 @@
 }
 
 .heading span {
-  color: var(--revenza-teal);
+  color: var(--revenza-forest);
   font-size: 0.76rem;
   font-weight: 750;
   letter-spacing: 0.1em;
@@ -50,7 +50,7 @@
 }
 
 .field label span {
-  color: #b42318;
+  color: var(--revenza-danger);
 }
 
 .field input,
@@ -61,7 +61,7 @@
   padding: 12px 14px;
   color: var(--revenza-ink);
   font: inherit;
-  background: var(--ifm-background-color);
+  background: var(--revenza-canvas);
   border: 1px solid rgba(7, 49, 77, 0.2);
   border-radius: 10px;
   outline: none;
@@ -78,19 +78,19 @@
 .field input:focus,
 .field select:focus,
 .field textarea:focus {
-  border-color: var(--revenza-teal);
+  border-color: var(--revenza-forest);
   box-shadow: 0 0 0 3px rgba(15, 151, 146, 0.18);
 }
 
 .field [aria-invalid='true'] {
-  border-color: #b42318;
+  border-color: var(--revenza-danger);
 }
 
 .error {
   display: flex;
   align-items: center;
   gap: 6px;
-  color: #b42318;
+  color: var(--revenza-danger);
   font-size: 0.84rem;
   font-weight: 650;
 }
@@ -113,7 +113,7 @@
   color: white;
   font: inherit;
   font-weight: 750;
-  background: var(--revenza-navy);
+  background: var(--revenza-forest-deep);
   border: 0;
   border-radius: 10px;
   cursor: pointer;
@@ -123,12 +123,12 @@
 }
 
 .submit:hover:not(:disabled) {
-  background: var(--revenza-teal);
+  background: var(--revenza-forest);
   transform: translateY(-1px);
 }
 
 .submit:focus-visible {
-  outline: 3px solid var(--revenza-orange);
+  outline: 3px solid var(--revenza-focus);
   outline-offset: 3px;
 }
 
@@ -148,13 +148,13 @@
 }
 
 .success {
-  color: #05603a;
-  background: #ecfdf3;
+  color: var(--revenza-success);
+  background: color-mix(in srgb, var(--revenza-success) 12%, transparent);
 }
 
 .error.status {
-  color: #8a1c13;
-  background: #fff1f0;
+  color: var(--revenza-danger);
+  background: color-mix(in srgb, var(--revenza-danger) 12%, transparent);
 }
 
 @media (max-width: 680px) {

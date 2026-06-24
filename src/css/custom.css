@@ -1,176 +1,104 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap');
 
 :root {
-  --ifm-color-primary: #0b7890;
-  --ifm-color-primary-dark: #096d82;
-  --ifm-color-primary-darker: #08677b;
-  --ifm-color-primary-darkest: #075565;
-  --ifm-color-primary-light: #0d839e;
-  --ifm-color-primary-lighter: #0e89a5;
-  --ifm-color-primary-lightest: #119bb9;
+  --ifm-color-primary: #0d5b37;
+  --ifm-color-primary-dark: #0b5030;
+  --ifm-color-primary-darker: #0a4b2d;
+  --ifm-color-primary-darkest: #083e25;
+  --ifm-color-primary-light: #126a42;
+  --ifm-color-primary-lighter: #167147;
+  --ifm-color-primary-lightest: #1d8052;
+  --ifm-background-color: #fffefb;
+  --ifm-background-surface-color: #ffffff;
+  --ifm-navbar-background-color: rgba(255, 255, 252, 0.96);
+  --ifm-footer-background-color: #f8f9f3;
+  --ifm-font-color-base: #15241d;
+  --ifm-heading-color: #15241d;
+  --ifm-link-color: #0d5b37;
+  --ifm-menu-color: #31443a;
+  --ifm-menu-color-active: #0d5b37;
+  --ifm-toc-border-color: #dfe5d8;
   --ifm-font-family-base: 'DM Sans', system-ui, -apple-system, sans-serif;
   --ifm-heading-font-family: 'Manrope', 'DM Sans', sans-serif;
   --ifm-heading-font-weight: 750;
   --ifm-navbar-height: 72px;
   --ifm-code-font-size: 92%;
   --ifm-global-radius: 12px;
-  --ifm-toc-border-color: #eee4eb;
-  --revenza-navy: #07314d;
-  --revenza-teal: #0f9792;
-  --revenza-sky: #1ba7e4;
-  --revenza-orange: #ff8a24;
-  --revenza-plum: #5c164d;
-  --revenza-plum-dark: #421039;
-  --revenza-ink: #24101f;
-  --revenza-muted: #675b64;
-  --revenza-cream: #fffdf9;
-  --revenza-line: #eee6eb;
-  --revenza-lilac-soft: #f4ecfa;
-  --revenza-apricot: #ff9b55;
-  --revenza-apricot-soft: #fff1e6;
+  --revenza-forest: #0d5b37;
+  --revenza-forest-deep: #174d34;
+  --revenza-lemon: #c9db8d;
+  --revenza-lemon-soft: #edf2df;
+  --revenza-ink: #15241d;
+  --revenza-muted: #59685f;
+  --revenza-canvas: #fffefb;
+  --revenza-surface: #ffffff;
+  --revenza-surface-alt: #f8f9f3;
+  --revenza-line: #dfe5d8;
+  --revenza-control: #f8f8f3;
+  --revenza-focus: #819c47;
+  --revenza-danger: #a1281f;
+  --revenza-success: #19643f;
 }
 
 [data-theme='dark'] {
-  --ifm-color-primary: #e6a7d8;
-  --ifm-background-color: #1c151b;
-  --ifm-background-surface-color: #261d24;
-  --ifm-toc-border-color: #44303e;
-  --revenza-plum: #e6a7d8;
-  --revenza-plum-dark: #f1c6e7;
-  --revenza-ink: #fff8fd;
-  --revenza-muted: #cdbfc9;
-  --revenza-cream: #1c151b;
-  --revenza-line: #44303e;
-  --revenza-lilac-soft: #33253a;
-  --revenza-apricot-soft: #3b2a23;
+  --ifm-color-primary: #c9db8d;
+  --ifm-color-primary-dark: #bed17b;
+  --ifm-color-primary-darker: #b8cb72;
+  --ifm-color-primary-darkest: #9fb45a;
+  --ifm-color-primary-light: #d2e298;
+  --ifm-color-primary-lighter: #d8e6a4;
+  --ifm-color-primary-lightest: #e4edc0;
+  --ifm-background-color: #0d120d;
+  --ifm-background-surface-color: #182218;
+  --ifm-navbar-background-color: rgba(16, 22, 16, 0.97);
+  --ifm-footer-background-color: #101610;
+  --ifm-font-color-base: #f4f7ee;
+  --ifm-heading-color: #f4f7ee;
+  --ifm-link-color: #dbe8b2;
+  --ifm-menu-color: #c5cdbb;
+  --ifm-menu-color-active: #dbe8b2;
+  --ifm-toc-border-color: #33412c;
+  --revenza-forest: #c9db8d;
+  --revenza-forest-deep: #dbe8b2;
+  --revenza-lemon: #c9db8d;
+  --revenza-lemon-soft: #263122;
+  --revenza-ink: #f4f7ee;
+  --revenza-muted: #c5cdbb;
+  --revenza-canvas: #0d120d;
+  --revenza-surface: #182218;
+  --revenza-surface-alt: #101610;
+  --revenza-line: #33412c;
+  --revenza-control: #1b2519;
+  --revenza-focus: #dbe8b2;
+  --revenza-danger: #ffb4ab;
+  --revenza-success: #9de7bd;
 }
 
-html {
-  scroll-behavior: smooth;
-}
+html { scroll-behavior: smooth; }
+body { color: var(--revenza-ink); background: var(--revenza-canvas); }
+::selection { color: #15241d; background: var(--revenza-lemon); }
+.navbar { border-bottom: 1px solid var(--revenza-line); box-shadow: none; backdrop-filter: blur(14px); }
+.navbar__brand { margin-right: 2rem; }
+.navbar__logo { width: 42px; height: 42px; overflow: hidden; border-radius: 10px; }
+.navbar__logo img { width: 100%; height: 100%; object-fit: contain; }
+.navbar__title,.navbar__link { color: var(--revenza-ink); }
+.navbar__link--active { color: var(--revenza-forest); }
+.theme-doc-sidebar-container { border-right-color: var(--revenza-line) !important; background: var(--revenza-surface-alt); }
+.menu { padding: 1.4rem 1rem !important; }
+.menu__list-item-collapsible,.menu__link { border-radius: 10px; }
+.menu__link--active:not(.menu__link--sublist) { color: var(--revenza-forest); background: var(--revenza-lemon-soft); }
+.theme-doc-markdown h1 { font-size: clamp(2.35rem,5vw,4.5rem); line-height: 1.04; letter-spacing: -.06em; }
+.theme-doc-markdown h2 { margin-top: 2.5rem; letter-spacing: -.035em; }
+.theme-doc-markdown>p,.theme-doc-markdown li { max-width: 68ch; line-height: 1.75; }
+.theme-edit-this-page { display:inline-flex;align-items:center;padding:9px 13px;color:var(--revenza-forest);font-weight:650;background:var(--revenza-lemon-soft);border-radius:10px; }
+.pagination-nav__link { border-color: var(--revenza-line); border-radius: 14px; background: var(--revenza-surface); }
+.footer { color: var(--revenza-muted); background: var(--revenza-surface-alt); border-top: 1px solid var(--revenza-line); }
+.footer__title,.footer__link-item { color: var(--revenza-ink); }
+.DocSearch-Button,.navbar__search-input { color:var(--revenza-ink)!important;background:var(--revenza-control)!important;border:1px solid var(--revenza-line)!important;border-radius:10px!important; }
+.table-of-contents__link { color: var(--revenza-muted); }
+.table-of-contents__link--active { color: var(--revenza-forest); }
+.alert { color: var(--revenza-ink); background: var(--revenza-lemon-soft); border-color: var(--revenza-line); }
+code { color: var(--revenza-forest-deep); background: var(--revenza-lemon-soft); }
 
-body {
-  color: var(--revenza-ink);
-  background: var(--ifm-background-color);
-}
-
-::selection {
-  color: white;
-  background: var(--revenza-plum);
-}
-
-.navbar {
-  border-bottom: 1px solid var(--revenza-line);
-  box-shadow: none;
-}
-
-.navbar__brand {
-  margin-right: 2rem;
-}
-
-.navbar__logo {
-  width: 42px;
-  height: 42px;
-  overflow: hidden;
-  border-radius: 10px;
-}
-
-.navbar__logo img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-}
-
-.navbar__title,
-.navbar__link {
-  color: var(--revenza-ink);
-}
-
-.navbar__link--active {
-  color: var(--revenza-plum);
-}
-
-.theme-doc-sidebar-container {
-  border-right-color: var(--revenza-line) !important;
-}
-
-.menu {
-  padding: 1.4rem 1rem !important;
-}
-
-.menu__list-item-collapsible,
-.menu__link {
-  border-radius: 10px;
-}
-
-.menu__link--active:not(.menu__link--sublist) {
-  color: var(--revenza-plum);
-  background: var(--revenza-lilac-soft);
-}
-
-.theme-doc-markdown h1 {
-  font-size: clamp(2.35rem, 5vw, 4.5rem);
-  line-height: 1.04;
-  letter-spacing: -0.06em;
-}
-
-.theme-doc-markdown h2 {
-  margin-top: 2.5rem;
-  letter-spacing: -0.035em;
-}
-
-.theme-doc-markdown > p,
-.theme-doc-markdown li {
-  max-width: 68ch;
-  line-height: 1.75;
-}
-
-.theme-edit-this-page {
-  display: inline-flex;
-  align-items: center;
-  padding: 9px 13px;
-  color: var(--revenza-plum);
-  font-weight: 650;
-  background: var(--revenza-lilac-soft);
-  border-radius: 10px;
-}
-
-.pagination-nav__link {
-  border-color: var(--revenza-line);
-  border-radius: 14px;
-}
-
-.footer {
-  border-top: 1px solid var(--revenza-line);
-}
-
-.DocSearch-Button,
-.navbar__search-input {
-  border-radius: 10px !important;
-}
-
-@media (max-width: 996px) {
-  :root {
-    --ifm-navbar-height: 64px;
-  }
-
-  .navbar__title {
-    font-size: 1rem;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-
-  *,
-  *::before,
-  *::after {
-    scroll-behavior: auto !important;
-    transition-duration: 0.01ms !important;
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-  }
-}
-
+@media(max-width:996px){:root{--ifm-navbar-height:64px}.navbar__title{font-size:1rem}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{scroll-behavior:auto!important;transition-duration:.01ms!important;animation-duration:.01ms!important;animation-iteration-count:1!important}}

@@ -10,7 +10,7 @@
 }
 
 .intro > span {
-  color: var(--revenza-teal);
+  color: var(--revenza-forest);
   font-size: 0.78rem;
   font-weight: 750;
   letter-spacing: 0.11em;
@@ -44,7 +44,7 @@
   display: grid;
   gap: 12px;
   padding: 16px;
-  background: linear-gradient(150deg, #eaf9f8, var(--revenza-apricot-soft));
+  background: linear-gradient(150deg, var(--revenza-lemon-soft), var(--revenza-surface-alt));
   border-radius: 20px;
 }
 
@@ -56,7 +56,7 @@
 }
 
 .detail svg {
-  color: var(--revenza-teal);
+  color: var(--revenza-forest);
 }
 
 .detail h2 {
@@ -73,7 +73,7 @@
 }
 
 .detail a {
-  color: var(--revenza-navy);
+  color: var(--revenza-forest-deep);
   font-weight: 700;
 }
 

@@ -1,0 +1,41 @@
+.toggle {
+  display: inline-flex;
+  min-width: 82px;
+  min-height: 40px;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px 11px;
+  color: var(--revenza-ink);
+  font: inherit;
+  font-size: 0.82rem;
+  font-weight: 750;
+  background: var(--revenza-control);
+  border: 1px solid var(--revenza-line);
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.toggle:hover {
+  color: var(--revenza-forest);
+  border-color: var(--revenza-forest);
+}
+
+.toggle:focus-visible {
+  outline: 3px solid var(--revenza-focus);
+  outline-offset: 3px;
+}
+
+@media (max-width: 576px) {
+  .toggle {
+    min-width: 42px;
+  }
+
+  .toggle span {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+  }
+}
