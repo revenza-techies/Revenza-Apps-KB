@@ -12,6 +12,9 @@ const config = {
   organizationName: 'revenza-techies',
   projectName: 'Revenza-Apps-KB',
   trailingSlash: false,
+  customFields: {
+    web3formsAccessKey: process.env.WEB3FORMS_ACCESS_KEY || '',
+  },
   onBrokenLinks: 'throw',
   markdown: {
     hooks: {
@@ -87,13 +90,14 @@ const config = {
       title: 'Revenza Help Center',
       logo: {
         alt: 'Revenza',
-        src: 'img/logo.svg',
+        src: 'img/brand/revenza-brand-3d.webp',
       },
       items: [
         {to: '/', label: 'All apps', position: 'left', exact: true},
         {to: '/revenza-upsell', label: 'Revenza Upsell', position: 'left'},
         {to: '/changelog', label: 'Changelog', position: 'left'},
         {to: '/revenza-upsell/faq', label: 'FAQ', position: 'left'},
+        {to: '/contact', label: 'Contact', position: 'left'},
         {
           href: repositoryUrl,
           label: 'GitHub',
@@ -143,6 +147,7 @@ const config = {
 };
 
 module.exports = config;
+
 
 
 
