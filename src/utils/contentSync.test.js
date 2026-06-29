@@ -37,3 +37,18 @@ test('creates a Docusaurus sidebar module from GitBook sidebar JSON', async () =
   assert.match(moduleText, /"id": "getting-started"/);
   assert.match(moduleText, /"getting-started\/install"/);
 });
+
+test('normalizes GitBook markdown that Docusaurus MDX cannot parse', async () => {
+  const {sanitizeGitBookMarkdown} = await import('../../scripts/content-sync-utils.mjs');
+  const sanitized = sanitizeGitBookMarkdown(`{% hint style="info" %}
+Remember to save the theme.
+{% endhint %}
+
+<figure><img src="../.gitbook/assets/App Embed-1.png" alt=""><figcaption></figcaption></figure>
+`);
+
+  assert.match(sanitized, /> \*\*Note:\*\* Remember to save the theme\./);
+  assert.match(sanitized, /<img src="\.\.\/\.gitbook\/assets\/App Embed-1\.png" alt="" \/>/);
+  assert.doesNotMatch(sanitized, /{%/);
+  assert.doesNotMatch(sanitized, /<\/figure>/);
+});

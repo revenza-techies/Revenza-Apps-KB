@@ -42,6 +42,17 @@ export function copyDirectory(source, destination) {
   return true;
 }
 
+export function sanitizeGitBookMarkdown(markdown) {
+  return markdown
+    .replace(/<figure>\s*<img([^>]*?)>\s*<figcaption>\s*<\/figcaption>\s*<\/figure>/g, '<img$1 />')
+    .replace(/<img([^>]*?)(?<!\/)>/g, '<img$1 />')
+    .replace(/\{%\s*hint(?:\s+style="([^"]+)")?\s*%\}\s*/g, (_, style) => {
+      const label = style === 'danger' || style === 'warning' ? 'Warning' : 'Note';
+      return `> **${label}:** `;
+    })
+    .replace(/\s*\{%\s*endhint\s*%\}/g, '');
+}
+
 export function copyDirectoryContents(source, destination, options = {}) {
   if (!fs.existsSync(source)) return false;
   fs.mkdirSync(destination, {recursive: true});

@@ -1,6 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import {copyDirectory, copyDirectoryContents, createSidebarModule, parseFrontMatterMarkdown} from './content-sync-utils.mjs';
+import {copyDirectory, copyDirectoryContents, createSidebarModule, parseFrontMatterMarkdown, sanitizeGitBookMarkdown} from './content-sync-utils.mjs';
 
 const root = process.cwd();
 
@@ -48,6 +48,27 @@ function writeText(relativeDestination, content) {
   const to = path.join(root, relativeDestination);
   fs.mkdirSync(path.dirname(to), {recursive: true});
   fs.writeFileSync(to, content);
+}
+
+function sanitizeMarkdownFile(filePath) {
+  if (!/\.mdx?$/.test(filePath)) return;
+  fs.writeFileSync(filePath, sanitizeGitBookMarkdown(fs.readFileSync(filePath, 'utf8')));
+}
+
+function sanitizeMarkdownTree(directory) {
+  if (!fs.existsSync(directory)) return;
+  for (const entry of fs.readdirSync(directory, {withFileTypes: true})) {
+    const target = path.join(directory, entry.name);
+    if (entry.isDirectory()) {
+      sanitizeMarkdownTree(target);
+      continue;
+    }
+    if (entry.name.toLowerCase() === 'readme.md') {
+      fs.rmSync(target, {force: true});
+      continue;
+    }
+    sanitizeMarkdownFile(target);
+  }
 }
 
 function syncHomeContent(source) {
@@ -113,8 +134,12 @@ function syncUpsellContent(source) {
 
     const stats = fs.statSync(from);
     if (stats.isDirectory()) {
-      if (copyDirectory(from, to)) copied += 1;
+      if (copyDirectory(from, to)) {
+        sanitizeMarkdownTree(to);
+        copied += 1;
+      }
     } else if (copyFileIfExists(from, relativeDestination)) {
+      sanitizeMarkdownFile(to);
       copied += 1;
     }
   }
