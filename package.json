@@ -4,8 +4,9 @@
   "private": true,
   "scripts": {
     "test": "node --test src/**/*.test.js",
+    "sync:content": "node scripts/sync-content.mjs",
     "start": "docusaurus start",
-    "build": "docusaurus build",
+    "build": "npm run sync:content && docusaurus build",
     "serve": "docusaurus serve",
     "clear": "docusaurus clear"
   },

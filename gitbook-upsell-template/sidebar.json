@@ -1,6 +1,4 @@
-/** @type {import('@docusaurus/plugin-content-docs').SidebarsConfig} */
-module.exports = {
-  upsellSidebar: [
+[
   {
     "type": "doc",
     "id": "intro",
@@ -9,12 +7,12 @@ module.exports = {
   {
     "type": "category",
     "label": "Getting Started",
+    "collapsed": true,
     "items": [
       "getting-started/install",
       "getting-started/activate",
       "getting-started/pre-build-sets"
-    ],
-    "collapsed": true
+    ]
   },
   {
     "type": "doc",
@@ -32,4 +30,3 @@ module.exports = {
     "label": "Billing"
   }
 ]
-};

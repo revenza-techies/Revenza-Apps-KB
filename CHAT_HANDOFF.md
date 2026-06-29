@@ -166,7 +166,8 @@ Important routes:
 - `/revenza-upsell` - Revenza Upsell knowledge-base home
 - `/revenza-upsell/faq` - FAQ
 - `/changelog` - Product changelog
-- `/contact` - Support contact form
+- /contact - Support contact form
+- /admin - Admin publishing workflow guidance, hidden from customer navigation
 
 Important source locations:
 
@@ -245,7 +246,7 @@ Implemented response:
 - Content is maintained directly as Markdown in GitHub.
 - Docusaurus local search is installed and indexes pages, docs, and changelog
   posts.
-- GitHub edit links are enabled for documentation and changelog pages.
+- Customer-facing GitHub edit links are hidden; admins use `/admin` and GitHub directly for content publishing.
 - This avoids a hosted documentation vendor and keeps content portable.
 
 ## 10. SEO and Accessibility

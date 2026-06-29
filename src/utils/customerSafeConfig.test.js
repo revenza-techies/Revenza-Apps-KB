@@ -1,0 +1,15 @@
+const test = require('node:test');
+const assert = require('node:assert/strict');
+const config = require('../../docusaurus.config');
+
+test('customer navigation does not expose repository or edit links', () => {
+  const presetOptions = config.presets[0][1];
+  const navbarItems = config.themeConfig.navbar.items;
+  const footerItems = config.themeConfig.footer.links.flatMap((group) => group.items);
+
+  assert.equal(presetOptions.docs.editUrl, undefined);
+  assert.equal(presetOptions.blog.editUrl, undefined);
+  assert.equal(navbarItems.some((item) => item.label === 'GitHub' || item.href?.includes('github.com')), false);
+  assert.equal(footerItems.some((item) => item.label === 'GitHub' || item.label === 'Suggest an update'), false);
+});
+

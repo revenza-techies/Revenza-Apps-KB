@@ -32,7 +32,6 @@ const config = {
         docs: {
           routeBasePath: 'revenza-upsell',
           sidebarPath: require.resolve('./sidebars.js'),
-          editUrl: `${repositoryUrl}/edit/main/`,
           breadcrumbs: true,
         },
         blog: {
@@ -40,7 +39,6 @@ const config = {
           blogTitle: 'Revenza Changelog',
           blogDescription: 'Product improvements, fixes, and new releases from Revenza.',
           postsPerPage: 10,
-          editUrl: `${repositoryUrl}/edit/main/`,
           showReadingTime: false,
         },
         sitemap: {
@@ -99,12 +97,6 @@ const config = {
         {to: '/changelog', label: 'Changelog', position: 'left'},
         {to: '/revenza-upsell/faq', label: 'FAQ', position: 'left'},
         {to: '/contact', label: 'Contact', position: 'left'},
-        {
-          href: repositoryUrl,
-          label: 'GitHub',
-          position: 'right',
-          'aria-label': 'Revenza documentation on GitHub',
-        },
       ],
     },
     footer: {
@@ -126,7 +118,6 @@ const config = {
           items: [
             {label: 'Changelog', to: '/changelog'},
             {label: 'FAQ', to: '/revenza-upsell/faq'},
-            {label: 'Suggest an update', href: `${repositoryUrl}/issues/new`},
             {label: 'Contact support', to: '/contact'},
           ],
         },
@@ -135,7 +126,6 @@ const config = {
           items: [
             {label: 'Website', href: 'https://revenza.in'},
             {label: 'Support', href: 'mailto:support@revenza.in'},
-            {label: 'GitHub', href: repositoryUrl},
           ],
         },
       ],

@@ -18,18 +18,50 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout Docusaurus website
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
+
+      - name: Checkout GitBook home content
+        if: ${{ vars.GITBOOK_HOME_REPO != '' }}
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ vars.GITBOOK_HOME_REPO }}
+          token: ${{ secrets.CONTENT_REPO_TOKEN || github.token }}
+          path: .content-home
+
+      - name: Checkout Revenza Upsell content
+        if: ${{ vars.GITBOOK_UPSELL_REPO != '' }}
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ vars.GITBOOK_UPSELL_REPO }}
+          token: ${{ secrets.CONTENT_REPO_TOKEN || github.token }}
+          path: .content-revenza-upsell
+
       - uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: npm
+
       - run: npm ci
+
+      - name: Sync GitBook content
+        run: npm run sync:content
+        env:
+          HOME_CONTENT_REPO_PATH: .content-home
+          REVENZA_UPSELL_CONTENT_REPO_PATH: .content-revenza-upsell
+
+      - run: npm test
+
       - run: npm run build
         env:
           WEB3FORMS_ACCESS_KEY: ${{ secrets.WEB3FORMS_ACCESS_KEY }}
+          HOME_CONTENT_REPO_PATH: .content-home
+          REVENZA_UPSELL_CONTENT_REPO_PATH: .content-revenza-upsell
+
       - uses: actions/configure-pages@v5
+
       - uses: actions/upload-pages-artifact@v3
         with:
           path: build
@@ -44,4 +76,3 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
-
