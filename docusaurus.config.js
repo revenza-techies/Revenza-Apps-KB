@@ -93,7 +93,7 @@ const config = {
       },
       items: [
         {to: '/', label: 'All apps', position: 'left', exact: true},
-        {to: '/revenza-upsell', label: 'Revenza Upsell', position: 'left'},
+        {to: '/revenza-upsell/overview', label: 'Revenza Upsell', position: 'left'},
         {to: '/changelog', label: 'Changelog', position: 'left'},
         {to: '/revenza-upsell/faq', label: 'FAQ', position: 'left'},
         {to: '/contact', label: 'Contact', position: 'left'},
@@ -106,7 +106,7 @@ const config = {
           title: 'Documentation',
           items: [
             {label: 'All apps', to: '/'},
-            {label: 'Revenza Upsell', to: '/revenza-upsell'},
+            {label: 'Revenza Upsell', to: '/revenza-upsell/overview'},
             {
               label: 'Troubleshooting',
               to: '/revenza-upsell/troubleshooting/common-issues',

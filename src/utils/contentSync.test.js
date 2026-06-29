@@ -27,11 +27,13 @@ test('creates a Docusaurus sidebar module from GitBook sidebar JSON', async () =
       type: 'category',
       label: 'Getting Started',
       collapsed: true,
+      link: {type: 'doc', id: 'getting-started'},
       items: ['getting-started/install'],
     },
   ]);
 
   assert.match(moduleText, /upsellSidebar/);
   assert.match(moduleText, /"label": "Overview"/);
+  assert.match(moduleText, /"id": "getting-started"/);
   assert.match(moduleText, /"getting-started\/install"/);
 });

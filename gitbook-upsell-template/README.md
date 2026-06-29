@@ -4,7 +4,7 @@ This repository is synced with the GitBook Revenza Upsell space and stores edita
 
 ## Safe to edit in GitBook
 
-- `intro.md`
+- `overview.md`
 - `faq.md`
 - `getting-started/**/*.md`
 - `offers/**/*.md`

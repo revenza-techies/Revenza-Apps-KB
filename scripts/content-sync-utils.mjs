@@ -60,6 +60,7 @@ export function copyDirectoryContents(source, destination, options = {}) {
   }
   return true;
 }
+
 function normalizeSidebarItem(item) {
   if (typeof item === 'string') return item;
   if (!item || typeof item !== 'object') {
@@ -75,6 +76,7 @@ function normalizeSidebarItem(item) {
       label: item.label,
       items: item.items.map(normalizeSidebarItem),
     };
+    if (item.link && typeof item.link === 'object') category.link = item.link;
     if (typeof item.collapsed === 'boolean') category.collapsed = item.collapsed;
     return category;
   }

@@ -9,7 +9,11 @@ const homeSource = resolveOptionalPath(process.env.HOME_CONTENT_REPO_PATH) || le
 const upsellSource = resolveOptionalPath(process.env.REVENZA_UPSELL_CONTENT_REPO_PATH) || legacySource;
 
 const upsellMappings = [
+  ['overview.md', 'docs/intro.md'],
+  ['Overview.md', 'docs/intro.md'],
   ['intro.md', 'docs/intro.md'],
+  ['Getting Started.md', 'docs/getting-started.md'],
+  ['getting-started.md', 'docs/getting-started.md'],
   ['faq.md', 'docs/faq.md'],
   ['getting-started', 'docs/getting-started'],
   ['offers', 'docs/offers'],
@@ -83,7 +87,9 @@ function syncUpsellContent(source) {
     return 0;
   }
 
-  const appRoot = existingPath(source, 'intro.md') ? source : existingPath(source, 'revenza-upsell') || source;
+  const appRoot = existingPath(source, 'overview.md') || existingPath(source, 'Overview.md') || existingPath(source, 'intro.md')
+    ? source
+    : existingPath(source, 'revenza-upsell') || source;
   let copied = 0;
 
   const sidebarPath = path.join(appRoot, 'sidebar.json');
@@ -92,7 +98,11 @@ function syncUpsellContent(source) {
     copied += 1;
   }
 
-  if (fs.existsSync(path.join(appRoot, 'intro.md'))) {
+  if (
+    fs.existsSync(path.join(appRoot, 'overview.md'))
+    || fs.existsSync(path.join(appRoot, 'Overview.md'))
+    || fs.existsSync(path.join(appRoot, 'intro.md'))
+  ) {
     fs.rmSync(path.join(root, 'docs/intro.mdx'), {force: true});
   }
 

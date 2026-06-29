@@ -1,6 +1,6 @@
 ---
 id: intro
-slug: /
+slug: /overview
 title: Overview
 description: Learn how Revenza Upsell helps Shopify merchants install the app, activate it, and use pre-built upsell sets.
 sidebar_label: Overview
