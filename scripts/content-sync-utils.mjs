@@ -46,11 +46,18 @@ export function sanitizeGitBookMarkdown(markdown) {
   return markdown
     .replace(/<figure>\s*<img([^>]*?)>\s*<figcaption>\s*<\/figcaption>\s*<\/figure>/g, '<img$1 />')
     .replace(/<img([^>]*?)(?<!\/)>/g, '<img$1 />')
+    .replace(/\{%\s*tabs\s*%\}\s*/g, '')
+    .replace(/\s*\{%\s*endtabs\s*%\}/g, '')
+    .replace(/\{%\s*tab(?:\s+[^%]+)?%\}\s*/g, '')
+    .replace(/\s*\{%\s*endtab\s*%\}/g, '')
+    .replace(/\{%\s*content-ref\s+url="([^"]+)"\s*%\}\s*/g, '')
+    .replace(/\s*\{%\s*endcontent-ref\s*%\}/g, '')
     .replace(/\{%\s*hint(?:\s+style="([^"]+)")?\s*%\}\s*/g, (_, style) => {
       const label = style === 'danger' || style === 'warning' ? 'Warning' : 'Note';
       return `> **${label}:** `;
     })
-    .replace(/\s*\{%\s*endhint\s*%\}/g, '');
+    .replace(/\s*\{%\s*endhint\s*%\}/g, '')
+    .replace(/\{%\s*[^%]*%\}\s*/g, '');
 }
 
 export function copyDirectoryContents(source, destination, options = {}) {
@@ -108,4 +115,65 @@ export function createSidebarModule(sidebarItems) {
 
   const normalized = sidebarItems.map(normalizeSidebarItem);
   return `/** @type {import('@docusaurus/plugin-content-docs').SidebarsConfig} */\nmodule.exports = {\n  upsellSidebar: ${JSON.stringify(normalized, null, 2)}\n};\n`;
+}
+
+function gitBookLinkToDocId(link) {
+  const normalized = link
+    .replace(/\\/g, '/')
+    .replace(/^\.?\//, '')
+    .replace(/[?#].*$/, '')
+    .replace(/\.mdx?$/i, '');
+
+  if (!normalized || normalized.toLowerCase() === 'readme') return 'intro';
+  if (normalized.toLowerCase() === 'overview') return 'intro';
+  if (normalized.toLowerCase().endsWith('/readme')) return normalized.slice(0, -'/readme'.length);
+  return normalized;
+}
+
+function summaryNodeToSidebarItem(node) {
+  if (node.children.length) {
+    return {
+      type: 'category',
+      label: node.label,
+      link: {
+        type: 'doc',
+        id: node.id,
+      },
+      collapsed: true,
+      items: node.children.map(summaryNodeToSidebarItem),
+    };
+  }
+
+  return {
+    type: 'doc',
+    id: node.id,
+    label: node.label,
+  };
+}
+
+export function createSidebarFromSummaryMarkdown(markdown) {
+  const root = [];
+  const stack = [{indent: -1, children: root}];
+
+  for (const line of markdown.split(/\r?\n/)) {
+    const match = line.match(/^(\s*)[*-]\s+\[([^\]]+)\]\(([^)]+)\)/);
+    if (!match) continue;
+
+    const [, whitespace, label, link] = match;
+    const node = {
+      indent: whitespace.length,
+      label: label.trim(),
+      id: gitBookLinkToDocId(link.trim()),
+      children: [],
+    };
+
+    while (stack.length > 1 && node.indent <= stack[stack.length - 1].indent) {
+      stack.pop();
+    }
+
+    stack[stack.length - 1].children.push(node);
+    stack.push(node);
+  }
+
+  return createSidebarModule(root.map(summaryNodeToSidebarItem));
 }
