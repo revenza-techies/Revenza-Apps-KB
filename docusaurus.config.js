@@ -2,49 +2,6 @@ const {themes: prismThemes} = require('prism-react-renderer');
 
 const repositoryUrl = 'https://github.com/revenza-techies/Revenza-Apps-KB';
 
-const defaultNavbarItems = [
-  {to: '/', label: 'All apps', position: 'left', exact: true},
-  {to: '/revenza-upsell/overview', label: 'Revenza Upsell', position: 'left'},
-  {to: '/changelog', label: 'Changelog', position: 'left'},
-  {to: '/revenza-upsell/faq', label: 'FAQ', position: 'left'},
-  {to: '/contact', label: 'Contact', position: 'left'},
-];
-
-const defaultFooterLinks = [
-  {
-    title: 'Documentation',
-    items: [
-      {label: 'All apps', to: '/'},
-      {label: 'Revenza Upsell', to: '/revenza-upsell/overview'},
-      {label: 'Troubleshooting', to: '/revenza-upsell/troubleshooting/common-issues'},
-    ],
-  },
-  {
-    title: 'Resources',
-    items: [
-      {label: 'Changelog', to: '/changelog'},
-      {label: 'FAQ', to: '/revenza-upsell/faq'},
-      {label: 'Contact support', to: '/contact'},
-    ],
-  },
-  {
-    title: 'Revenza',
-    items: [
-      {label: 'Website', href: 'https://revenza.in'},
-      {label: 'Support', href: 'mailto:support@revenza.in'},
-    ],
-  },
-];
-
-function loadSiteNavigation() {
-  try {
-    return require('./src/data/siteNavigation.json');
-  } catch {
-    return {};
-  }
-}
-
-const siteNavigation = loadSiteNavigation();
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'Revenza Help Center',
@@ -134,11 +91,44 @@ const config = {
         alt: 'Revenza',
         src: 'img/brand/revenza-brand-3d.webp',
       },
-      items: siteNavigation.navbar || defaultNavbarItems,
+      items: [
+        {to: '/', label: 'All apps', position: 'left', exact: true},
+        {to: '/revenza-upsell/overview', label: 'Revenza Upsell', position: 'left'},
+        {to: '/changelog', label: 'Changelog', position: 'left'},
+        {to: '/revenza-upsell/faq', label: 'FAQ', position: 'left'},
+        {to: '/contact', label: 'Contact', position: 'left'},
+      ],
     },
     footer: {
       style: 'light',
-      links: siteNavigation.footer || defaultFooterLinks,
+      links: [
+        {
+          title: 'Documentation',
+          items: [
+            {label: 'All apps', to: '/'},
+            {label: 'Revenza Upsell', to: '/revenza-upsell/overview'},
+            {
+              label: 'Troubleshooting',
+              to: '/revenza-upsell/troubleshooting/common-issues',
+            },
+          ],
+        },
+        {
+          title: 'Resources',
+          items: [
+            {label: 'Changelog', to: '/changelog'},
+            {label: 'FAQ', to: '/revenza-upsell/faq'},
+            {label: 'Contact support', to: '/contact'},
+          ],
+        },
+        {
+          title: 'Revenza',
+          items: [
+            {label: 'Website', href: 'https://revenza.in'},
+            {label: 'Support', href: 'mailto:support@revenza.in'},
+          ],
+        },
+      ],
       copyright: `Copyright © ${new Date().getFullYear()} Revenza. Built for Shopify merchants.`,
     },
     prism: {
