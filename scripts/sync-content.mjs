@@ -127,6 +127,12 @@ function syncHomeContent(source) {
     copied += 1;
   }
 
+  const navigationPath = path.join(source, 'navigation.json');
+  if (fs.existsSync(navigationPath)) {
+    writeJson('src/data/siteNavigation.json', JSON.parse(fs.readFileSync(navigationPath, 'utf8')));
+    copied += 1;
+  }
+
   if (copyDirectory(path.join(source, 'images'), path.join(root, 'static/img/content'))) {
     copied += 1;
   }
