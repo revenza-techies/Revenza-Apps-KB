@@ -1,7 +1,7 @@
 const test = require('node:test');
 const assert = require('node:assert/strict');
 
-test('parses GitBook all-apps front matter with safe defaults', async () => {
+test('parses GitBook home README front matter with safe defaults', async () => {
   const {parseFrontMatterMarkdown} = await import('../../scripts/content-sync-utils.mjs');
   const parsed = parseFrontMatterMarkdown(`---
 title: Custom Help Center
@@ -9,7 +9,7 @@ heroHeading: Help every shopper find the right guide
 supportUrl: /contact
 ---
 
-# All Apps
+# Revenza Help Center
 `);
 
   assert.equal(parsed.title, 'Custom Help Center');

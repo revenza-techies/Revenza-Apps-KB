@@ -1,7 +1,7 @@
 const adminWorkflow = {
   title: 'Admin publishing workflow',
   repositoryUrl: 'https://github.com/revenza-techies/Revenza-Apps-KB',
-  docsPath: 'docs/',
+  docsPath: 'revenza-upsell GitBook content repo/',
   changelogPath: 'blog/',
   imageUploadPath: 'images/',
   securityNotes: [
@@ -11,8 +11,8 @@ const adminWorkflow = {
   ],
   editingSteps: [
     'Sign in to GitHub with an account that has access to the Revenza Apps KB repository.',
-    'Edit Markdown articles inside docs/ for Revenza Upsell help content.',
-    'Add changelog entries inside blog/ when product updates are released.',
+    'Edit Revenza Upsell Markdown articles in the GitBook-connected content repo.',
+    'Add changelog entries in the GitBook-connected home content repo when product updates are released.',
     'Open a pull request or commit directly to main only after reviewing the change.',
     'Let GitHub Actions build and publish the updated site to docs.revenza.in.',
   ],

@@ -1,7 +1,5 @@
 const {themes: prismThemes} = require('prism-react-renderer');
 
-const repositoryUrl = 'https://github.com/revenza-techies/Revenza-Apps-KB';
-
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'Revenza Help Center',

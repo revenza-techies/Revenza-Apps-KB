@@ -36,7 +36,6 @@ Home repo:
 ```text
 revenza-home/
   README.md
-  all-apps.md
   apps.json
   images/
     all-apps/
@@ -81,8 +80,8 @@ Customer-facing pages do not expose GitHub edit links. Admins should use `/admin
 
 Safe GitBook-managed content:
 
-- `revenza-upsell/sidebar.json` - controls the Revenza Upsell Docusaurus sidebar structure
-- `revenza-home/all-apps.md`
+- `revenza-upsell/SUMMARY.md` - controls the Revenza Upsell Docusaurus sidebar structure
+- `revenza-home/README.md`
 - `revenza-home/apps.json`
 - `revenza-home/changelog/**/*.md`
 - `revenza-home/images/**/*`
@@ -116,4 +115,4 @@ Push to `main` or run the workflow manually. The workflow checks out the website
 The original supplied Revenza and Revenza Upsell logos are preserved under `static/img/brand` and `static/img/apps`. Optimized 3D derivatives are stored as WebP files and animated with reduced-motion-safe CSS transforms.
 ## GitBook sidebar structure
 
-The Revenza Upsell GitBook repo can control the Docusaurus sidebar by adding `sidebar.json` at the repo root. The sync script converts it into `sidebars.js` during build, so GitBook controls page order while Docusaurus keeps the visual design.
+The Revenza Upsell GitBook repo controls the Docusaurus sidebar with `SUMMARY.md`. The sync script converts it into `sidebars.js` during build, so GitBook controls page order while Docusaurus keeps the visual design. `sidebar.json` remains supported only as a legacy fallback.

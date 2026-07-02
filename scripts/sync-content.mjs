@@ -115,7 +115,7 @@ function syncHomeContent(source) {
 
   let copied = 0;
 
-  const homeContentPath = existingPath(source, 'README.md') || existingPath(source, 'all-apps.md');
+  const homeContentPath = existingPath(source, 'README.md');
   if (homeContentPath) {
     writeJson('src/data/homeContent.json', parseFrontMatterMarkdown(fs.readFileSync(homeContentPath, 'utf8')));
     copied += 1;
