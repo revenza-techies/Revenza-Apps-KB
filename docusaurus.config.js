@@ -92,6 +92,7 @@ const config = {
       items: [
         {to: '/', label: 'All apps', position: 'left', exact: true},
         {to: '/contact', label: 'Contact', position: 'left'},
+        {to: '/privacy-policy', label: 'Privacy Policy', position: 'left'},
       ],
     },
     footer: {
@@ -114,6 +115,7 @@ const config = {
             {label: 'Changelog', to: '/changelog'},
             {label: 'FAQ', to: '/revenza-upsell/faq'},
             {label: 'Contact support', to: '/contact'},
+            {label: 'Privacy Policy', to: '/privacy-policy'},
           ],
         },
         {

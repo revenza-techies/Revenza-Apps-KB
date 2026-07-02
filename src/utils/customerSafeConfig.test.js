@@ -17,8 +17,9 @@ test('customer header keeps app discovery on the home cards', () => {
   const navbarItems = config.themeConfig.navbar.items;
   const labels = navbarItems.map((item) => item.label);
 
-  assert.deepEqual(labels, ['All apps', 'Contact']);
+  assert.deepEqual(labels, ['All apps', 'Contact', 'Privacy Policy']);
   assert.equal(navbarItems.some((item) => item.to === '/revenza-upsell/overview'), false);
   assert.equal(navbarItems.some((item) => item.to === '/changelog'), false);
   assert.equal(navbarItems.some((item) => item.to === '/revenza-upsell/faq'), false);
+  assert.equal(navbarItems.some((item) => item.to === '/privacy-policy'), true);
 });
