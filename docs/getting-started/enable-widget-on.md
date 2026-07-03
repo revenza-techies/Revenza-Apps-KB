@@ -1,0 +1,24 @@
+---
+description: This setting allows you to Enable or Disable widget on the store pages.
+---
+
+# Show Widget On
+
+You can Enable or Disable the visibility of Revenza Upsell widget on the following pages:
+
+> **Note:** By default these setting comes enabled in the app. You can control them according to your requirements.
+
+### **Product Page**&#x20;
+
+By default this setting is enabled. You can use the preview button to review the Pre-build upsells on the Product page.
+
+> **Note:** In case the Upsell block does not appear on the product page, please [_**integrate the Upsell App Block**_](../integration.md#product-page-integration) on the product page using the manual integration process.
+
+### **Cart Page**
+
+By default this setting is enabled. You can use the preview button to review the Pre-build upsells on the Cart page. It is mandatory to add a product in the cart for upsell block visibility on the cart page.
+
+> **Note:** In case the Upsell block does not appear on the cart page, please [_**integrate the Upsell App Block**_](../integration.md#cart-page-integration) on the cart page using the manual integration process.
+
+&#x20;
+

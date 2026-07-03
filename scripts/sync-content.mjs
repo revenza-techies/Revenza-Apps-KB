@@ -7,6 +7,7 @@ import {
   createSidebarModule,
   parseFrontMatterMarkdown,
   sanitizeGitBookMarkdown,
+  sanitizeUpsellOverviewMarkdown,
 } from './content-sync-utils.mjs';
 
 const root = process.cwd();
@@ -46,9 +47,9 @@ function writeText(relativeDestination, content) {
   fs.writeFileSync(to, content);
 }
 
-function sanitizeMarkdownFile(filePath) {
+function sanitizeMarkdownFile(filePath, sanitizer = sanitizeGitBookMarkdown) {
   if (!/\.mdx?$/.test(filePath)) return;
-  fs.writeFileSync(filePath, sanitizeGitBookMarkdown(fs.readFileSync(filePath, 'utf8')));
+  fs.writeFileSync(filePath, sanitizer(fs.readFileSync(filePath, 'utf8')));
 }
 
 function sanitizeMarkdownTree(directory) {
@@ -72,7 +73,8 @@ function copyMarkdownFile(from, relativeDestination) {
   const to = path.join(root, relativeDestination);
   fs.mkdirSync(path.dirname(to), {recursive: true});
   fs.copyFileSync(from, to);
-  sanitizeMarkdownFile(to);
+  const sanitizer = relativeDestination === 'docs/intro.md' ? sanitizeUpsellOverviewMarkdown : sanitizeGitBookMarkdown;
+  sanitizeMarkdownFile(to, sanitizer);
   return true;
 }
 

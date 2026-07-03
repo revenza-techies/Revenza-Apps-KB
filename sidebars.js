@@ -1,39 +1,77 @@
 /** @type {import('@docusaurus/plugin-content-docs').SidebarsConfig} */
 module.exports = {
   upsellSidebar: [
-    {
-      type: 'doc',
-      id: 'intro',
-      label: 'Overview',
+  {
+    "type": "doc",
+    "id": "intro",
+    "label": "Overview"
+  },
+  {
+    "type": "category",
+    "label": "Getting Started",
+    "items": [
+      {
+        "type": "doc",
+        "id": "getting-started/enable-widget-on",
+        "label": "Show Widget On"
+      }
+    ],
+    "link": {
+      "type": "doc",
+      "id": "getting-started"
     },
-    {
-      type: 'category',
-      label: 'Getting Started',
-      link: {
-        type: 'doc',
-        id: 'getting-started',
+    "collapsed": true
+  },
+  {
+    "type": "doc",
+    "id": "pre-build-upsell-sets",
+    "label": "Pre-Build Upsell sets"
+  },
+  {
+    "type": "doc",
+    "id": "custom-upsell-sets",
+    "label": "Custom Upsell Sets"
+  },
+  {
+    "type": "doc",
+    "id": "mapping",
+    "label": "Mapping"
+  },
+  {
+    "type": "category",
+    "label": "Settings",
+    "items": [
+      {
+        "type": "doc",
+        "id": "settings/product-page",
+        "label": "Product Page"
       },
-      items: [
-        'getting-started/install',
-        'getting-started/activate',
-        'getting-started/pre-build-sets',
-      ],
-      collapsed: true,
+      {
+        "type": "doc",
+        "id": "settings/cart-page",
+        "label": "Cart page"
+      },
+      {
+        "type": "doc",
+        "id": "settings/global-settings",
+        "label": "Global Settings"
+      }
+    ],
+    "link": {
+      "type": "doc",
+      "id": "settings"
     },
-    {
-      type: 'doc',
-      id: 'custom-upsell-sets',
-      label: 'Custom Upsell Sets',
-    },
-    {
-      type: 'doc',
-      id: 'mapping',
-      label: 'Mapping',
-    },
-    {
-      type: 'doc',
-      id: 'billing',
-      label: 'Billing',
-    },
-  ],
+    "collapsed": true
+  },
+  {
+    "type": "doc",
+    "id": "integration",
+    "label": "Integration"
+  },
+  {
+    "type": "doc",
+    "id": "billing",
+    "label": "Billing"
+  }
+]
 };

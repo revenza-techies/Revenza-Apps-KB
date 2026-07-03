@@ -52,3 +52,25 @@ Remember to save the theme.
   assert.doesNotMatch(sanitized, /{%/);
   assert.doesNotMatch(sanitized, /<\/figure>/);
 });
+
+test('keeps overview content editable while moving styling to Docusaurus', async () => {
+  const {sanitizeUpsellOverviewMarkdown} = await import('../../scripts/content-sync-utils.mjs');
+  const sanitized = sanitizeUpsellOverviewMarkdown(`<section className="startSection">
+  <div className="journey">
+    <Link to="/revenza-upsell/getting-started"><span>1</span><strong>Install</strong><small>Add the app.</small></Link>
+    <Link to="/revenza-upsell/custom-upsell-sets"><span>2</span><strong>Create</strong><small>Build the offer.</small></Link>
+    <Link to="/revenza-upsell/mapping"><span>3</span><strong>Map</strong><small>Connect products.</small></Link>
+  </div>
+</section>
+
+<Link to="/revenza-upsell/customization/design-placement">Settings</Link>
+
+<style>{\`
+.journey{grid-template-columns:repeat(4,1fr)}
+\`}</style>`);
+
+  assert.match(sanitized, /<strong>Map<\/strong>/);
+  assert.match(sanitized, /\/revenza-upsell\/settings/);
+  assert.doesNotMatch(sanitized, /grid-template-columns:repeat\(4,1fr\)/);
+  assert.doesNotMatch(sanitized, /<style>/);
+});

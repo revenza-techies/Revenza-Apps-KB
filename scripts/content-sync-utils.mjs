@@ -60,6 +60,30 @@ export function sanitizeGitBookMarkdown(markdown) {
     .replace(/\{%\s*[^%]*%\}\s*/g, '');
 }
 
+
+const upsellOverviewLinkMap = new Map([
+  ['/revenza-upsell/customization/design-placement', '/revenza-upsell/settings'],
+  ['/revenza-upsell/offers/offer-rules', '/revenza-upsell/mapping'],
+  ['/revenza-upsell/troubleshooting/common-issues', '/contact'],
+]);
+
+function stripMdxStyleBlocks(markdown) {
+  return markdown
+    .replace(/\n?<style>\{`[\s\S]*?`\}<\/style>\s*/g, '\n')
+    .replace(/\n?<style>[\s\S]*?<\/style>\s*/g, '\n');
+}
+
+function normalizeUpsellOverviewLinks(markdown) {
+  let normalized = markdown;
+  for (const [from, to] of upsellOverviewLinkMap) {
+    normalized = normalized.replaceAll(from, to);
+  }
+  return normalized;
+}
+
+export function sanitizeUpsellOverviewMarkdown(markdown) {
+  return normalizeUpsellOverviewLinks(stripMdxStyleBlocks(sanitizeGitBookMarkdown(markdown)));
+}
 export function copyDirectoryContents(source, destination, options = {}) {
   if (!fs.existsSync(source)) return false;
   fs.mkdirSync(destination, {recursive: true});
