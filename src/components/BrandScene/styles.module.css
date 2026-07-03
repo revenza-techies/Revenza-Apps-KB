@@ -1,3 +1,58 @@
-.scene{position:absolute;inset:0;overflow:hidden;background-image:var(--revenza-hero-overlay),url('/img/brand/revenza-hero-3d.webp');background-position:center;background-size:cover;transform:scale(1.06);animation:heroDrift 14s ease-in-out infinite alternate;pointer-events:none;will-change:transform}
-@keyframes heroDrift{from{transform:scale(1.06) translate3d(-.5%,0,0)}to{transform:scale(1.1) translate3d(.8%,-.6%,0)}}
-@media(prefers-reduced-motion:reduce){.scene{animation:none;transform:scale(1.06)}}
+.scene {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.scene::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: max(-90px, -6vw);
+  width: min(58vw, 760px);
+  aspect-ratio: 1.35;
+  background: url('/img/brand/revenza-hero-3d.webp') center / contain no-repeat;
+  opacity: 0.28;
+  filter: saturate(1.04) drop-shadow(0 30px 60px rgba(34, 69, 44, 0.18));
+  transform: translate3d(0, -50%, 0) rotate(-2deg);
+  animation: heroDrift 14s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+:global([data-theme='dark']) .scene::before {
+  opacity: 0.18;
+  filter: saturate(0.9) brightness(0.82) drop-shadow(0 30px 60px rgba(0, 0, 0, 0.24));
+}
+
+@keyframes heroDrift {
+  from { transform: translate3d(-0.5%, -50%, 0) rotate(-2deg) scale(1); }
+  to { transform: translate3d(1.2%, -51%, 0) rotate(1deg) scale(1.04); }
+}
+
+@media (max-width: 996px) {
+  .scene::before {
+    top: auto;
+    right: -120px;
+    bottom: -70px;
+    width: min(94vw, 620px);
+    opacity: 0.18;
+    transform: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .scene::before {
+    right: -180px;
+    bottom: 22%;
+    width: 760px;
+    opacity: 0.11;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scene::before {
+    animation: none;
+  }
+}

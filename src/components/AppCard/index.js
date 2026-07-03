@@ -3,9 +3,9 @@ import Link from '@docusaurus/Link';
 import {ArrowRight, BookOpenText} from '@phosphor-icons/react';
 import styles from './styles.module.css';
 
-export default function AppCard({app}) {
+export default function AppCard({app, featured = false}) {
   return (
-    <Link className={styles.card} to={app.href} aria-label={`Open ${app.name} knowledge base`}>
+    <Link className={`${styles.card} ${featured ? styles.featured : ''}`} to={app.href} aria-label={`Open ${app.name} knowledge base`}>
       <div className={styles.artwork}>
         <img src={app.image} alt={app.imageAlt} width="1254" height="1254" loading="lazy" decoding="async" />
       </div>

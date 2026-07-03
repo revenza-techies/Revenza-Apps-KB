@@ -1,7 +1,7 @@
 import React from 'react';
 import Layout from '@theme/Layout';
 import Heading from '@theme/Heading';
-import {MagnifyingGlass, Sparkle} from '@phosphor-icons/react';
+import {ArrowRight, BookOpenText, Headset, MagnifyingGlass, Sparkle} from '@phosphor-icons/react';
 import AppCard from '../components/AppCard';
 import BrandScene from '../components/BrandScene';
 import apps from '../data/apps.json';
@@ -44,29 +44,29 @@ export default function Home() {
                 <kbd>{apps.length} app</kbd>
               </a>
             </div>
-          </div>
-        </section>
-        <section className={styles.appsSection} id="apps" aria-labelledby="apps-heading">
-          <div className={styles.sectionHeading}>
-            <div>
-              <span className={styles.kicker}>{homeContent.appsKicker}</span>
-              <Heading as="h2" id="apps-heading">
-                {homeContent.appsHeading}
-              </Heading>
+            <div className={styles.heroApps} id="apps" aria-label="Revenza app knowledge bases">
+              <div className={styles.heroAppsHeader}>
+                <span>{homeContent.appsKicker}</span>
+                <strong>{apps.length} knowledge base</strong>
+              </div>
+              <div className={styles.featuredApps}>
+                {apps.map((app) => (
+                  <AppCard app={app} key={app.slug} featured />
+                ))}
+              </div>
+              <div className={styles.quickLinks} aria-label="Quick support links">
+                <a href="/contact">
+                  <Headset size={20} weight="duotone" aria-hidden="true" />
+                  Contact support
+                  <ArrowRight size={16} weight="bold" aria-hidden="true" />
+                </a>
+                <a href="/revenza-upsell/overview">
+                  <BookOpenText size={20} weight="duotone" aria-hidden="true" />
+                  Open docs
+                  <ArrowRight size={16} weight="bold" aria-hidden="true" />
+                </a>
+              </div>
             </div>
-            <p>{homeContent.appsIntro}</p>
-          </div>
-          <div className={styles.appGrid}>
-            {apps.map((app) => (
-              <AppCard app={app} key={app.slug} />
-            ))}
-          </div>
-          <div className={styles.supportStrip}>
-            <div>
-              <strong>{homeContent.supportHeading}</strong>
-              <span>{homeContent.supportText}</span>
-            </div>
-            <a href={homeContent.supportUrl}>{homeContent.supportCta}</a>
           </div>
         </section>
       </main>
