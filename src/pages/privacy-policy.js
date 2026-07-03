@@ -9,7 +9,7 @@ const privacyPolicyHtml = String.raw`<section class="hero">
       This policy explains what information Revenza collects, why we collect it, and
       how we keep it secure when you use our website and services.
     </p>
-    <p class="last-updated"><strong>Last updated:</strong> April 14, 2026</p>
+    <p class="last-updated"><strong>Last updated:</strong> July 03, 2026</p>
   </section>
 
   <div class="layout">
