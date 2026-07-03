@@ -34,11 +34,8 @@ Revenza Upsell helps Shopify merchants create relevant product offers that make 
     <Link to="/revenza-upsell/custom-upsell-sets">
       <span>2</span><strong>Create</strong><small>Build your first upsell offer.</small>
     </Link>
-    <Link to="/revenza-upsell/settings">
-      <span>3</span><strong>Customize</strong><small>Match your storefront experience.</small>
-    </Link>
     <Link to="/revenza-upsell/mapping">
-      <span>4</span><strong>Go live</strong><small>Publish and review your offer.</small>
+      <span>3</span><strong>Go live</strong><small>Publish and review your offer.</small>
     </Link>
   </div>
 </section>
@@ -54,7 +51,7 @@ Revenza Upsell helps Shopify merchants create relevant product offers that make 
       </Link>
       <Link to="/revenza-upsell/settings">
         <SlidersHorizontal size={22}/>
-        <span><strong>Customize the experience</strong><small>Match colors, text, and placement to your store.</small></span>
+        <span><strong>Customize the experience</strong><small>Match settings, display behavior, and placement to your store.</small></span>
         <ArrowRight size={18}/>
       </Link>
       <Link to="/revenza-upsell/mapping">
@@ -64,7 +61,7 @@ Revenza Upsell helps Shopify merchants create relevant product offers that make 
       </Link>
       <Link to="/contact">
         <CheckCircle size={22}/>
-        <span><strong>Troubleshoot common issues</strong><small>Find quick checks for setup and display problems.</small></span>
+        <span><strong>Troubleshoot common issues</strong><small>Reach support when setup or display checks need help.</small></span>
         <ArrowRight size={18}/>
       </Link>
     </div>
