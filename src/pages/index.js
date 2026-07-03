@@ -11,7 +11,7 @@ import styles from './index.module.css';
 const structuredData = {
   '@context': 'https://schema.org',
   '@type': 'CollectionPage',
-  name: 'Revenza Help Center',
+  name: 'Revenza Knowledge Base',
   url: 'https://docs.revenza.in/',
   description: homeContent.description,
   hasPart: apps.map((app) => ({
