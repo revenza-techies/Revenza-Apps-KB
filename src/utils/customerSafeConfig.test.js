@@ -23,3 +23,8 @@ test('customer header keeps app discovery on the home cards', () => {
   assert.equal(navbarItems.some((item) => item.to === '/revenza-upsell/faq'), false);
   assert.equal(navbarItems.some((item) => item.to === '/privacy-policy'), true);
 });
+
+test('theme switch is reserved for the footer control', () => {
+  assert.equal(config.themeConfig.colorMode.disableSwitch, true);
+  assert.equal(config.themeConfig.colorMode.respectPrefersColorScheme, false);
+});

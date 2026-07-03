@@ -1,0 +1,23 @@
+.footerModeSwitch {
+  position: fixed;
+  right: auto;
+  bottom: max(18px, env(safe-area-inset-bottom));
+  left: max(18px, env(safe-area-inset-left));
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  filter: drop-shadow(0 14px 28px rgba(13, 91, 55, 0.16));
+}
+
+.footerModeSwitch :global(button) {
+  background: color-mix(in srgb, var(--revenza-control) 92%, transparent);
+  backdrop-filter: blur(14px);
+}
+
+@media (max-width: 576px) {
+  .footerModeSwitch {
+    bottom: max(14px, env(safe-area-inset-bottom));
+    left: max(14px, env(safe-area-inset-left));
+  }
+}
