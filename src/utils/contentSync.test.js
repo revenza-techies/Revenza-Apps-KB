@@ -74,3 +74,20 @@ test('keeps overview content editable while moving styling to Docusaurus', async
   assert.doesNotMatch(sanitized, /grid-template-columns:repeat\(4,1fr\)/);
   assert.doesNotMatch(sanitized, /<style>/);
 });
+
+test('removes duplicate labels from GitBook hint bodies', async () => {
+  const {sanitizeGitBookMarkdown} = await import('../../scripts/content-sync-utils.mjs');
+  const sanitized = sanitizeGitBookMarkdown(`{% hint style="info" %}
+Note: This setting acts as a global switch for the upsell widget.
+{% endhint %}
+
+{% hint style="warning" %}
+Warning: Review these settings before going live.
+{% endhint %}
+`);
+
+  assert.match(sanitized, /> \*\*Note:\*\* This setting acts as a global switch/);
+  assert.match(sanitized, /> \*\*Warning:\*\* Review these settings before going live\./);
+  assert.doesNotMatch(sanitized, /Note:\*\* Note:/);
+  assert.doesNotMatch(sanitized, /Warning:\*\* Warning:/);
+});

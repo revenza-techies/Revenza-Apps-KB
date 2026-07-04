@@ -42,8 +42,14 @@ export function copyDirectory(source, destination) {
   return true;
 }
 
+function collapseDuplicateHintLabels(markdown) {
+  return markdown.replace(
+    /(> \*\*(Note|Warning):\*\*\s*)(?:\*\*)?(?:Note|Warning|Hint|Info):(?:\*\*)?\s*/gi,
+    '$1',
+  );
+}
 export function sanitizeGitBookMarkdown(markdown) {
-  return markdown
+  return collapseDuplicateHintLabels(markdown
     .replace(/<figure>\s*<img([^>]*?)>\s*<figcaption>\s*<\/figcaption>\s*<\/figure>/g, '<img$1 />')
     .replace(/<img([^>]*?)(?<!\/)>/g, '<img$1 />')
     .replace(/\{%\s*tabs\s*%\}\s*/g, '')
@@ -57,7 +63,7 @@ export function sanitizeGitBookMarkdown(markdown) {
       return `> **${label}:** `;
     })
     .replace(/\s*\{%\s*endhint\s*%\}/g, '')
-    .replace(/\{%\s*[^%]*%\}\s*/g, '');
+    .replace(/\{%\s*[^%]*%\}\s*/g, ''));
 }
 
 
