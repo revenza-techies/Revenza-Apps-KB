@@ -2,8 +2,6 @@
 import Link from '@docusaurus/Link';
 import {useLocation} from '@docusaurus/router';
 import {useThemeConfig} from '@docusaurus/theme-common';
-import {translate} from '@docusaurus/Translate';
-import IconMenu from '@theme/Icon/Menu';
 
 function isActivePath(currentPath, item) {
   if (!item.to) {
@@ -17,8 +15,8 @@ function isActivePath(currentPath, item) {
   return currentPath === item.to || currentPath.startsWith(`${item.to}/`);
 }
 
-function DrawerLink({item, currentPath, onNavigate}) {
-  const className = `revenzaHeaderDrawer__link${isActivePath(currentPath, item) ? ' revenzaHeaderDrawer__link--active' : ''}`;
+function CurtainLink({item, currentPath, onNavigate}) {
+  const className = `revenzaCurtainMenu__link${isActivePath(currentPath, item) ? ' revenzaCurtainMenu__link--active' : ''}`;
 
   if (item.href) {
     return (
@@ -76,46 +74,30 @@ export default function MobileSidebarToggle() {
     <>
       <button
         type="button"
-        className="navbar__toggle clean-btn"
-        aria-controls="revenza-header-drawer"
+        className="navbar__toggle revenzaCurtainMenu__trigger clean-btn"
+        aria-controls="revenza-curtain-menu"
         aria-expanded={shown}
-        aria-label={translate({
-          id: 'theme.docs.sidebar.toggleSidebarButtonAriaLabel',
-          message: 'Toggle navigation bar',
-          description: 'The ARIA label for hamburger menu button of mobile navigation',
-        })}
-        onClick={() => setShown((open) => !open)}>
-        <IconMenu />
+        aria-label="Open navigation menu"
+        onClick={() => setShown(true)}>
+        Menu
       </button>
 
-      <div className={`revenzaHeaderDrawer${shown ? ' revenzaHeaderDrawer--open' : ''}`}>
-        <button
-          type="button"
-          className="revenzaHeaderDrawer__backdrop"
-          aria-label="Close navigation menu"
-          onClick={() => setShown(false)}
-        />
-        <aside
-          id="revenza-header-drawer"
-          className="revenzaHeaderDrawer__panel"
-          aria-label="Mobile navigation"
-          aria-hidden={!shown}>
-          <div className="revenzaHeaderDrawer__header">
-            <div>
-              <span>Revenza Help Center</span>
-              <strong>Menu</strong>
-            </div>
-            <button
-              type="button"
-              className="revenzaHeaderDrawer__close"
-              onClick={() => setShown(false)}
-              ref={closeButtonRef}>
-              Close
-            </button>
-          </div>
-          <nav className="revenzaHeaderDrawer__nav">
+      <div
+        id="revenza-curtain-menu"
+        className={`revenzaCurtainMenu${shown ? ' revenzaCurtainMenu--open' : ''}`}
+        aria-hidden={!shown}>
+        <div className="revenzaCurtainMenu__inner" role="dialog" aria-modal="true" aria-label="Mobile navigation">
+          <button
+            type="button"
+            className="revenzaCurtainMenu__close"
+            onClick={() => setShown(false)}
+            ref={closeButtonRef}>
+            &times;
+          </button>
+          <div className="revenzaCurtainMenu__eyebrow">Revenza Help Center</div>
+          <nav className="revenzaCurtainMenu__nav" aria-label="Mobile navigation">
             {items.map((item) => (
-              <DrawerLink
+              <CurtainLink
                 currentPath={location.pathname}
                 item={item}
                 key={`${item.label}-${item.to || item.href}`}
@@ -123,7 +105,7 @@ export default function MobileSidebarToggle() {
               />
             ))}
           </nav>
-        </aside>
+        </div>
       </div>
     </>
   );

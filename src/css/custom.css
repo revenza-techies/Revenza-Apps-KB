@@ -86,19 +86,16 @@ body { color: var(--revenza-ink); background: var(--revenza-canvas); }
 .navbar__logo img { width: 100%; height: 100%; object-fit: contain; }
 .navbar__title,.navbar__link { color: var(--revenza-ink); }
 .navbar__link--active { color: var(--revenza-forest); }
-.revenzaHeaderDrawer { display: none; }
-.revenzaHeaderDrawer__backdrop { position: fixed; inset: 0; z-index: calc(var(--ifm-z-index-fixed) + 4); width: 100%; height: 100%; padding: 0; background: rgba(8, 18, 13, 0.48); border: 0; opacity: 0; visibility: hidden; transition: opacity var(--ifm-transition-fast) ease, visibility var(--ifm-transition-fast) ease; }
-.revenzaHeaderDrawer__panel { position: fixed; top: 0; bottom: 0; left: 0; z-index: calc(var(--ifm-z-index-fixed) + 5); display: flex; width: min(86vw, 350px); flex-direction: column; padding: 18px; color: var(--revenza-ink); background: var(--revenza-canvas); border-right: 1px solid var(--revenza-line); box-shadow: 24px 0 70px rgba(13, 33, 22, 0.24); transform: translate3d(-105%, 0, 0); visibility: hidden; transition: transform var(--ifm-transition-fast) ease, visibility var(--ifm-transition-fast) ease; }
-.revenzaHeaderDrawer__header { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding-bottom: 16px; margin-bottom: 14px; border-bottom: 1px solid var(--revenza-line); }
-.revenzaHeaderDrawer__header div { display: grid; gap: 3px; }
-.revenzaHeaderDrawer__header span { color: var(--revenza-muted); font-size: .76rem; font-weight: 850; letter-spacing: .12em; text-transform: uppercase; }
-.revenzaHeaderDrawer__header strong { color: var(--revenza-ink); font-size: 1.35rem; letter-spacing: -.04em; }
-.revenzaHeaderDrawer__close { min-height: 40px; padding: 0 14px; color: var(--revenza-forest); font: inherit; font-weight: 850; background: var(--revenza-lemon-soft); border: 1px solid var(--revenza-line); border-radius: 999px; }
-.revenzaHeaderDrawer__close:focus-visible,.revenzaHeaderDrawer__link:focus-visible { outline: 3px solid color-mix(in srgb, var(--revenza-focus) 55%, transparent); outline-offset: 2px; }
-.revenzaHeaderDrawer__nav { display: grid; gap: 10px; }
-.revenzaHeaderDrawer__link { display: flex; min-height: 52px; align-items: center; padding: 0 15px; color: var(--revenza-ink); font-weight: 850; background: var(--revenza-surface); border: 1px solid var(--revenza-line); border-radius: 15px; }
-.revenzaHeaderDrawer__link:hover { color: var(--revenza-forest); text-decoration: none; border-color: color-mix(in srgb, var(--revenza-forest) 35%, var(--revenza-line)); }
-.revenzaHeaderDrawer__link--active { color: var(--revenza-forest); background: var(--revenza-lemon-soft); }
+.revenzaCurtainMenu { position: fixed; inset: 0; z-index: calc(var(--ifm-z-index-fixed) + 5); height: 0; overflow: hidden; color: var(--revenza-ink); background: color-mix(in srgb, var(--revenza-canvas) 94%, transparent); visibility: hidden; transition: height .34s ease, visibility .34s ease; backdrop-filter: blur(18px); }
+.revenzaCurtainMenu__inner { position: relative; display: grid; min-height: 100dvh; align-content: center; justify-items: center; gap: 1.6rem; padding: 5rem 1.35rem 7rem; background: radial-gradient(circle at top left, color-mix(in srgb, var(--revenza-lemon-soft) 70%, transparent), transparent 42%), linear-gradient(180deg, color-mix(in srgb, var(--revenza-surface) 92%, transparent), color-mix(in srgb, var(--revenza-canvas) 96%, transparent)); }
+.revenzaCurtainMenu__trigger { font-size: .8rem; font-weight: 900; letter-spacing: .02em; }
+.revenzaCurtainMenu__close { position: absolute; top: max(18px, env(safe-area-inset-top)); right: max(18px, env(safe-area-inset-right)); display: grid; width: 48px; height: 48px; place-items: center; color: var(--revenza-forest); font: inherit; font-size: 2rem; line-height: 1; background: var(--revenza-lemon-soft); border: 1px solid var(--revenza-line); border-radius: 999px; }
+.revenzaCurtainMenu__close:focus-visible,.revenzaCurtainMenu__link:focus-visible,.revenzaCurtainMenu__trigger:focus-visible { outline: 3px solid color-mix(in srgb, var(--revenza-focus) 55%, transparent); outline-offset: 2px; }
+.revenzaCurtainMenu__eyebrow { color: var(--revenza-muted); font-size: .78rem; font-weight: 900; letter-spacing: .14em; text-transform: uppercase; }
+.revenzaCurtainMenu__nav { display: grid; width: min(100%, 420px); gap: .9rem; }
+.revenzaCurtainMenu__link { display: flex; min-height: 62px; align-items: center; justify-content: center; padding: 0 1rem; color: var(--revenza-ink); font-size: clamp(1.35rem, 8vw, 2.25rem); font-weight: 900; letter-spacing: -.045em; text-align: center; background: color-mix(in srgb, var(--revenza-surface) 76%, transparent); border: 1px solid var(--revenza-line); border-radius: 20px; box-shadow: 0 16px 45px rgba(13, 33, 22, .08); }
+.revenzaCurtainMenu__link:hover { color: var(--revenza-forest); text-decoration: none; background: var(--revenza-lemon-soft); }
+.revenzaCurtainMenu__link--active { color: var(--revenza-forest); background: var(--revenza-lemon-soft); border-color: color-mix(in srgb, var(--revenza-forest) 28%, var(--revenza-line)); }
 .navbar-sidebar { z-index: calc(var(--ifm-z-index-fixed) + 2); max-width: min(88vw, 360px); color: var(--revenza-ink); background: var(--revenza-canvas); pointer-events: none; }
 .navbar-sidebar--show .navbar-sidebar { opacity: 1; visibility: visible; transform: translate3d(0, 0, 0); pointer-events: auto; }
 .navbar-sidebar__backdrop { z-index: calc(var(--ifm-z-index-fixed) + 1); pointer-events: none; }
@@ -130,9 +127,7 @@ code { color: var(--revenza-forest-deep); background: var(--revenza-lemon-soft);
   body{padding-bottom:92px}
   :root{--ifm-navbar-height:64px}
   .navbar__toggle{display:inline-flex}
-  .revenzaHeaderDrawer{display:block}
-  .revenzaHeaderDrawer--open .revenzaHeaderDrawer__backdrop{opacity:1;visibility:visible}
-  .revenzaHeaderDrawer--open .revenzaHeaderDrawer__panel{transform:translate3d(0,0,0);visibility:visible}
+  .revenzaCurtainMenu--open{height:100%;visibility:visible}
   .navbar__brand{margin-right:auto}
   .navbar__title{max-width:52vw;overflow:hidden;font-size:1rem;text-overflow:ellipsis;white-space:nowrap}
   .navbar__items:not(.navbar__items--right){min-width:0}
