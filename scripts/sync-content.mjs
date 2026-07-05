@@ -166,6 +166,8 @@ function syncUpsellContent(source) {
   const appRoot = existingPath(source, 'overview.md') || existingPath(source, 'Overview.md') || existingPath(source, 'intro.md') || existingPath(source, 'README.md')
     ? source
     : existingPath(source, 'revenza-upsell') || source;
+  fs.rmSync(path.join(root, 'docs'), {recursive: true, force: true});
+  fs.mkdirSync(path.join(root, 'docs'), {recursive: true});
   let copied = 0;
 
   if (syncUpsellSidebar(appRoot)) copied += 1;

@@ -103,17 +103,12 @@ const config = {
           items: [
             {label: 'All apps', to: '/'},
             {label: 'Revenza Upsell', to: '/revenza-upsell/overview'},
-            {
-              label: 'Troubleshooting',
-              to: '/revenza-upsell/troubleshooting/common-issues',
-            },
           ],
         },
         {
           title: 'Resources',
           items: [
             {label: 'Changelog', to: '/changelog'},
-            {label: 'FAQ', to: '/revenza-upsell/faq'},
             {label: 'Contact support', to: '/contact'},
             {label: 'Privacy Policy', to: '/privacy-policy'},
           ],

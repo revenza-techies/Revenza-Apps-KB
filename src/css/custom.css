@@ -86,7 +86,9 @@ body { color: var(--revenza-ink); background: var(--revenza-canvas); }
 .navbar__logo img { width: 100%; height: 100%; object-fit: contain; }
 .navbar__title,.navbar__link { color: var(--revenza-ink); }
 .navbar__link--active { color: var(--revenza-forest); }
-.navbar-sidebar { color: var(--revenza-ink); background: var(--revenza-canvas); }
+.navbar-sidebar { z-index: calc(var(--ifm-z-index-fixed) + 2); max-width: min(88vw, 360px); color: var(--revenza-ink); background: var(--revenza-canvas); pointer-events: none; }
+.navbar-sidebar--show .navbar-sidebar { pointer-events: auto; }
+.navbar-sidebar__backdrop { z-index: calc(var(--ifm-z-index-fixed) + 1); }
 .navbar-sidebar__brand { min-height: var(--ifm-navbar-height); border-bottom: 1px solid var(--revenza-line); box-shadow: none; }
 .navbar-sidebar__items { padding: 0; }
 .navbar-sidebar__item.menu { padding: 14px !important; }

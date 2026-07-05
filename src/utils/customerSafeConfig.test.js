@@ -11,6 +11,8 @@ test('customer navigation does not expose repository or edit links', () => {
   assert.equal(presetOptions.blog.editUrl, undefined);
   assert.equal(navbarItems.some((item) => item.label === 'GitHub' || item.href?.includes('github.com')), false);
   assert.equal(footerItems.some((item) => item.label === 'GitHub' || item.label === 'Suggest an update'), false);
+  assert.equal(footerItems.some((item) => item.to === '/revenza-upsell/faq'), false);
+  assert.equal(footerItems.some((item) => item.to === '/revenza-upsell/troubleshooting/common-issues'), false);
 });
 
 test('customer header keeps app discovery on the home cards', () => {

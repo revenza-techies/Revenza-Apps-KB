@@ -46,7 +46,7 @@ export default function NavbarMobilePrimaryMenu() {
   const items = navbar.items.filter((item) => item.label && (item.to || item.href));
 
   return (
-    <nav aria-label="Mobile navigation">
+    <nav id="revenza-mobile-navigation" aria-label="Mobile navigation">
       <ul className="menu__list">
         {items.map((item) => (
           <MobileNavItem item={item} key={`${item.label}-${item.to || item.href}`} onClick={mobileSidebar.toggle} />
