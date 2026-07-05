@@ -1,8 +1,8 @@
-const {themes: prismThemes} = require('prism-react-renderer');
+﻿const {themes: prismThemes} = require('prism-react-renderer');
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'Revenza Help Center',
+  title: 'Revenza Docs',
   tagline: 'Practical guides for Revenza Shopify apps',
   favicon: 'img/favicon.svg',
   url: 'https://docs.revenza.in',
@@ -84,7 +84,7 @@ const config = {
       respectPrefersColorScheme: false,
     },
     navbar: {
-      title: 'Revenza Help Center',
+      title: 'Revenza Docs',
       logo: {
         alt: 'Revenza',
         src: 'img/brand/revenza-brand-3d.webp',
@@ -121,7 +121,7 @@ const config = {
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} Revenza. Built for Shopify merchants.`,
+      copyright: `Copyright Â© ${new Date().getFullYear()} Revenza. Built for Shopify merchants.`,
     },
     prism: {
       theme: prismThemes.github,
