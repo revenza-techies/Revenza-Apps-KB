@@ -302,7 +302,7 @@ code { color: var(--revenza-forest-deep); background: var(--revenza-lemon-soft);
 
 
 /* GitBook visual layer for app docs. Keep the Docusaurus homepage and Revenza Home untouched. */
-.docs-wrapper {
+.docs-wrapper:not(.docs-doc-id-intro) {
   --gitbook-bg: #ffffff;
   --gitbook-sidebar: #fafafa;
   --gitbook-sidebar-active: #ecebea;
@@ -318,56 +318,56 @@ code { color: var(--revenza-forest-deep); background: var(--revenza-lemon-soft);
   background: var(--gitbook-bg);
 }
 
-.docs-wrapper .docRoot_UBD9,
-.docs-wrapper .docMainContainer_TBSr,
-.docs-wrapper .main-wrapper,
-.docs-wrapper .container,
-.docs-wrapper article {
+.docs-wrapper:not(.docs-doc-id-intro) .docRoot_UBD9,
+.docs-wrapper:not(.docs-doc-id-intro) .docMainContainer_TBSr,
+.docs-wrapper:not(.docs-doc-id-intro) .main-wrapper,
+.docs-wrapper:not(.docs-doc-id-intro) .container,
+.docs-wrapper:not(.docs-doc-id-intro) article {
   background: var(--gitbook-bg);
 }
 
-.docs-wrapper .theme-doc-sidebar-container {
+.docs-wrapper:not(.docs-doc-id-intro) .theme-doc-sidebar-container {
   background: var(--gitbook-sidebar) !important;
   border-right: 1px solid var(--gitbook-border) !important;
 }
 
-.docs-wrapper .menu {
+.docs-wrapper:not(.docs-doc-id-intro) .menu {
   padding: 1.1rem .9rem !important;
   font-size: 14px;
 }
 
-.docs-wrapper .menu__list {
+.docs-wrapper:not(.docs-doc-id-intro) .menu__list {
   gap: 2px;
 }
 
-.docs-wrapper .menu__link,
-.docs-wrapper .menu__list-item-collapsible {
+.docs-wrapper:not(.docs-doc-id-intro) .menu__link,
+.docs-wrapper:not(.docs-doc-id-intro) .menu__list-item-collapsible {
   min-height: 34px;
   color: #333333;
   font-weight: 450;
   border-radius: 6px;
 }
 
-.docs-wrapper .menu__link:hover,
-.docs-wrapper .menu__list-item-collapsible:hover {
+.docs-wrapper:not(.docs-doc-id-intro) .menu__link:hover,
+.docs-wrapper:not(.docs-doc-id-intro) .menu__list-item-collapsible:hover {
   color: #111111;
   background: #f1f1f1;
 }
 
-.docs-wrapper .menu__link--active:not(.menu__link--sublist),
-.docs-wrapper .menu__list-item-collapsible--active {
+.docs-wrapper:not(.docs-doc-id-intro) .menu__link--active:not(.menu__link--sublist),
+.docs-wrapper:not(.docs-doc-id-intro) .menu__list-item-collapsible--active {
   color: #111111;
   background: var(--gitbook-sidebar-active);
 }
 
-.docs-wrapper .theme-doc-markdown {
+.docs-wrapper:not(.docs-doc-id-intro) .theme-doc-markdown {
   max-width: 790px;
   color: var(--gitbook-text);
   font-size: 16px;
   line-height: 1.65;
 }
 
-.docs-wrapper .theme-doc-markdown h1 {
+.docs-wrapper:not(.docs-doc-id-intro) .theme-doc-markdown h1 {
   margin: 0 0 2.1rem;
   color: #111111;
   font-size: clamp(2.35rem, 4vw, 3rem);
@@ -376,7 +376,7 @@ code { color: var(--revenza-forest-deep); background: var(--revenza-lemon-soft);
   letter-spacing: -.04em;
 }
 
-.docs-wrapper .theme-doc-markdown h2 {
+.docs-wrapper:not(.docs-doc-id-intro) .theme-doc-markdown h2 {
   margin-top: 2.6rem;
   margin-bottom: 1rem;
   color: #111111;
@@ -385,39 +385,39 @@ code { color: var(--revenza-forest-deep); background: var(--revenza-lemon-soft);
   letter-spacing: -.02em;
 }
 
-.docs-wrapper .theme-doc-markdown h3 {
+.docs-wrapper:not(.docs-doc-id-intro) .theme-doc-markdown h3 {
   margin-top: 2rem;
   color: #111111;
   font-size: 1.18rem;
   font-weight: 700;
 }
 
-.docs-wrapper .theme-doc-markdown p,
-.docs-wrapper .theme-doc-markdown li {
+.docs-wrapper:not(.docs-doc-id-intro) .theme-doc-markdown p,
+.docs-wrapper:not(.docs-doc-id-intro) .theme-doc-markdown li {
   max-width: none;
   color: var(--gitbook-text);
   line-height: 1.7;
 }
 
-.docs-wrapper .theme-doc-markdown a {
+.docs-wrapper:not(.docs-doc-id-intro) .theme-doc-markdown a {
   color: var(--gitbook-link);
   font-weight: 500;
 }
 
-.docs-wrapper .theme-doc-markdown hr {
+.docs-wrapper:not(.docs-doc-id-intro) .theme-doc-markdown hr {
   margin: 2rem 0;
   border: 0;
   border-top: 1px solid var(--gitbook-border);
 }
 
-.docs-wrapper .theme-doc-markdown img {
+.docs-wrapper:not(.docs-doc-id-intro) .theme-doc-markdown img {
   max-width: 100%;
   height: auto;
   border: 1px solid var(--gitbook-border);
   border-radius: 8px;
 }
 
-.docs-wrapper .theme-doc-markdown table {
+.docs-wrapper:not(.docs-doc-id-intro) .theme-doc-markdown table {
   display: table;
   width: 100%;
   border-collapse: separate;
@@ -427,12 +427,12 @@ code { color: var(--revenza-forest-deep); background: var(--revenza-lemon-soft);
   border-radius: 8px;
 }
 
-.docs-wrapper .theme-doc-markdown th,
-.docs-wrapper .theme-doc-markdown td {
+.docs-wrapper:not(.docs-doc-id-intro) .theme-doc-markdown th,
+.docs-wrapper:not(.docs-doc-id-intro) .theme-doc-markdown td {
   border-color: var(--gitbook-border);
 }
 
-.docs-wrapper .theme-doc-markdown blockquote {
+.docs-wrapper:not(.docs-doc-id-intro) .theme-doc-markdown blockquote {
   display: flex;
   align-items: flex-start;
   gap: .7rem;
@@ -445,7 +445,7 @@ code { color: var(--revenza-forest-deep); background: var(--revenza-lemon-soft);
   border-radius: 6px;
 }
 
-.docs-wrapper .theme-doc-markdown blockquote::before {
+.docs-wrapper:not(.docs-doc-id-intro) .theme-doc-markdown blockquote::before {
   content: "i";
   display: inline-grid;
   flex: 0 0 auto;
@@ -460,33 +460,33 @@ code { color: var(--revenza-forest-deep); background: var(--revenza-lemon-soft);
   border-radius: 50%;
 }
 
-.docs-wrapper .theme-doc-markdown blockquote p {
+.docs-wrapper:not(.docs-doc-id-intro) .theme-doc-markdown blockquote p {
   margin: 0;
   color: #1f2937;
 }
 
-.docs-wrapper .theme-doc-breadcrumbs {
+.docs-wrapper:not(.docs-doc-id-intro) .theme-doc-breadcrumbs {
   margin-bottom: 1.55rem;
   font-size: .83rem;
 }
 
-.docs-wrapper .breadcrumbs__link {
+.docs-wrapper:not(.docs-doc-id-intro) .breadcrumbs__link {
   color: #555555;
   background: transparent;
   border-radius: 5px;
 }
 
-.docs-wrapper .breadcrumbs__item--active .breadcrumbs__link {
+.docs-wrapper:not(.docs-doc-id-intro) .breadcrumbs__item--active .breadcrumbs__link {
   color: #111111;
   background: #f2f2f2;
 }
 
-.docs-wrapper .pagination-nav {
+.docs-wrapper:not(.docs-doc-id-intro) .pagination-nav {
   gap: 1rem;
   margin-top: 2.5rem;
 }
 
-.docs-wrapper .pagination-nav__link {
+.docs-wrapper:not(.docs-doc-id-intro) .pagination-nav__link {
   color: var(--gitbook-text);
   background: var(--gitbook-card);
   border: 1px solid var(--gitbook-border);
@@ -494,11 +494,11 @@ code { color: var(--revenza-forest-deep); background: var(--revenza-lemon-soft);
   box-shadow: none;
 }
 
-.docs-wrapper .pagination-nav__label {
+.docs-wrapper:not(.docs-doc-id-intro) .pagination-nav__label {
   color: #111111;
 }
 
-.docs-wrapper .theme-doc-markdown .gitbookTabsShell {
+.docs-wrapper:not(.docs-doc-id-intro) .theme-doc-markdown .gitbookTabsShell {
   width: 100%;
   color: var(--gitbook-text);
   background: #ffffff;
@@ -507,13 +507,13 @@ code { color: var(--revenza-forest-deep); background: var(--revenza-lemon-soft);
   box-shadow: none;
 }
 
-.docs-wrapper .theme-doc-markdown .gitbookTabs {
+.docs-wrapper:not(.docs-doc-id-intro) .theme-doc-markdown .gitbookTabs {
   min-height: 47px;
   background: #fafafa;
   border-bottom: 1px solid var(--gitbook-border-strong);
 }
 
-.docs-wrapper .theme-doc-markdown .gitbookTabs .tabs__item {
+.docs-wrapper:not(.docs-doc-id-intro) .theme-doc-markdown .gitbookTabs .tabs__item {
   min-height: 47px;
   color: #4b4b4b;
   background: #ffffff;
@@ -521,15 +521,15 @@ code { color: var(--revenza-forest-deep); background: var(--revenza-lemon-soft);
   border-radius: 0;
 }
 
-.docs-wrapper .theme-doc-markdown .gitbookTabs .tabs__item--active,
-.docs-wrapper .theme-doc-markdown .gitbookTabs [aria-selected='true'] {
+.docs-wrapper:not(.docs-doc-id-intro) .theme-doc-markdown .gitbookTabs .tabs__item--active,
+.docs-wrapper:not(.docs-doc-id-intro) .theme-doc-markdown .gitbookTabs [aria-selected='true'] {
   color: #111111;
   background: #ffffff;
   border-bottom: 1px solid #ffffff;
   transform: translateY(1px);
 }
 
-.docs-wrapper .theme-doc-markdown .gitbookContentRef {
+.docs-wrapper:not(.docs-doc-id-intro) .theme-doc-markdown .gitbookContentRef {
   color: #111111;
   background: #ffffff;
   border-color: var(--gitbook-border-strong);
@@ -537,7 +537,7 @@ code { color: var(--revenza-forest-deep); background: var(--revenza-lemon-soft);
   box-shadow: 0 1px 3px rgba(17, 24, 39, .08);
 }
 
-[data-theme='dark'] .docs-wrapper {
+[data-theme='dark'] .docs-wrapper:not(.docs-doc-id-intro) {
   --gitbook-bg: #111111;
   --gitbook-sidebar: #171717;
   --gitbook-sidebar-active: #242424;
@@ -551,48 +551,48 @@ code { color: var(--revenza-forest-deep); background: var(--revenza-lemon-soft);
   --gitbook-hint-border: #25415f;
 }
 
-[data-theme='dark'] .docs-wrapper .theme-doc-markdown h1,
-[data-theme='dark'] .docs-wrapper .theme-doc-markdown h2,
-[data-theme='dark'] .docs-wrapper .theme-doc-markdown h3,
-[data-theme='dark'] .docs-wrapper .pagination-nav__label,
-[data-theme='dark'] .docs-wrapper .menu__link--active:not(.menu__link--sublist),
-[data-theme='dark'] .docs-wrapper .menu__list-item-collapsible--active {
+[data-theme='dark'] .docs-wrapper:not(.docs-doc-id-intro) .theme-doc-markdown h1,
+[data-theme='dark'] .docs-wrapper:not(.docs-doc-id-intro) .theme-doc-markdown h2,
+[data-theme='dark'] .docs-wrapper:not(.docs-doc-id-intro) .theme-doc-markdown h3,
+[data-theme='dark'] .docs-wrapper:not(.docs-doc-id-intro) .pagination-nav__label,
+[data-theme='dark'] .docs-wrapper:not(.docs-doc-id-intro) .menu__link--active:not(.menu__link--sublist),
+[data-theme='dark'] .docs-wrapper:not(.docs-doc-id-intro) .menu__list-item-collapsible--active {
   color: #ffffff;
 }
 
-[data-theme='dark'] .docs-wrapper .menu__link,
-[data-theme='dark'] .docs-wrapper .menu__list-item-collapsible,
-[data-theme='dark'] .docs-wrapper .theme-doc-markdown p,
-[data-theme='dark'] .docs-wrapper .theme-doc-markdown li {
+[data-theme='dark'] .docs-wrapper:not(.docs-doc-id-intro) .menu__link,
+[data-theme='dark'] .docs-wrapper:not(.docs-doc-id-intro) .menu__list-item-collapsible,
+[data-theme='dark'] .docs-wrapper:not(.docs-doc-id-intro) .theme-doc-markdown p,
+[data-theme='dark'] .docs-wrapper:not(.docs-doc-id-intro) .theme-doc-markdown li {
   color: var(--gitbook-text);
 }
 
-[data-theme='dark'] .docs-wrapper .menu__link:hover,
-[data-theme='dark'] .docs-wrapper .menu__list-item-collapsible:hover,
-[data-theme='dark'] .docs-wrapper .breadcrumbs__item--active .breadcrumbs__link {
+[data-theme='dark'] .docs-wrapper:not(.docs-doc-id-intro) .menu__link:hover,
+[data-theme='dark'] .docs-wrapper:not(.docs-doc-id-intro) .menu__list-item-collapsible:hover,
+[data-theme='dark'] .docs-wrapper:not(.docs-doc-id-intro) .breadcrumbs__item--active .breadcrumbs__link {
   background: #242424;
 }
 
-[data-theme='dark'] .docs-wrapper .theme-doc-markdown blockquote,
-[data-theme='dark'] .docs-wrapper .theme-doc-markdown blockquote p {
+[data-theme='dark'] .docs-wrapper:not(.docs-doc-id-intro) .theme-doc-markdown blockquote,
+[data-theme='dark'] .docs-wrapper:not(.docs-doc-id-intro) .theme-doc-markdown blockquote p {
   color: #e7f0ff;
 }
 
-[data-theme='dark'] .docs-wrapper .theme-doc-markdown .gitbookTabsShell,
-[data-theme='dark'] .docs-wrapper .theme-doc-markdown .gitbookTabs,
-[data-theme='dark'] .docs-wrapper .theme-doc-markdown .gitbookTabs .tabs__item,
-[data-theme='dark'] .docs-wrapper .theme-doc-markdown .gitbookContentRef {
+[data-theme='dark'] .docs-wrapper:not(.docs-doc-id-intro) .theme-doc-markdown .gitbookTabsShell,
+[data-theme='dark'] .docs-wrapper:not(.docs-doc-id-intro) .theme-doc-markdown .gitbookTabs,
+[data-theme='dark'] .docs-wrapper:not(.docs-doc-id-intro) .theme-doc-markdown .gitbookTabs .tabs__item,
+[data-theme='dark'] .docs-wrapper:not(.docs-doc-id-intro) .theme-doc-markdown .gitbookContentRef {
   color: #f4f4f4;
   background: #171717;
   border-color: var(--gitbook-border-strong);
 }
 
-[data-theme='dark'] .docs-wrapper .theme-doc-markdown .gitbookTabs {
+[data-theme='dark'] .docs-wrapper:not(.docs-doc-id-intro) .theme-doc-markdown .gitbookTabs {
   background: #111111;
 }
 
 @media (max-width: 996px) {
-  .docs-wrapper .theme-doc-markdown {
+  .docs-wrapper:not(.docs-doc-id-intro) .theme-doc-markdown {
     max-width: 100%;
   }
 }

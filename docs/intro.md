@@ -1,9 +1,9 @@
 ---
 id: intro
 slug: /overview
-title: Welcome to Revenza Upsell
+title: Overview
 description: Learn how to install Revenza Upsell, create your first offer, customize its storefront appearance, and troubleshoot common issues.
-sidebar_label: Welcome
+sidebar_label: Overview
 keywords: [Revenza Upsell, Shopify upsell app, Shopify product recommendations]
 ---
 

@@ -235,6 +235,13 @@ function mergeOverviewPopularGuides(markdown, readmeMarkdown) {
   );
 }
 
+function normalizeOverviewFrontMatter(markdown) {
+  if (!markdown.startsWith('---')) return markdown;
+  return markdown
+    .replace(/^title:\s*.*$/m, 'title: Overview')
+    .replace(/^sidebar_label:\s*.*$/m, 'sidebar_label: Overview');
+}
+
 function stripMdxStyleBlocks(markdown) {
   return markdown
     .replace(/\n?<style>\{`[\s\S]*?`\}<\/style>\s*/g, '\n')
@@ -251,7 +258,8 @@ function normalizeUpsellOverviewLinks(markdown) {
 
 export function sanitizeUpsellOverviewMarkdown(markdown, options = {}) {
   const merged = mergeOverviewPopularGuides(markdown, options.popularGuidesSource);
-  return normalizeUpsellOverviewLinks(stripMdxStyleBlocks(sanitizeGitBookMarkdown(merged)));
+  const normalized = normalizeOverviewFrontMatter(merged);
+  return normalizeUpsellOverviewLinks(stripMdxStyleBlocks(sanitizeGitBookMarkdown(normalized)));
 }
 export function copyDirectoryContents(source, destination, options = {}) {
   if (!fs.existsSync(source)) return false;

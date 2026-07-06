@@ -152,3 +152,21 @@ test('updates overview popular guides from GitBook README without changing the d
   assert.match(sanitized, /\/revenza-upsell\/settings\/global-settings/);
   assert.doesNotMatch(sanitized, /Create your first upsell/);
 });
+
+
+test('renames the generated overview doc label from Welcome to Overview', async () => {
+  const {sanitizeUpsellOverviewMarkdown} = await import('../../scripts/content-sync-utils.mjs');
+  const sanitized = sanitizeUpsellOverviewMarkdown(`---
+id: intro
+slug: /overview
+title: Welcome to Revenza Upsell
+sidebar_label: Welcome
+---
+
+# Grow every order
+`);
+
+  assert.match(sanitized, /title: Overview/);
+  assert.match(sanitized, /sidebar_label: Overview/);
+  assert.doesNotMatch(sanitized, /sidebar_label: Welcome/);
+});
