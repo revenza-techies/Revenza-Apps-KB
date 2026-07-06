@@ -89,6 +89,12 @@ function addMdxImport(markdown, importLine) {
   return importLine + '\n' + markdown;
 }
 
+function ensureMdxImportSpacing(markdown) {
+  return markdown
+    .replace(/(---\r?\n[\s\S]*?\r?\n---\r?\n)((?:import[^\n]+;\r?\n)+)(?=\S)/, '$1$2\n')
+    .replace(/^((?:import[^\n]+;\r?\n)+)(?=\S)/, '$1\n');
+}
+
 function convertGitBookTabs(markdown) {
   let convertedTabs = false;
   const converted = markdown.replace(/\{%\s*tabs\s*%\}([\s\S]*?)\{%\s*endtabs\s*%\}/g, (_, block) => {
@@ -113,10 +119,10 @@ function convertGitBookTabs(markdown) {
   });
 
   if (!convertedTabs) return converted;
-  return addMdxImport(
+  return ensureMdxImportSpacing(addMdxImport(
     addMdxImport(converted, "import Tabs from '@theme/Tabs';"),
     "import TabItem from '@theme/TabItem';",
-  );
+  ));
 }
 
 function collapseDuplicateHintLabels(markdown) {
@@ -278,3 +284,4 @@ export function createSidebarFromSummaryMarkdown(markdown) {
 
   return createSidebarModule(root.map(summaryNodeToSidebarItem));
 }
+

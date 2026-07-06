@@ -112,8 +112,10 @@ Customize cart recommendations.
 {% endtabs %}`);
 
   assert.match(sanitized, /import Tabs from '@theme\/Tabs';/);
+  assert.match(sanitized, /import Tabs from '@theme\/Tabs';\r?\n\r?\n<Tabs/);
   assert.match(sanitized, /<Tabs className="gitbookTabs">/);
   assert.match(sanitized, /<TabItem value="product-page" label="Product Page">/);
   assert.match(sanitized, /className="gitbookContentRef" href="settings\/product-page"/);
   assert.doesNotMatch(sanitized, /{%/);
 });
+
