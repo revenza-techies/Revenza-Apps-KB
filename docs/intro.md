@@ -44,24 +44,19 @@ Revenza Upsell helps Shopify merchants create relevant product offers that make 
   <section aria-labelledby="popular-guides">
     <h2 id="popular-guides">Popular guides</h2>
     <div className="guideList">
-      <Link to="/revenza-upsell/custom-upsell-sets">
+      <Link to="/revenza-upsell/pre-build-upsell-sets">
         <ShoppingCartSimple size={22}/>
-        <span><strong>Create your first upsell</strong><small>Build an offer in a few clear steps.</small></span>
+        <span><strong>Pre-build options</strong><small>Display pre-build upsell options on products.</small></span>
         <ArrowRight size={18}/>
       </Link>
-      <Link to="/revenza-upsell/settings">
+      <Link to="/revenza-upsell/custom-upsell-sets">
         <SlidersHorizontal size={22}/>
-        <span><strong>Customize the experience</strong><small>Match settings, display behavior, and placement to your store.</small></span>
+        <span><strong>Create Upsell Set</strong><small>Build an offer in a few clear steps.</small></span>
         <ArrowRight size={18}/>
       </Link>
-      <Link to="/revenza-upsell/mapping">
+      <Link to="/revenza-upsell/settings/global-settings">
         <Storefront size={22}/>
-        <span><strong>Show offers at the right time</strong><small>Choose where and when your upsells appear.</small></span>
-        <ArrowRight size={18}/>
-      </Link>
-      <Link to="/contact">
-        <CheckCircle size={22}/>
-        <span><strong>Troubleshoot common issues</strong><small>Reach support when setup or display checks need help.</small></span>
+        <span><strong>Customize the experience</strong><small>Match colors, text, and placement to your store.</small></span>
         <ArrowRight size={18}/>
       </Link>
     </div>

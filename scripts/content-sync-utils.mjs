@@ -125,14 +125,36 @@ function convertGitBookTabs(markdown) {
   ));
 }
 
+function convertGitBookSteppers(markdown) {
+  return markdown.replace(/\{%\s*stepper\s*%\}([\s\S]*?)\{%\s*endstepper\s*%\}/g, (_, block) => {
+    const steps = [];
+    block.replace(/\{%\s*step\s*%\}([\s\S]*?)\{%\s*endstep\s*%\}/g, (match, stepContent) => {
+      const trimmed = stepContent.trim();
+      if (trimmed) steps.push(trimmed);
+      return match;
+    });
+
+    if (!steps.length) return '';
+
+    return '<div className="gitbookStepper">\n\n' + steps
+      .map((step, index) => '<div className="gitbookStep">\n\n<div className="gitbookStepMarker" aria-hidden="true">' + (index + 1) + '</div>\n\n<div className="gitbookStepContent">\n\n' + step + '\n\n</div>\n\n</div>')
+      .join('\n\n') + '\n\n</div>';
+  });
+}
+
 function collapseDuplicateHintLabels(markdown) {
-  return markdown.replace(
-    /(> \*\*(Note|Warning):\*\*\s*)(?:\*\*)?(?:Note|Warning|Hint|Info):(?:\*\*)?\s*/gi,
-    '$1',
-  );
+  return markdown
+    .replace(
+      /(> \*\*(Note|Warning):\*\*\s*)_\*\*(?:Note|Warning|Hint|Info):\*\*\s*([^_\n]+)_/gi,
+      '$1_$3_',
+    )
+    .replace(
+      /(> \*\*(Note|Warning):\*\*\s*)(?:\*\*)?(?:Note|Warning|Hint|Info):(?:\*\*)?\s*/gi,
+      '$1',
+    );
 }
 export function sanitizeGitBookMarkdown(markdown) {
-  return collapseDuplicateHintLabels(convertGitBookTabs(markdown)
+  return collapseDuplicateHintLabels(convertGitBookSteppers(convertGitBookTabs(markdown))
     .replace(/<figure>\s*<img([^>]*?)>\s*<figcaption>\s*<\/figcaption>\s*<\/figure>/g, '<img$1 />')
     .replace(/<img([^>]*?)(?<!\/)>/g, '<img$1 />')
     .replace(/\{%\s*hint(?:\s+style="([^"]+)")?\s*%\}\s*/g, (_, style) => {

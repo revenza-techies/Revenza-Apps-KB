@@ -12,6 +12,11 @@ module.exports = {
     "items": [
       {
         "type": "doc",
+        "id": "getting-started/upsell-product-preview",
+        "label": "Upsell Product Preview"
+      },
+      {
+        "type": "doc",
         "id": "getting-started/enable-widget-on",
         "label": "Show Widget On"
       }
@@ -30,7 +35,7 @@ module.exports = {
   {
     "type": "doc",
     "id": "custom-upsell-sets",
-    "label": "Custom Upsell Sets"
+    "label": "Upsell Sets"
   },
   {
     "type": "doc",
@@ -44,7 +49,7 @@ module.exports = {
       {
         "type": "doc",
         "id": "settings/product-page",
-        "label": "Product Page"
+        "label": "Product Page Settings"
       },
       {
         "type": "doc",

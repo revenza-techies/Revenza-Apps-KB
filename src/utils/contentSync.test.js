@@ -92,6 +92,42 @@ Warning: Review these settings before going live.
   assert.doesNotMatch(sanitized, /Warning:\*\* Warning:/);
 });
 
+test('removes duplicate GitBook hint labels wrapped in emphasis', async () => {
+  const {sanitizeGitBookMarkdown} = await import('../../scripts/content-sync-utils.mjs');
+  const sanitized = sanitizeGitBookMarkdown(`{% hint style="info" %}
+_**Note:** You can add upto 20 products in a set._
+{% endhint %}`);
+
+  assert.match(sanitized, /> \*\*Note:\*\* _You can add upto 20 products in a set\._/);
+  assert.doesNotMatch(sanitized, /Note:\*\* _\*\*Note:/);
+});
+
+test('converts GitBook steppers into reusable Docusaurus markup', async () => {
+  const {sanitizeGitBookMarkdown} = await import('../../scripts/content-sync-utils.mjs');
+  const sanitized = sanitizeGitBookMarkdown(`{% stepper %}
+{% step %}
+### Go to Custom Upsell Sets
+
+Navigate to Upsell sets.
+{% endstep %}
+
+{% step %}
+### Add Set Details
+
+{% hint style="info" %}
+This name will help you identify the set.
+{% endhint %}
+{% endstep %}
+{% endstepper %}`);
+
+  assert.match(sanitized, /className="gitbookStepper"/);
+  assert.match(sanitized, /className="gitbookStep"/);
+  assert.match(sanitized, /className="gitbookStepMarker" aria-hidden="true">1/);
+  assert.match(sanitized, /### Go to Custom Upsell Sets/);
+  assert.match(sanitized, /> \*\*Note:\*\* This name will help you identify the set\./);
+  assert.doesNotMatch(sanitized, /{%\s*step/);
+});
+
 test('converts GitBook tabs and content refs into Docusaurus tabs', async () => {
   const {sanitizeGitBookMarkdown} = await import('../../scripts/content-sync-utils.mjs');
   const sanitized = sanitizeGitBookMarkdown(`{% tabs %}

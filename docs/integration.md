@@ -20,7 +20,7 @@ From the page selector at the top, choose:
 
 **Products → Default Product**
 
-> If your store uses a custom product template, select that template instead.
+> **Note:** _If your store uses a custom product template, select that template instead._
 
 #### Step 3: Add the App Block
 

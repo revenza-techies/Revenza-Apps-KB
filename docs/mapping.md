@@ -2,29 +2,89 @@
 
 **Map The Upsell Set To Products Or Collections**
 
-1.  From the app sidebar, click **Mappings**.
+<div className="gitbookStepper">
 
-    You can also access this from **Home > Product Sets > Products To Set Mappings > Manage**.
-2. Click **Create Mapping** or **Add Mapping**.
-3. Select the upsell set you created.
-4. Choose where the upsell set should appear:
-   * Select **Products** if the upsell should appear only on specific product pages.
-   * Select **Collections** if the upsell should apply to all products inside selected collections.
-5. Select the required products or collections.
-6. Enable the mapping if there is a status toggle.
-7. Click **Save**.
+<div className="gitbookStep">
 
-**Verify The Setup**
+<div className="gitbookStepMarker" aria-hidden="true">1</div>
 
-1. Go back to **Home** in the app.
-2. Under **Show Widget On**, confirm the correct page is enabled:
-   * **Product Page**
-   * **Cart Page**
-3. Click **Preview** for the page where the widget should appear.
-4. Confirm that the selected upsell products display for the mapped product or collection.
-5. If the upsell does not appear, check:
-   * App embed is enabled.
-   * App is globally enabled.
-   * The correct product set is mapped.
-   * The product or collection is included in the mapping.
-   * The widget is enabled for the correct page.
+<div className="gitbookStepContent">
+
+#### Step 1: Open the Mapping Page
+
+Access the **Mapping** page using either of the following methods:
+
+* From the app's left navigation, click **Mappings**, \
+  **or**
+* Go to **Upsell Sets → Custom Sets** and click **Map Your Custom/Prebuilt Sets**.
+
+</div>
+
+</div>
+
+<div className="gitbookStep">
+
+<div className="gitbookStepMarker" aria-hidden="true">2</div>
+
+<div className="gitbookStepContent">
+
+#### Step 2: Select an Upsell Set
+
+Choose the **Pre-built** or **Custom** upsell set that you want to assign.
+
+</div>
+
+</div>
+
+<div className="gitbookStep">
+
+<div className="gitbookStepMarker" aria-hidden="true">3</div>
+
+<div className="gitbookStepContent">
+
+#### Step 3: Choose the Mapping Type
+
+Select where you want the upsell set to appear:
+
+* **Products**
+* **Collections**
+* **Product Tags**
+
+</div>
+
+</div>
+
+<div className="gitbookStep">
+
+<div className="gitbookStepMarker" aria-hidden="true">4</div>
+
+<div className="gitbookStepContent">
+
+#### Step 4: Select the Target Items
+
+* Select any one - products, collections, or product tags.&#x20;
+* Search them using search field
+
+</div>
+
+</div>
+
+<div className="gitbookStep">
+
+<div className="gitbookStepMarker" aria-hidden="true">5</div>
+
+<div className="gitbookStepContent">
+
+#### Step 5: Save the Mapping
+
+Review your selections and click **Save** to apply the mapping.
+
+> **Note:** **Tip:** Mapped upsell sets take priority over the default Product Page or Cart Page Pre-built sets for the selected products, collections, or product tags.
+
+</div>
+
+</div>
+
+</div>
+
+The upsell set has been mapped successfully. Review the associated product, collection, or product tag to confirm the upsell is displayed as expected.

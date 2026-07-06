@@ -432,6 +432,58 @@ code { color: var(--revenza-forest-deep); background: var(--revenza-lemon-soft);
   border-color: var(--gitbook-border);
 }
 
+.docs-wrapper:not(.docs-doc-id-intro) .theme-doc-markdown .gitbookStepper {
+  display: grid;
+  gap: 0;
+  margin: 1.65rem 0 2.4rem;
+}
+
+.docs-wrapper:not(.docs-doc-id-intro) .theme-doc-markdown .gitbookStep {
+  position: relative;
+  display: grid;
+  grid-template-columns: 42px minmax(0, 1fr);
+  gap: 1.35rem;
+  padding-bottom: 1.9rem;
+}
+
+.docs-wrapper:not(.docs-doc-id-intro) .theme-doc-markdown .gitbookStep:not(:last-child)::before {
+  content: "";
+  position: absolute;
+  top: 38px;
+  bottom: -2px;
+  left: 19px;
+  width: 1px;
+  background: var(--gitbook-border);
+}
+
+.docs-wrapper:not(.docs-doc-id-intro) .theme-doc-markdown .gitbookStepMarker {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  width: 34px;
+  height: 34px;
+  place-items: center;
+  margin-top: .1rem;
+  color: #666666;
+  font-size: .9rem;
+  font-weight: 600;
+  line-height: 1;
+  background: #f1f1f1;
+  border-radius: 50%;
+}
+
+.docs-wrapper:not(.docs-doc-id-intro) .theme-doc-markdown .gitbookStepContent {
+  min-width: 0;
+}
+
+.docs-wrapper:not(.docs-doc-id-intro) .theme-doc-markdown .gitbookStepContent h3:first-child {
+  margin-top: 0;
+}
+
+.docs-wrapper:not(.docs-doc-id-intro) .theme-doc-markdown .gitbookStepContent > :last-child {
+  margin-bottom: 0;
+}
+
 .docs-wrapper:not(.docs-doc-id-intro) .theme-doc-markdown blockquote {
   display: flex;
   align-items: flex-start;
@@ -570,6 +622,11 @@ code { color: var(--revenza-forest-deep); background: var(--revenza-lemon-soft);
 [data-theme='dark'] .docs-wrapper:not(.docs-doc-id-intro) .menu__link:hover,
 [data-theme='dark'] .docs-wrapper:not(.docs-doc-id-intro) .menu__list-item-collapsible:hover,
 [data-theme='dark'] .docs-wrapper:not(.docs-doc-id-intro) .breadcrumbs__item--active .breadcrumbs__link {
+  background: #242424;
+}
+
+[data-theme='dark'] .docs-wrapper:not(.docs-doc-id-intro) .theme-doc-markdown .gitbookStepMarker {
+  color: #d7d7d7;
   background: #242424;
 }
 

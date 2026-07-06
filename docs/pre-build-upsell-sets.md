@@ -1,13 +1,74 @@
+---
+description: >-
+  Display dynamic upsell products based on predefined criteria like bestsellers,
+  newest arrivals, recently updated, and price.
+---
+
 # Pre-Build Upsell sets
 
-### **Prerequisites**
+Pre-built Sets automatically recommend products using predefined sorting rules. The products are fetched dynamically from your Shopify store, so the recommendations stay up to date without manual maintenance.
 
-1. Open Shopify Admin.
-2. Go to **Apps**.
-3. Open the **Revenza Upsell** app.
-4. Make sure the app is enabled from **Home**:
-   * **App Embed** should be enabled.
-   * **App Enabled** should be turned on.
-   * Enable the widget for the required page, such as **Product Page** or **Cart Page**.
-5. Click on **Preview** button in the Product Page block to review the Pre-built upsell on the product page.
+> **Note:** _Product previews are not available on this page because the recommendations are generated from your live store data._
 
+### Available Sets
+
+* Recently Launched
+* Classic Picks
+* Freshly Updated
+* Seasoned Picks
+* Bestsellers
+* Low Performers
+* Budget Friendly
+* Premium Picks
+
+> **Note:** By default, **'Recently Launched → Created: Newest first'** is selected, to switch to other available sets, follow the process below:
+
+<div className="gitbookStepper">
+
+<div className="gitbookStep">
+
+<div className="gitbookStepMarker" aria-hidden="true">1</div>
+
+<div className="gitbookStepContent">
+
+### Pre-built sets
+
+On the Pre-built sets page, click on **Select your Default Product Page Set**
+
+</div>
+
+</div>
+
+<div className="gitbookStep">
+
+<div className="gitbookStepMarker" aria-hidden="true">2</div>
+
+<div className="gitbookStepContent">
+
+### Pre-Built Set - Product Page
+
+Select a Pre-built or custom set to display upsell products on your product page.
+
+</div>
+
+</div>
+
+<div className="gitbookStep">
+
+<div className="gitbookStepMarker" aria-hidden="true">3</div>
+
+<div className="gitbookStepContent">
+
+### Save Your Preference
+
+Once the required set is selected, click **Save**.
+
+</div>
+
+</div>
+
+</div>
+
+#### [Assign **Prebuilt Sets** to Specific Products or Collections](mapping.md)&#x20;
+
+If you need any assistance, contact **support@revenza.in**.
