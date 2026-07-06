@@ -153,3 +153,49 @@ code { color: var(--revenza-forest-deep); background: var(--revenza-lemon-soft);
 .supportCard a:hover{color:white;text-decoration:none;background:var(--revenza-forest-deep)}
 @media(max-width:760px){.journey:before{display:none}.docsHomeGrid{grid-template-columns:1fr}.supportCard{align-items:flex-start;flex-wrap:wrap}.supportCard a{width:100%;justify-content:center}}
 @media(max-width:420px){.journey{grid-template-columns:1fr}.journey a{display:grid;grid-template-columns:auto 1fr;text-align:left}.journey span{grid-row:1/3;margin:0 .8rem 0 0}.journey small{max-width:none}}
+
+
+.theme-doc-markdown .gitbookTabs {
+  margin: 1.25rem 0 1.8rem;
+  padding: 1rem;
+  background: var(--revenza-surface);
+  border: 1px solid var(--revenza-line);
+  border-radius: 18px;
+}
+.theme-doc-markdown .gitbookTabs [role='tablist'] {
+  gap: 0;
+  padding: 0;
+  margin: -1rem -1rem 1rem;
+  overflow-x: auto;
+  border-bottom: 1px solid var(--revenza-line);
+}
+.theme-doc-markdown .gitbookTabs [role='tab'] {
+  min-height: 48px;
+  padding: 0 1.1rem;
+  color: var(--revenza-muted);
+  font-weight: 750;
+  border-right: 1px solid var(--revenza-line);
+  border-radius: 0;
+}
+.theme-doc-markdown .gitbookTabs [aria-selected='true'] {
+  color: var(--revenza-forest);
+  background: var(--revenza-lemon-soft);
+}
+.theme-doc-markdown .gitbookContentRef {
+  display: flex;
+  align-items: center;
+  min-height: 64px;
+  padding: 1rem 1.15rem;
+  margin: 0.8rem 0 1rem;
+  color: var(--revenza-ink);
+  font-weight: 800;
+  background: var(--revenza-surface);
+  border: 1px solid var(--revenza-line);
+  border-radius: 12px;
+  box-shadow: 0 10px 24px rgba(13, 33, 22, .06);
+}
+.theme-doc-markdown .gitbookContentRef:hover {
+  color: var(--revenza-forest);
+  text-decoration: none;
+  background: var(--revenza-lemon-soft);
+}

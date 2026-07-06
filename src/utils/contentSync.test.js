@@ -91,3 +91,29 @@ Warning: Review these settings before going live.
   assert.doesNotMatch(sanitized, /Note:\*\* Note:/);
   assert.doesNotMatch(sanitized, /Warning:\*\* Warning:/);
 });
+
+test('converts GitBook tabs and content refs into Docusaurus tabs', async () => {
+  const {sanitizeGitBookMarkdown} = await import('../../scripts/content-sync-utils.mjs');
+  const sanitized = sanitizeGitBookMarkdown(`{% tabs %}
+{% tab title="Product Page" icon="product-hunt" %}
+{% content-ref url="product-page.md" %}
+[product-page.md](settings/product-page.md)
+{% endcontent-ref %}
+
+Configure product page recommendations.
+{% endtab %}
+{% tab title="Cart Page" icon="cart-shopping" %}
+{% content-ref url="cart-page.md" %}
+[cart-page.md](settings/cart-page.md)
+{% endcontent-ref %}
+
+Customize cart recommendations.
+{% endtab %}
+{% endtabs %}`);
+
+  assert.match(sanitized, /import Tabs from '@theme\/Tabs';/);
+  assert.match(sanitized, /<Tabs className="gitbookTabs">/);
+  assert.match(sanitized, /<TabItem value="product-page" label="Product Page">/);
+  assert.match(sanitized, /className="gitbookContentRef" href="settings\/product-page"/);
+  assert.doesNotMatch(sanitized, /{%/);
+});

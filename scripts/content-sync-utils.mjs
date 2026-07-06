@@ -42,6 +42,83 @@ export function copyDirectory(source, destination) {
   return true;
 }
 
+function getGitBookAttribute(attributes, name) {
+  const match = attributes.match(new RegExp(name + '=\"([^\"]+)\"'));
+  return match ? match[1].trim() : '';
+}
+
+function slugifyTabValue(label, index) {
+  const slug = label
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-|-$/g, '');
+  return slug || 'tab-' + (index + 1);
+}
+
+function humanizeGitBookLink(label) {
+  return label
+    .replace(/\.mdx?$/i, '')
+    .replace(/[-_]+/g, ' ')
+    .replace(/\b\w/g, (letter) => letter.toUpperCase());
+}
+
+function normalizeGitBookHref(href) {
+  return href
+    .replace(/\\/g, '/')
+    .replace(/\.mdx?(#[^)]+)?$/i, (_, hash = '') => hash);
+}
+
+function convertContentRefs(markdown) {
+  return markdown.replace(
+    /\{%\s*content-ref\s+url=\"([^\"]+)\"\s*%\}([\s\S]*?)\{%\s*endcontent-ref\s*%\}/g,
+    (_, url, body) => {
+      const link = body.match(/\[([^\]]+)\]\(([^)]+)\)/);
+      const label = humanizeGitBookLink((link?.[1] || url).trim());
+      const href = normalizeGitBookHref((link?.[2] || url).trim());
+      return '<a className=\"gitbookContentRef\" href=\"' + href + '\"><span>' + label + '</span></a>';
+    },
+  );
+}
+
+function addMdxImport(markdown, importLine) {
+  if (markdown.includes(importLine)) return markdown;
+  const frontMatter = markdown.match(/^---\r?\n[\s\S]*?\r?\n---\r?\n/);
+  if (frontMatter) {
+    return frontMatter[0] + importLine + '\n' + markdown.slice(frontMatter[0].length);
+  }
+  return importLine + '\n' + markdown;
+}
+
+function convertGitBookTabs(markdown) {
+  let convertedTabs = false;
+  const converted = markdown.replace(/\{%\s*tabs\s*%\}([\s\S]*?)\{%\s*endtabs\s*%\}/g, (_, block) => {
+    const tabs = [];
+    block.replace(/\{%\s*tab\s*([^%]*?)%\}([\s\S]*?)\{%\s*endtab\s*%\}/g, (match, attributes, content) => {
+      const label = getGitBookAttribute(attributes, 'title') || 'Tab ' + (tabs.length + 1);
+      tabs.push({label, content: convertContentRefs(content).trim()});
+      return match;
+    });
+
+    if (!tabs.length) return '';
+    convertedTabs = true;
+
+    const tabItems = tabs
+      .map((tab, index) => {
+        const value = slugifyTabValue(tab.label, index);
+        return '<TabItem value=\"' + value + '\" label=\"' + tab.label + '\">\n\n' + tab.content + '\n\n</TabItem>';
+      })
+      .join('\n\n');
+
+    return '<Tabs className=\"gitbookTabs\">\n\n' + tabItems + '\n\n</Tabs>';
+  });
+
+  if (!convertedTabs) return converted;
+  return addMdxImport(
+    addMdxImport(converted, "import Tabs from '@theme/Tabs';"),
+    "import TabItem from '@theme/TabItem';",
+  );
+}
+
 function collapseDuplicateHintLabels(markdown) {
   return markdown.replace(
     /(> \*\*(Note|Warning):\*\*\s*)(?:\*\*)?(?:Note|Warning|Hint|Info):(?:\*\*)?\s*/gi,
@@ -49,15 +126,9 @@ function collapseDuplicateHintLabels(markdown) {
   );
 }
 export function sanitizeGitBookMarkdown(markdown) {
-  return collapseDuplicateHintLabels(markdown
+  return collapseDuplicateHintLabels(convertGitBookTabs(markdown)
     .replace(/<figure>\s*<img([^>]*?)>\s*<figcaption>\s*<\/figcaption>\s*<\/figure>/g, '<img$1 />')
     .replace(/<img([^>]*?)(?<!\/)>/g, '<img$1 />')
-    .replace(/\{%\s*tabs\s*%\}\s*/g, '')
-    .replace(/\s*\{%\s*endtabs\s*%\}/g, '')
-    .replace(/\{%\s*tab(?:\s+[^%]+)?%\}\s*/g, '')
-    .replace(/\s*\{%\s*endtab\s*%\}/g, '')
-    .replace(/\{%\s*content-ref\s+url="([^"]+)"\s*%\}\s*/g, '')
-    .replace(/\s*\{%\s*endcontent-ref\s*%\}/g, '')
     .replace(/\{%\s*hint(?:\s+style="([^"]+)")?\s*%\}\s*/g, (_, style) => {
       const label = style === 'danger' || style === 'warning' ? 'Warning' : 'Note';
       return `> **${label}:** `;
