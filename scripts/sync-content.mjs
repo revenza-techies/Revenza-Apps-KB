@@ -47,6 +47,11 @@ function writeText(relativeDestination, content) {
   fs.writeFileSync(to, content);
 }
 
+function readOptionalMarkdown(...segments) {
+  const filePath = path.join(...segments);
+  return fs.existsSync(filePath) ? fs.readFileSync(filePath, 'utf8') : undefined;
+}
+
 function sanitizeMarkdownFile(filePath, sanitizer = sanitizeGitBookMarkdown) {
   if (!/\.mdx?$/.test(filePath)) return;
   fs.writeFileSync(filePath, sanitizer(fs.readFileSync(filePath, 'utf8')));
@@ -68,12 +73,14 @@ function sanitizeMarkdownTree(directory) {
   }
 }
 
-function copyMarkdownFile(from, relativeDestination) {
+function copyMarkdownFile(from, relativeDestination, options = {}) {
   if (!fs.existsSync(from)) return false;
   const to = path.join(root, relativeDestination);
   fs.mkdirSync(path.dirname(to), {recursive: true});
   fs.copyFileSync(from, to);
-  const sanitizer = relativeDestination === 'docs/intro.md' ? sanitizeUpsellOverviewMarkdown : sanitizeGitBookMarkdown;
+  const sanitizer = relativeDestination === 'docs/intro.md'
+    ? (markdown) => sanitizeUpsellOverviewMarkdown(markdown, options)
+    : sanitizeGitBookMarkdown;
   sanitizeMarkdownFile(to, sanitizer);
   return true;
 }
@@ -193,7 +200,10 @@ function syncUpsellContent(source) {
     if (!entry.isFile() || !/\.mdx?$/i.test(entry.name)) continue;
     const destination = destinationForTopLevelMarkdown(entry.name);
     if (!destination) continue;
-    if (copyMarkdownFile(from, destination)) copied += 1;
+    const options = destination === 'docs/intro.md'
+      ? {popularGuidesSource: readOptionalMarkdown(appRoot, 'README.md') || readOptionalMarkdown(appRoot, 'readme.md')}
+      : {};
+    if (copyMarkdownFile(from, destination, options)) copied += 1;
   }
 
   const appImages = path.join(source, 'images');

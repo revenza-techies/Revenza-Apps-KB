@@ -150,6 +150,91 @@ const upsellOverviewLinkMap = new Map([
   ['/revenza-upsell/troubleshooting/common-issues', '/contact'],
 ]);
 
+
+const overviewGuideIcons = [
+  'ShoppingCartSimple',
+  'SlidersHorizontal',
+  'Storefront',
+  'CheckCircle',
+];
+
+function escapeMdxText(value) {
+  return value
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/{/g, '&#123;')
+    .replace(/}/g, '&#125;');
+}
+
+function normalizeOverviewGuideHref(href) {
+  const trimmed = href.trim();
+  if (/^(https?:|mailto:|\/|#)/i.test(trimmed)) return trimmed;
+
+  const normalized = trimmed
+    .replace(/\\/g, '/')
+    .replace(/^\.?\//, '')
+    .replace(/[?#].*$/, '')
+    .replace(/\.mdx?$/i, '')
+    .replace(/\/readme$/i, '');
+
+  if (!normalized || normalized.toLowerCase() === 'readme') {
+    return '/revenza-upsell/overview';
+  }
+
+  if (normalized.toLowerCase() === 'overview') {
+    return '/revenza-upsell/overview';
+  }
+
+  return `/revenza-upsell/${normalized}`;
+}
+
+function extractPopularGuides(markdown) {
+  const section = markdown.match(/(?:^|\n)###\s+Popular guides\s*\n([\s\S]*?)(?=\n###\s+|\n##\s+|$)/i);
+  if (!section) return [];
+
+  return section[1]
+    .split(/\r?\n/)
+    .map((line) => line.trim())
+    .filter(Boolean)
+    .map((line) => {
+      const match = line.match(/^[*-]\s+\[(?:\*\*)?([^\]\*]+)(?:\*\*)?\]\(([^)]+)\)\s*(?:[—-]\s*)?(.*)$/);
+      if (!match) return undefined;
+      const [, title, href, description] = match;
+      return {
+        title: title.trim(),
+        href: normalizeOverviewGuideHref(href),
+        description: description.trim(),
+      };
+    })
+    .filter(Boolean);
+}
+
+function renderOverviewGuideList(guides) {
+  return guides
+    .map((guide, index) => {
+      const icon = overviewGuideIcons[index % overviewGuideIcons.length];
+      const description = guide.description || 'Open this guide for the next setup step.';
+      return `      <Link to="${guide.href}">
+        <${icon} size={22}/>
+        <span><strong>${escapeMdxText(guide.title)}</strong><small>${escapeMdxText(description)}</small></span>
+        <ArrowRight size={18}/>
+      </Link>`;
+    })
+    .join('\n');
+}
+
+function mergeOverviewPopularGuides(markdown, readmeMarkdown) {
+  if (!readmeMarkdown) return markdown;
+  const guides = extractPopularGuides(readmeMarkdown);
+  if (!guides.length) return markdown;
+
+  return markdown.replace(
+    /(<div className="guideList">\s*\n)([\s\S]*?)(\n\s*<\/div>)/,
+    (_, open, _items, close) => `${open}${renderOverviewGuideList(guides)}${close}`,
+  );
+}
+
 function stripMdxStyleBlocks(markdown) {
   return markdown
     .replace(/\n?<style>\{`[\s\S]*?`\}<\/style>\s*/g, '\n')
@@ -164,8 +249,9 @@ function normalizeUpsellOverviewLinks(markdown) {
   return normalized;
 }
 
-export function sanitizeUpsellOverviewMarkdown(markdown) {
-  return normalizeUpsellOverviewLinks(stripMdxStyleBlocks(sanitizeGitBookMarkdown(markdown)));
+export function sanitizeUpsellOverviewMarkdown(markdown, options = {}) {
+  const merged = mergeOverviewPopularGuides(markdown, options.popularGuidesSource);
+  return normalizeUpsellOverviewLinks(stripMdxStyleBlocks(sanitizeGitBookMarkdown(merged)));
 }
 export function copyDirectoryContents(source, destination, options = {}) {
   if (!fs.existsSync(source)) return false;

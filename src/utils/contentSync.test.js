@@ -120,3 +120,35 @@ Customize cart recommendations.
   assert.doesNotMatch(sanitized, /{%/);
 });
 
+
+
+test('updates overview popular guides from GitBook README without changing the design shell', async () => {
+  const {sanitizeUpsellOverviewMarkdown} = await import('../../scripts/content-sync-utils.mjs');
+  const overview = `<div className="docsHomeGrid">
+  <section aria-labelledby="popular-guides">
+    <h2 id="popular-guides">Popular guides</h2>
+    <div className="guideList">
+      <Link to="/revenza-upsell/custom-upsell-sets">
+        <ShoppingCartSimple size={22}/>
+        <span><strong>Create your first upsell</strong><small>Build an offer in a few clear steps.</small></span>
+        <ArrowRight size={18}/>
+      </Link>
+    </div>
+  </section>
+</div>`;
+  const readme = `### Popular guides
+
+* [**Pre-build options**](pre-build-upsell-sets.md) — Display pre-build upsell options on products.
+* [**Create Upsell Set**](custom-upsell-sets.md) — Build an offer in a few clear steps.
+* [**Customize the experience**](settings/global-settings.md) — Match colors, text, and placement to your store.
+`;
+
+  const sanitized = sanitizeUpsellOverviewMarkdown(overview, {popularGuidesSource: readme});
+
+  assert.match(sanitized, /className="docsHomeGrid"/);
+  assert.match(sanitized, /className="guideList"/);
+  assert.match(sanitized, /<strong>Pre-build options<\/strong>/);
+  assert.match(sanitized, /<strong>Create Upsell Set<\/strong>/);
+  assert.match(sanitized, /\/revenza-upsell\/settings\/global-settings/);
+  assert.doesNotMatch(sanitized, /Create your first upsell/);
+});
