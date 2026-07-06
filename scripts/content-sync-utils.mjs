@@ -75,7 +75,7 @@ function convertContentRefs(markdown) {
       const link = body.match(/\[([^\]]+)\]\(([^)]+)\)/);
       const label = humanizeGitBookLink((link?.[1] || url).trim());
       const href = normalizeGitBookHref((link?.[2] || url).trim());
-      return '<a className=\"gitbookContentRef\" href=\"' + href + '\"><span>' + label + '</span></a>';
+      return '<a className=\"gitbookContentRef\" href=\"' + href + '\"><span className=\"gitbookContentRefIcon\" aria-hidden=\"true\"></span><span>' + label + '</span></a>';
     },
   );
 }
@@ -115,7 +115,7 @@ function convertGitBookTabs(markdown) {
       })
       .join('\n\n');
 
-    return '<Tabs className=\"gitbookTabs\">\n\n' + tabItems + '\n\n</Tabs>';
+    return '<div className=\"gitbookTabsShell\">\n\n<Tabs className=\"gitbookTabs\">\n\n' + tabItems + '\n\n</Tabs>\n\n</div>';
   });
 
   if (!convertedTabs) return converted;
