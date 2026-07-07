@@ -69,6 +69,6 @@ Once the required set is selected, click **Save**.
 
 </div>
 
-#### [Assign **Prebuilt Sets** to Specific Products or Collections](mapping.md)&#x20;
+#### [Assign **Prebuilt Sets** to Specific Products or Collections](mapping)&#x20;
 
 If you need any assistance, contact **support@revenza.in**.

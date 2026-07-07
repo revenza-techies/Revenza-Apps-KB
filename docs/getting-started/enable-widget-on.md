@@ -10,12 +10,12 @@ You can Enable or Disable the visibility of Revenza Upsell widget on the followi
 
 ### **Product Page**
 
-By default this setting is enabled. To access more setting for Product page, go to [**Product Page settings**](../settings/product-page.md).
+By default this setting is enabled. To access more setting for Product page, go to [**Product Page settings**](../settings/product-page).
 
 ### **Cart Page**
 
-By default this setting is enabled. To access more setting for Cart page, go to [**Cart Page settings**](../settings/cart-page.md).
+By default this setting is enabled. To access more setting for Cart page, go to [**Cart Page settings**](../settings/cart-page).
 
 ### Global Setting
 
-By default this setting is enabled. To access more Global App setting, go to [**Global settings**](../settings/global-settings.md).
+By default this setting is enabled. To access more Global App setting, go to [**Global settings**](../settings/global-settings).

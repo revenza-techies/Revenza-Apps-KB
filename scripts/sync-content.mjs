@@ -108,10 +108,17 @@ function copyGitBookDirectory(from, relativeDestination) {
   return true;
 }
 
-function destinationForTopLevelMarkdown(fileName) {
+function hasDirectoryLanding(appRoot, fileName) {
+  const baseName = fileName.replace(/\.mdx?$/i, '');
+  return fs.existsSync(path.join(appRoot, baseName, 'README.md'))
+    || fs.existsSync(path.join(appRoot, baseName, 'readme.md'));
+}
+
+function destinationForTopLevelMarkdown(fileName, appRoot = '') {
   const lowerName = fileName.toLowerCase();
   if (lowerName === 'readme.md') return undefined;
   if (lowerName === 'overview.md' || lowerName === 'intro.md') return 'docs/intro.md';
+  if (appRoot && hasDirectoryLanding(appRoot, fileName)) return undefined;
   if (lowerName === 'getting started.md') return 'docs/getting-started.md';
   return `docs/${fileName.replace(/\.mdx?$/i, '.md')}`;
 }
@@ -198,12 +205,16 @@ function syncUpsellContent(source) {
     }
 
     if (!entry.isFile() || !/\.mdx?$/i.test(entry.name)) continue;
-    const destination = destinationForTopLevelMarkdown(entry.name);
+    const destination = destinationForTopLevelMarkdown(entry.name, appRoot);
     if (!destination) continue;
     const options = destination === 'docs/intro.md'
       ? {popularGuidesSource: readOptionalMarkdown(appRoot, 'README.md') || readOptionalMarkdown(appRoot, 'readme.md')}
       : {};
     if (copyMarkdownFile(from, destination, options)) copied += 1;
+  }
+
+  if (copyDirectory(path.join(appRoot, '.gitbook', 'assets'), path.join(root, 'static/img/content/revenza-upsell/assets'))) {
+    copied += 1;
   }
 
   const appImages = path.join(source, 'images');

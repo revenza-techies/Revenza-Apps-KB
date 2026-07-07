@@ -100,4 +100,4 @@ Click **Create** to create the custom set.
 
 Your upsell set is now created.&#x20;
 
-Next step is to [**Map the sets**](mapping.md) with Products, Collections or tags based on your requirements.
+Next step is to [**Map the sets**](mapping) with Products, Collections or tags based on your requirements.

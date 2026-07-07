@@ -1,49 +1,71 @@
 ---
-id: getting-started
-slug: /getting-started
-title: Getting Started
-sidebar_label: Getting Started
+description: >-
+  Before using Revenza Upsell, you need to enable the app in your live Shopify
+  theme. This is a one-time setup that takes only a few moments.
 ---
+
 # Getting Started
 
-Before using Revenza Upsell, you need to enable the app in your live Shopify theme. This is a one-time setup that takes only a few moments.
+The setup takes less than a minute.
 
-## Step 1: Open the Theme Editor
+<div className="gitbookStepper">
 
-Open the **Revenza Upsell** app and, under **App Status**, click **Open Theme Editor** next to **App Embed**.
+<div className="gitbookStep">
 
-> **Note:** The button opens your currently published Shopify theme in the Theme Editor.
+<div className="gitbookStepMarker" aria-hidden="true">1</div>
 
----
+<div className="gitbookStepContent">
 
-## Step 2: Save the App Embed
+### Activate App Embed
 
-The Theme Editor will open with the **Revenza Upsell** app embed already enabled. Click **Save** in the top-right corner to apply the changes to your live theme.
+Open the **Revenza Upsell** app and, under **App Status**, click **Open Theme Editor** next to **App Embed**<br />
 
-> **Important:** The app embed is not activated until you save the theme.
+</div>
 
----
+</div>
 
-## Step 3: Verify the Integration
+<div className="gitbookStep">
 
-Return to the Revenza Upsell app. The **App Embed** status should now display **Enabled**, confirming that the app has been successfully integrated with your live theme.
+<div className="gitbookStepMarker" aria-hidden="true">2</div>
 
----
+<div className="gitbookStepContent">
 
-## Step 4: Preview the Upsells
+### Save setting
 
-Open any product page on your storefront. The default **Pre-built Upsells** will automatically appear on eligible product pages.
+The **Open Theme Editor** button will open your live Shopify Theme Editor with the **Revenza Upsell** **app embed already enabled**. Simply click **Save** to apply the changes to your live theme.
 
----
+</div>
 
-# Custom Upsell Sets
+</div>
 
-Need more control over your product recommendations?
+<div className="gitbookStep">
 
-Create **Custom Upsell Sets** and map them based on your business requirements. You can assign upsell sets to:
+<div className="gitbookStepMarker" aria-hidden="true">3</div>
 
-- Products
-- Collections
-- Product Tags
+<div className="gitbookStepContent">
 
-For detailed instructions on creating, configuring, and mapping upsell sets, continue to the **Create Sets** section.
+### Verify the Integration
+
+Return to the app. The **App Embed** status should now display **Enabled**, confirming that Revenza Upsell has been successfully integrated with your live theme.
+
+</div>
+
+</div>
+
+<div className="gitbookStep">
+
+<div className="gitbookStepMarker" aria-hidden="true">4</div>
+
+<div className="gitbookStepContent">
+
+### Preview Pre-Built Upsells
+
+Visit any product page on your storefront. The default **Pre-built Upsells** will automatically appear on eligible product pages.
+
+</div>
+
+</div>
+
+</div>
+
+### [Click here to learn more about Custom Upsell Sets creation](custom-upsell-sets)

@@ -48,7 +48,7 @@ Remember to save the theme.
 `);
 
   assert.match(sanitized, /> \*\*Note:\*\* Remember to save the theme\./);
-  assert.match(sanitized, /<img src="\.\.\/\.gitbook\/assets\/App Embed-1\.png" alt="" \/>/);
+  assert.match(sanitized, /<img src="\/img\/content\/revenza-upsell\/assets\/App Embed-1\.png" alt="" \/>/);
   assert.doesNotMatch(sanitized, /{%/);
   assert.doesNotMatch(sanitized, /<\/figure>/);
 });
@@ -190,6 +190,64 @@ test('updates overview popular guides from GitBook README without changing the d
 });
 
 
+test('converts common GitBook blocks into stable Docusaurus markup', async () => {
+  const {sanitizeGitBookMarkdown} = await import('../../scripts/content-sync-utils.mjs');
+  const sanitized = sanitizeGitBookMarkdown(`{% cards %}
+{% card title="Install the app" href="getting-started/install.md" icon="download" %}
+Add Revenza Upsell to Shopify.
+{% endcard %}
+{% endcards %}
+
+{% expandable title="Advanced details" %}
+Extra setup details.
+{% endexpandable %}
+
+{% columns %}
+{% column %}
+Left column.
+{% endcolumn %}
+{% column %}
+Right column.
+{% endcolumn %}
+{% endcolumns %}
+
+{% embed url="https://example.com/video" %}
+{% file src="../.gitbook/assets/setup.pdf" name="Setup PDF" %}
+{% openapi src="openapi.yaml" method="GET" path="/products" %}
+`);
+
+  assert.match(sanitized, /className="gitbookCards"/);
+  assert.match(sanitized, /className="gitbookCard" href="getting-started\/install"/);
+  assert.match(sanitized, /className="gitbookExpandable"/);
+  assert.match(sanitized, /<summary>Advanced details<\/summary>/);
+  assert.match(sanitized, /className="gitbookColumns"/);
+  assert.match(sanitized, /className="gitbookColumn"/);
+  assert.match(sanitized, /className="gitbookEmbed"/);
+  assert.match(sanitized, /className="gitbookFile" href="\/img\/content\/revenza-upsell\/assets\/setup\.pdf"/);
+  assert.match(sanitized, /className="gitbookBlock gitbookBlock--openapi"/);
+  assert.doesNotMatch(sanitized, /{%/);
+});
+
+test('keeps unknown future GitBook blocks visible instead of dropping content', async () => {
+  const {sanitizeGitBookMarkdown} = await import('../../scripts/content-sync-utils.mjs');
+  const sanitized = sanitizeGitBookMarkdown(`{% drawing %}
+Sketch placeholder.
+{% enddrawing %}
+
+{% page-ref page="billing.md" %}`);
+
+  assert.match(sanitized, /className="gitbookBlock gitbookBlock--drawing"/);
+  assert.match(sanitized, /Sketch placeholder/);
+  assert.match(sanitized, /className="gitbookBlock gitbookBlock--pageRef"/);
+  assert.doesNotMatch(sanitized, /{%/);
+});
+
+test('rewrites GitBook asset references to public Docusaurus content URLs', async () => {
+  const {sanitizeGitBookMarkdown} = await import('../../scripts/content-sync-utils.mjs');
+  const sanitized = sanitizeGitBookMarkdown('<img src="../.gitbook/assets/App Embed-1.png" alt="">');
+
+  assert.match(sanitized, /src="\/img\/content\/revenza-upsell\/assets\/App Embed-1\.png"/);
+});
 test('renames the generated overview doc label from Welcome to Overview', async () => {
   const {sanitizeUpsellOverviewMarkdown} = await import('../../scripts/content-sync-utils.mjs');
   const sanitized = sanitizeUpsellOverviewMarkdown(`---

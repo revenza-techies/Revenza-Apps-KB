@@ -1,4 +1,4 @@
-﻿@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap');
 
 :root {
   --ifm-color-primary: #0d5b37;
@@ -646,6 +646,127 @@ code { color: var(--revenza-forest-deep); background: var(--revenza-lemon-soft);
 
 [data-theme='dark'] .docs-wrapper:not(.docs-doc-id-intro) .theme-doc-markdown .gitbookTabs {
   background: #111111;
+}
+.docs-wrapper:not(.docs-doc-id-intro) .theme-doc-markdown .gitbookCards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: .85rem;
+  margin: 1.35rem 0 1.8rem;
+}
+
+.docs-wrapper:not(.docs-doc-id-intro) .theme-doc-markdown .gitbookCard,
+.docs-wrapper:not(.docs-doc-id-intro) .theme-doc-markdown .gitbookFile,
+.docs-wrapper:not(.docs-doc-id-intro) .theme-doc-markdown .gitbookEmbed,
+.docs-wrapper:not(.docs-doc-id-intro) .theme-doc-markdown .gitbookBlock {
+  display: block;
+  padding: 1rem 1.05rem;
+  color: var(--gitbook-text);
+  background: var(--gitbook-card);
+  border: 1px solid var(--gitbook-border);
+  border-radius: 8px;
+  box-shadow: none;
+}
+
+.docs-wrapper:not(.docs-doc-id-intro) .theme-doc-markdown .gitbookCard:hover,
+.docs-wrapper:not(.docs-doc-id-intro) .theme-doc-markdown .gitbookFile:hover,
+.docs-wrapper:not(.docs-doc-id-intro) .theme-doc-markdown .gitbookEmbed:hover {
+  color: var(--gitbook-text);
+  text-decoration: none;
+  border-color: var(--gitbook-border-strong);
+  box-shadow: 0 2px 8px rgba(17, 24, 39, .08);
+}
+
+.docs-wrapper:not(.docs-doc-id-intro) .theme-doc-markdown .gitbookCard > strong,
+.docs-wrapper:not(.docs-doc-id-intro) .theme-doc-markdown .gitbookBlock > strong {
+  display: block;
+  margin-bottom: .45rem;
+  color: var(--gitbook-text);
+}
+
+.docs-wrapper:not(.docs-doc-id-intro) .theme-doc-markdown .gitbookCardIcon,
+.docs-wrapper:not(.docs-doc-id-intro) .theme-doc-markdown .gitbookEmbedIcon,
+.docs-wrapper:not(.docs-doc-id-intro) .theme-doc-markdown .gitbookFileIcon {
+  display: inline-grid;
+  width: 26px;
+  height: 26px;
+  place-items: center;
+  margin-right: .55rem;
+  color: var(--gitbook-muted);
+  background: #f3f3f3;
+  border-radius: 7px;
+  vertical-align: middle;
+}
+
+.docs-wrapper:not(.docs-doc-id-intro) .theme-doc-markdown .gitbookFile,
+.docs-wrapper:not(.docs-doc-id-intro) .theme-doc-markdown .gitbookEmbed {
+  display: inline-flex;
+  align-items: center;
+  gap: .55rem;
+  max-width: 100%;
+  margin: .65rem 0;
+  overflow-wrap: anywhere;
+}
+
+.docs-wrapper:not(.docs-doc-id-intro) .theme-doc-markdown .gitbookFileIcon::before {
+  content: "file";
+  font-size: .68rem;
+  font-weight: 700;
+}
+
+.docs-wrapper:not(.docs-doc-id-intro) .theme-doc-markdown .gitbookEmbedIcon::before {
+  content: "link";
+  font-size: .68rem;
+  font-weight: 700;
+}
+
+.docs-wrapper:not(.docs-doc-id-intro) .theme-doc-markdown .gitbookExpandable {
+  margin: 1.1rem 0;
+  padding: 0;
+  color: var(--gitbook-text);
+  background: var(--gitbook-card);
+  border: 1px solid var(--gitbook-border);
+  border-radius: 8px;
+}
+
+.docs-wrapper:not(.docs-doc-id-intro) .theme-doc-markdown .gitbookExpandable summary {
+  cursor: pointer;
+  padding: .95rem 1rem;
+  color: var(--gitbook-text);
+  font-weight: 650;
+}
+
+.docs-wrapper:not(.docs-doc-id-intro) .theme-doc-markdown .gitbookExpandable > :not(summary) {
+  margin: 0 1rem 1rem;
+}
+
+.docs-wrapper:not(.docs-doc-id-intro) .theme-doc-markdown .gitbookColumns {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+  margin: 1.35rem 0;
+}
+
+.docs-wrapper:not(.docs-doc-id-intro) .theme-doc-markdown .gitbookColumn {
+  min-width: 0;
+  padding: 1rem;
+  background: var(--gitbook-card);
+  border: 1px solid var(--gitbook-border);
+  border-radius: 8px;
+}
+
+.docs-wrapper:not(.docs-doc-id-intro) .theme-doc-markdown .contains-task-list {
+  padding-left: 0;
+  list-style: none;
+}
+
+.docs-wrapper:not(.docs-doc-id-intro) .theme-doc-markdown .task-list-item input {
+  margin-right: .5rem;
+}
+
+[data-theme='dark'] .docs-wrapper:not(.docs-doc-id-intro) .theme-doc-markdown .gitbookCardIcon,
+[data-theme='dark'] .docs-wrapper:not(.docs-doc-id-intro) .theme-doc-markdown .gitbookEmbedIcon,
+[data-theme='dark'] .docs-wrapper:not(.docs-doc-id-intro) .theme-doc-markdown .gitbookFileIcon {
+  background: #242424;
 }
 
 @media (max-width: 996px) {

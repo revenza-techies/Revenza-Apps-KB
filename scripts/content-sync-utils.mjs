@@ -43,8 +43,8 @@ export function copyDirectory(source, destination) {
 }
 
 function getGitBookAttribute(attributes, name) {
-  const match = attributes.match(new RegExp(name + '=\"([^\"]+)\"'));
-  return match ? match[1].trim() : '';
+  const match = attributes.match(new RegExp(name + '=(?:\\"([^\\"]+)\\"|\\\'([^\\\']+)\\\')'));
+  return match ? (match[1] || match[2] || '').trim() : '';
 }
 
 function slugifyTabValue(label, index) {
@@ -62,10 +62,29 @@ function humanizeGitBookLink(label) {
     .replace(/\b\w/g, (letter) => letter.toUpperCase());
 }
 
-function normalizeGitBookHref(href) {
+function normalizeGitBookHref(href = '') {
   return href
     .replace(/\\/g, '/')
     .replace(/\.mdx?(#[^)]+)?$/i, (_, hash = '') => hash);
+}
+
+function normalizeGitBookMarkdownLinks(markdown) {
+  return markdown.replace(/\]\((?!https?:|mailto:|\/|#)([^)\s]+\.mdx?)(#[^)]*)?\)/gi, (_, href, hash = '') => {
+    const normalizedHref = normalizeGitBookHref(path.posix.normalize(href));
+    return `](${normalizedHref}${hash})`;
+  });
+}
+function gitBookClassName(name) {
+  return name
+    .toLowerCase()
+    .replace(/[^a-z0-9]+(.)/g, (_, letter) => letter.toUpperCase())
+    .replace(/[^a-zA-Z0-9]/g, '');
+}
+
+function gitBookLabel(name) {
+  return name
+    .replace(/[-_]+/g, ' ')
+    .replace(/\b\w/g, (letter) => letter.toUpperCase());
 }
 
 function convertContentRefs(markdown) {
@@ -93,6 +112,28 @@ function ensureMdxImportSpacing(markdown) {
   return markdown
     .replace(/(---\r?\n[\s\S]*?\r?\n---\r?\n)((?:import[^\n]+;\r?\n)+)(?=\S)/, '$1$2\n')
     .replace(/^((?:import[^\n]+;\r?\n)+)(?=\S)/, '$1\n');
+}
+
+function convertGitBookCards(markdown) {
+  return markdown.replace(/\{%\s*cards\s*%\}([\s\S]*?)\{%\s*endcards\s*%\}/g, (_, block) => {
+    const cards = [];
+    block.replace(/\{%\s*card\s*([^%]*?)%\}([\s\S]*?)\{%\s*endcard\s*%\}/g, (match, attributes, content) => {
+      const title = getGitBookAttribute(attributes, 'title') || 'Open guide';
+      const href = getGitBookAttribute(attributes, 'href') || getGitBookAttribute(attributes, 'url');
+      const icon = getGitBookAttribute(attributes, 'icon');
+      cards.push({title, href: normalizeGitBookHref(href), icon, content: convertContentRefs(content).trim()});
+      return match;
+    });
+
+    if (!cards.length) return convertUnknownGitBookBlock('cards', block);
+
+    return '<div className="gitbookCards">\n\n' + cards.map((card) => {
+      const tag = card.href ? 'a' : 'div';
+      const href = card.href ? ' href="' + card.href + '"' : '';
+      const icon = card.icon ? '<span className="gitbookCardIcon" aria-hidden="true">' + card.icon + '</span>' : '';
+      return '<' + tag + ' className="gitbookCard"' + href + '>\n\n' + icon + '<strong>' + card.title + '</strong>\n\n' + card.content + '\n\n</' + tag + '>';
+    }).join('\n\n') + '\n\n</div>';
+  });
 }
 
 function convertGitBookTabs(markdown) {
@@ -142,6 +183,71 @@ function convertGitBookSteppers(markdown) {
   });
 }
 
+function convertGitBookExpandable(markdown) {
+  return markdown.replace(/\{%\s*expandable\s*([^%]*?)%\}([\s\S]*?)\{%\s*endexpandable\s*%\}/g, (_, attributes, content) => {
+    const title = getGitBookAttribute(attributes, 'title') || 'More details';
+    return '<details className="gitbookExpandable">\n\n<summary>' + title + '</summary>\n\n' + content.trim() + '\n\n</details>';
+  });
+}
+
+function convertGitBookColumns(markdown) {
+  return markdown.replace(/\{%\s*columns\s*%\}([\s\S]*?)\{%\s*endcolumns\s*%\}/g, (_, block) => {
+    const columns = [];
+    block.replace(/\{%\s*column\s*%\}([\s\S]*?)\{%\s*endcolumn\s*%\}/g, (match, content) => {
+      const trimmed = content.trim();
+      if (trimmed) columns.push(trimmed);
+      return match;
+    });
+
+    if (!columns.length) return convertUnknownGitBookBlock('columns', block);
+
+    return '<div className="gitbookColumns">\n\n' + columns
+      .map((column) => '<div className="gitbookColumn">\n\n' + column + '\n\n</div>')
+      .join('\n\n') + '\n\n</div>';
+  });
+}
+
+function convertGitBookEmbeds(markdown) {
+  return markdown.replace(/\{%\s*embed\s+([^%]*?)%\}/g, (_, attributes) => {
+    const url = getGitBookAttribute(attributes, 'url') || getGitBookAttribute(attributes, 'src') || '#';
+    return '<a className="gitbookEmbed" href="' + url + '"><span className="gitbookEmbedIcon" aria-hidden="true"></span><span>' + url + '</span></a>';
+  });
+}
+
+function convertGitBookFiles(markdown) {
+  return markdown.replace(/\{%\s*file\s+([^%]*?)%\}/g, (_, attributes) => {
+    const src = getGitBookAttribute(attributes, 'src') || getGitBookAttribute(attributes, 'url') || '#';
+    const name = getGitBookAttribute(attributes, 'name') || path.basename(src);
+    return '<a className="gitbookFile" href="' + normalizeGitBookHref(src) + '"><span className="gitbookFileIcon" aria-hidden="true"></span><span>' + name + '</span></a>';
+  });
+}
+
+function convertGitBookOpenApi(markdown) {
+  return markdown.replace(/\{%\s*(?:openapi|swagger)\s+([^%]*?)%\}/g, (_, attributes) => {
+    const src = getGitBookAttribute(attributes, 'src') || getGitBookAttribute(attributes, 'url') || 'OpenAPI definition';
+    const method = getGitBookAttribute(attributes, 'method');
+    const apiPath = getGitBookAttribute(attributes, 'path');
+    const details = [method, apiPath, src].filter(Boolean).join(' ');
+    return '<div className="gitbookBlock gitbookBlock--openapi"><strong>OpenAPI</strong><span>' + details + '</span></div>';
+  });
+}
+
+function convertUnknownGitBookBlock(name, content = '') {
+  const className = 'gitbookBlock gitbookBlock--' + gitBookClassName(name);
+  return '<div className="' + className + '"><strong>' + gitBookLabel(name) + '</strong>\n\n' + content.trim() + '\n\n</div>';
+}
+
+function convertRemainingGitBookBlocks(markdown) {
+  return markdown
+    .replace(/\{%\s*([a-z][a-z0-9-]*)(?:\s+[^%]*?)?%\}([\s\S]*?)\{%\s*end\1\s*%\}/gi, (_, name, content) => {
+      return convertUnknownGitBookBlock(name, content);
+    })
+    .replace(/\{%\s*([a-z][a-z0-9-]*)(?:\s+([^%]*?))?%\}/gi, (_, name, attributes = '') => {
+      const detail = attributes.trim() ? '`' + attributes.trim() + '`' : '';
+      return convertUnknownGitBookBlock(name, detail);
+    });
+}
+
 function collapseDuplicateHintLabels(markdown) {
   return markdown
     .replace(
@@ -154,18 +260,33 @@ function collapseDuplicateHintLabels(markdown) {
     );
 }
 export function sanitizeGitBookMarkdown(markdown) {
-  return collapseDuplicateHintLabels(convertGitBookSteppers(convertGitBookTabs(markdown))
+  const converted = convertGitBookOpenApi(
+    convertGitBookFiles(
+      convertGitBookEmbeds(
+        convertGitBookColumns(
+          convertGitBookExpandable(
+            convertGitBookSteppers(
+              convertGitBookTabs(
+                convertGitBookCards(markdown),
+              ),
+            ),
+          ),
+        ),
+      ),
+    ),
+  )
     .replace(/<figure>\s*<img([^>]*?)>\s*<figcaption>\s*<\/figcaption>\s*<\/figure>/g, '<img$1 />')
     .replace(/<img([^>]*?)(?<!\/)>/g, '<img$1 />')
-    .replace(/\{%\s*hint(?:\s+style="([^"]+)")?\s*%\}\s*/g, (_, style) => {
+    .replace(/<br\s*>/gi, '<br />')
+    .replace(/(["(])(?:\.\.\/)?\.gitbook\/assets\//g, '$1/img/content/revenza-upsell/assets/')
+    .replace(/\{%\s*hint(?:\s+style=["']([^"']+)["'])?\s*%\}\s*/g, (_, style) => {
       const label = style === 'danger' || style === 'warning' ? 'Warning' : 'Note';
       return `> **${label}:** `;
     })
-    .replace(/\s*\{%\s*endhint\s*%\}/g, '')
-    .replace(/\{%\s*[^%]*%\}\s*/g, ''));
+    .replace(/\s*\{%\s*endhint\s*%\}/g, '');
+
+  return collapseDuplicateHintLabels(convertRemainingGitBookBlocks(normalizeGitBookMarkdownLinks(converted)));
 }
-
-
 const upsellOverviewLinkMap = new Map([
   ['/revenza-upsell/customization/design-placement', '/revenza-upsell/settings'],
   ['/revenza-upsell/offers/offer-rules', '/revenza-upsell/mapping'],
