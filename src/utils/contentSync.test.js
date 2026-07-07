@@ -102,6 +102,34 @@ _**Note:** You can add upto 20 products in a set._
   assert.doesNotMatch(sanitized, /Note:\*\* _\*\*Note:/);
 });
 
+
+test('converts GitBook exported button details into stable button cards', async () => {
+  const {sanitizeGitBookMarkdown} = await import('../../scripts/content-sync-utils.mjs');
+  const sanitized = sanitizeGitBookMarkdown(`<details>
+
+<summary><a href="../custom-upsell-sets.md#creating-custom-upsell-sets" class="button primary">Create Custom Upsell Sets</a></summary>
+
+
+
+</details>
+
+<details>
+
+<summary><i class="fa-link">:link:</i> <a href="mapping.md" class="button primary">Map Prebuilt sets</a></summary>
+
+Map your Pre-built sets to Specific **Products**.
+
+</details>`);
+
+  assert.match(sanitized, /className="gitbookButtonCard"/);
+  assert.match(sanitized, /className="gitbookButton gitbookButton--primary" href="custom-upsell-sets#creating-custom-upsell-sets">Create Custom Upsell Sets<\/a>/);
+  assert.match(sanitized, /href="mapping">Map Prebuilt sets<\/a>/);
+  assert.match(sanitized, /className="gitbookButtonCardBody"/);
+  assert.doesNotMatch(sanitized, /class="button primary"/);
+  assert.doesNotMatch(sanitized, /<summary>/);
+  assert.doesNotMatch(sanitized, /fa-link/);
+});
+
 test('converts GitBook steppers into reusable Docusaurus markup', async () => {
   const {sanitizeGitBookMarkdown} = await import('../../scripts/content-sync-utils.mjs');
   const sanitized = sanitizeGitBookMarkdown(`{% stepper %}
@@ -263,4 +291,59 @@ sidebar_label: Welcome
   assert.match(sanitized, /title: Overview/);
   assert.match(sanitized, /sidebar_label: Overview/);
   assert.doesNotMatch(sanitized, /sidebar_label: Welcome/);
+});
+
+test('normalizes nested GitBook links to app-root Docusaurus routes', async () => {
+  const {sanitizeGitBookMarkdown} = await import('../../scripts/content-sync-utils.mjs');
+  const sanitized = sanitizeGitBookMarkdown(
+    '[Product Page](../settings/product-page.md) [Integration](../integration.md#product-page-integration)',
+    {currentDocPath: 'getting-started/enable-widget-on.md'},
+  );
+
+  assert.match(sanitized, /\]\(\/revenza-upsell\/settings\/product-page\)/);
+  assert.match(sanitized, /\]\(\/revenza-upsell\/integration#product-page-integration\)/);
+});
+
+test('keeps GitBook button cards available from folder landing pages', async () => {
+  const {sanitizeGitBookMarkdown} = await import('../../scripts/content-sync-utils.mjs');
+  const sanitized = sanitizeGitBookMarkdown(
+    '<details><summary><a href="../custom-upsell-sets.md#creating-custom-upsell-sets" class="button primary">Create Custom Upsell Sets</a></summary></details>',
+    {currentDocPath: 'getting-started.md'},
+  );
+
+  assert.match(sanitized, /href="custom-upsell-sets#creating-custom-upsell-sets"/);
+  assert.match(sanitized, /Create Custom Upsell Sets/);
+});
+
+
+test('adds Overview front matter when GitBook README has no Docusaurus metadata', async () => {
+  const {sanitizeUpsellOverviewMarkdown} = await import('../../scripts/content-sync-utils.mjs');
+  const sanitized = sanitizeUpsellOverviewMarkdown('# Overview\n\nWelcome from GitBook.');
+
+  assert.match(sanitized, /id: intro/);
+  assert.match(sanitized, /slug: \/overview/);
+  assert.match(sanitized, /title: Overview/);
+  assert.match(sanitized, /sidebar_label: Overview/);
+  assert.match(sanitized, /# Overview/);
+});
+
+
+test('normalizes hashes in nested GitBook links without duplicating anchors', async () => {
+  const {sanitizeGitBookMarkdown} = await import('../../scripts/content-sync-utils.mjs');
+  const sanitized = sanitizeGitBookMarkdown(
+    '[Integration](../integration.md#product-page-integration)',
+    {currentDocPath: 'getting-started/upsell-product-preview.md'},
+  );
+
+  assert.match(sanitized, /\]\(\/revenza-upsell\/integration#product-page-integration\)/);
+  assert.doesNotMatch(sanitized, /integration#product-page-integration#product-page-integration/);
+});
+
+
+test('neutralizes GitBook unresolved placeholder links', async () => {
+  const {sanitizeGitBookMarkdown} = await import('../../scripts/content-sync-utils.mjs');
+  const sanitized = sanitizeGitBookMarkdown('[Create your first upsell](/broken/pages/abc123)');
+
+  assert.match(sanitized, /\[Create your first upsell\]\(#\)/);
+  assert.doesNotMatch(sanitized, /\/broken\/pages/);
 });

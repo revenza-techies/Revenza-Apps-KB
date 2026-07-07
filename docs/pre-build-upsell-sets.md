@@ -69,6 +69,18 @@ Once the required set is selected, click **Save**.
 
 </div>
 
-#### [Assign **Prebuilt Sets** to Specific Products or Collections](mapping)&#x20;
+***
+
+<div className="gitbookButtonCard">
+
+<span className="gitbookButtonCardIcon" aria-hidden="true"></span><a className="gitbookButton gitbookButton--primary" href="mapping">Map Prebuilt sets</a>
+
+<div className="gitbookButtonCardBody">
+
+Map your Pre-built sets to Specific **Products**, **Collections** or based on specific **Tags**.
+
+</div>
+
+</div>
 
 If you need any assistance, contact **support@revenza.in**.

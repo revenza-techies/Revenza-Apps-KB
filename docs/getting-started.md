@@ -68,4 +68,10 @@ Visit any product page on your storefront. The default **Pre-built Upsells** wil
 
 </div>
 
-### [Click here to learn more about Custom Upsell Sets creation](custom-upsell-sets)
+***
+
+<div className="gitbookButtonCard">
+
+<span className="gitbookButtonCardIcon" aria-hidden="true"></span><a className="gitbookButton gitbookButton--primary" href="custom-upsell-sets#creating-custom-upsell-sets">Create Custom Upsell Sets</a>
+
+</div>

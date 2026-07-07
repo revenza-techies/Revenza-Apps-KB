@@ -63,17 +63,116 @@ function humanizeGitBookLink(label) {
 }
 
 function normalizeGitBookHref(href = '') {
-  return href
-    .replace(/\\/g, '/')
-    .replace(/\.mdx?(#[^)]+)?$/i, (_, hash = '') => hash);
+  const trimmed = String(href || '').trim();
+  if (!trimmed || /^(https?:|mailto:|tel:|\/|#)/i.test(trimmed)) return trimmed;
+
+  const hashIndex = trimmed.indexOf('#');
+  const queryIndex = trimmed.indexOf('?');
+  const suffixIndex = [hashIndex, queryIndex].filter((index) => index >= 0).sort((a, b) => a - b)[0];
+  const pathname = suffixIndex >= 0 ? trimmed.slice(0, suffixIndex) : trimmed;
+  const suffix = suffixIndex >= 0 ? trimmed.slice(suffixIndex) : '';
+  let normalized = path.posix.normalize(pathname.replace(/\\/g, '/'));
+
+  while (normalized.startsWith('../')) normalized = normalized.slice(3);
+  normalized = normalized
+    .replace(/^\.\//, '')
+    .replace(/\.mdx?$/i, '')
+    .replace(/\/(?:README|readme)$/i, '')
+    .replace(/^(?:README|readme)$/i, '');
+
+  return normalized + suffix;
 }
 
-function normalizeGitBookMarkdownLinks(markdown) {
-  return markdown.replace(/\]\((?!https?:|mailto:|\/|#)([^)\s]+\.mdx?)(#[^)]*)?\)/gi, (_, href, hash = '') => {
-    const normalizedHref = normalizeGitBookHref(path.posix.normalize(href));
-    return `](${normalizedHref}${hash})`;
+const upsellRootDocSegments = new Set([
+  'overview',
+  'getting-started',
+  'pre-build-upsell-sets',
+  'custom-upsell-sets',
+  'mapping',
+  'settings',
+  'integration',
+  'billing',
+]);
+
+function isRelativeGitBookHref(href = '') {
+  return href && !/^(https?:|mailto:|tel:|\/|#)/i.test(href);
+}
+
+function getCurrentDocFolder(currentDocPath = '') {
+  const normalized = currentDocPath.replace(/\\/g, '/').replace(/^\.\//, '');
+  return normalized.includes('/') ? normalized.split('/')[0] : '';
+}
+
+function shouldUseAbsoluteUpsellRoute(normalizedHref, currentDocPath = '') {
+  const currentFolder = getCurrentDocFolder(currentDocPath);
+  if (!currentFolder) return false;
+  const firstSegment = normalizedHref.split(/[?#]/)[0].split('/')[0];
+  return upsellRootDocSegments.has(firstSegment) && firstSegment !== currentFolder;
+}
+
+function normalizeGitBookRouteHref(href, options = {}) {
+  const normalizedHref = normalizeGitBookHref(path.posix.normalize(href));
+  if (shouldUseAbsoluteUpsellRoute(normalizedHref, options.currentDocPath)) {
+    return `/revenza-upsell/${normalizedHref}`;
+  }
+  return normalizedHref;
+}
+
+function neutralizeBrokenGitBookLinks(markdown) {
+  return markdown
+    .replace(/\]\(\/broken\/pages\/[^)]+\)/g, '](#)')
+    .replace(/href=(["'])\/broken\/pages\/[^"']+\1/g, 'href="#"');
+}
+
+function normalizeGitBookMarkdownLinks(markdown, options = {}) {
+  return markdown.replace(/\]\((?!https?:|mailto:|tel:|\/|#)([^)\s]+)\)/gi, (match, href) => {
+    if (!/\.mdx?(?:$|[?#])/i.test(href) && !href.includes('../')) return match;
+    return `](${normalizeGitBookRouteHref(href, options)})`;
   });
 }
+function escapeHtmlAttribute(value = '') {
+  return String(value)
+    .replace(/&/g, '&amp;')
+    .replace(/"/g, '&quot;');
+}
+
+function stripInlineHtml(value = '') {
+  return String(value)
+    .replace(/<[^>]+>/g, '')
+    .replace(/:[a-z0-9_-]+:/gi, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+function renderGitBookButtonLink(attributes, body, options = {}) {
+  const rawHref = getGitBookAttribute(attributes, 'href');
+  const href = isRelativeGitBookHref(rawHref)
+    ? normalizeGitBookRouteHref(rawHref, options)
+    : rawHref;
+  const classValue = getGitBookAttribute(attributes, 'class');
+  const label = stripInlineHtml(body) || 'Open link';
+  const modifier = /\bprimary\b/i.test(classValue) ? ' gitbookButton--primary' : '';
+  const hrefAttribute = href ? ' href="' + escapeHtmlAttribute(href) + '"' : '';
+  return '<a className="gitbookButton' + modifier + '"' + hrefAttribute + '>' + label + '</a>';
+}
+
+function convertGitBookButtonLinks(markdown, options = {}) {
+  return markdown.replace(/<a\s+([^>]*\bclass=(?:"[^"]*\bbutton\b[^"]*"|'[^']*\bbutton\b[^']*')[^>]*)>([\s\S]*?)<\/a>/gi, (_, attributes, body) => {
+    return renderGitBookButtonLink(attributes, body, options);
+  });
+}
+
+function convertGitBookButtonDetails(markdown, options = {}) {
+  return markdown.replace(/<details>\s*<summary>([\s\S]*?)<\/summary>\s*([\s\S]*?)<\/details>/gi, (match, summary, body) => {
+    const button = summary.match(/<a\s+([^>]*\bclass=(?:"[^"]*\bbutton\b[^"]*"|'[^']*\bbutton\b[^']*')[^>]*)>([\s\S]*?)<\/a>/i);
+    if (!button) return match;
+    const convertedSummary = renderGitBookButtonLink(button[1], button[2], options);
+    const cleanedBody = body.trim();
+    const bodyMarkup = cleanedBody ? '\n\n<div className="gitbookButtonCardBody">\n\n' + cleanedBody + '\n\n</div>' : '';
+    return '<div className="gitbookButtonCard">\n\n<span className="gitbookButtonCardIcon" aria-hidden="true"></span>' + convertedSummary + bodyMarkup + '\n\n</div>';
+  });
+}
+
 function gitBookClassName(name) {
   return name
     .toLowerCase()
@@ -259,7 +358,7 @@ function collapseDuplicateHintLabels(markdown) {
       '$1',
     );
 }
-export function sanitizeGitBookMarkdown(markdown) {
+export function sanitizeGitBookMarkdown(markdown, options = {}) {
   const converted = convertGitBookOpenApi(
     convertGitBookFiles(
       convertGitBookEmbeds(
@@ -267,7 +366,7 @@ export function sanitizeGitBookMarkdown(markdown) {
           convertGitBookExpandable(
             convertGitBookSteppers(
               convertGitBookTabs(
-                convertGitBookCards(markdown),
+                convertGitBookCards(convertGitBookButtonDetails(markdown, options)),
               ),
             ),
           ),
@@ -285,7 +384,7 @@ export function sanitizeGitBookMarkdown(markdown) {
     })
     .replace(/\s*\{%\s*endhint\s*%\}/g, '');
 
-  return collapseDuplicateHintLabels(convertRemainingGitBookBlocks(normalizeGitBookMarkdownLinks(converted)));
+  return collapseDuplicateHintLabels(neutralizeBrokenGitBookLinks(convertRemainingGitBookBlocks(normalizeGitBookMarkdownLinks(convertGitBookButtonLinks(converted, options), options))));
 }
 const upsellOverviewLinkMap = new Map([
   ['/revenza-upsell/customization/design-placement', '/revenza-upsell/settings'],
@@ -379,10 +478,30 @@ function mergeOverviewPopularGuides(markdown, readmeMarkdown) {
 }
 
 function normalizeOverviewFrontMatter(markdown) {
-  if (!markdown.startsWith('---')) return markdown;
-  return markdown
+  if (!markdown.startsWith('---')) {
+    return [
+      '---',
+      'id: intro',
+      'slug: /overview',
+      'title: Overview',
+      'sidebar_label: Overview',
+      '---',
+      '',
+      markdown.trimStart(),
+    ].join('\n');
+  }
+
+  let normalized = markdown
     .replace(/^title:\s*.*$/m, 'title: Overview')
     .replace(/^sidebar_label:\s*.*$/m, 'sidebar_label: Overview');
+
+  if (!/^slug:\s*/m.test(normalized)) {
+    normalized = normalized.replace(/^(---\r?\n)/, '$1slug: /overview\n');
+  } else {
+    normalized = normalized.replace(/^slug:\s*.*$/m, 'slug: /overview');
+  }
+
+  return normalized;
 }
 
 function stripMdxStyleBlocks(markdown) {
@@ -402,7 +521,7 @@ function normalizeUpsellOverviewLinks(markdown) {
 export function sanitizeUpsellOverviewMarkdown(markdown, options = {}) {
   const merged = mergeOverviewPopularGuides(markdown, options.popularGuidesSource);
   const normalized = normalizeOverviewFrontMatter(merged);
-  return normalizeUpsellOverviewLinks(stripMdxStyleBlocks(sanitizeGitBookMarkdown(normalized)));
+  return normalizeUpsellOverviewLinks(stripMdxStyleBlocks(sanitizeGitBookMarkdown(normalized, options)));
 }
 export function copyDirectoryContents(source, destination, options = {}) {
   if (!fs.existsSync(source)) return false;

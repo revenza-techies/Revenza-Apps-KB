@@ -6,7 +6,7 @@ description: >-
 
 # Upsell Sets
 
-## **Creating Custom Upsell Sets**&#x20;
+## **Custom Upsell Set**
 
 To display your own product recommendations, create **Custom Upsell Sets** and map them according to your business requirements.
 
@@ -17,8 +17,6 @@ _**You can assign upsell sets to:**_
 * Product Tags
 
 For complete instructions on creating and mapping custom upsell sets, follow the steps below:
-
-### **Create A Custom Upsell Set**
 
 <div className="gitbookStepper">
 
