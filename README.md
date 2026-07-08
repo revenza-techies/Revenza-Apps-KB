@@ -115,4 +115,4 @@ Push to `main` or run the workflow manually. The workflow checks out the website
 The original supplied Revenza and Revenza Upsell logos are preserved under `static/img/brand` and `static/img/apps`. Optimized 3D derivatives are stored as WebP files and animated with reduced-motion-safe CSS transforms.
 ## GitBook sidebar structure
 
-The Revenza Upsell GitBook repo controls the Docusaurus sidebar with `SUMMARY.md`. The sync script converts it into `sidebars.js` during build, so GitBook controls page order while Docusaurus keeps the visual design. `sidebar.json` remains supported only as a legacy fallback.
+The Revenza Upsell GitBook repo controls the docs navigation with `SUMMARY.md`. The sync script now writes neutral navigation data to `src/data/upsellSidebar.json`, ready for the Astro migration. `sidebar.json` remains supported only as a legacy fallback.

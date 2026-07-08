@@ -1,0 +1,68 @@
+---
+import '../styles/global.css';
+
+const {
+  title = 'Revenza Docs',
+  description = 'Revenza Shopify app documentation and help center.',
+  path = '/',
+} = Astro.props;
+
+const navItems = [
+  {href: '/', label: 'All apps'},
+  {href: '/contact', label: 'Contact'},
+  {href: '/privacy-policy', label: 'Privacy Policy'},
+];
+
+const pageTitle = title === 'Revenza Docs' ? title : `${title} | Revenza Docs`;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/svg+xml" href="/img/favicon.svg" />
+    <slot name="head" />
+  </head>
+  <body>
+    <div class="site-shell">
+      <header class="site-header">
+        <div class="site-header__inner">
+          <a class="site-brand" href="/">
+            <img src="/img/logo.svg" alt="Revenza Docs" />
+            <span>Revenza Docs</span>
+          </a>
+
+          <nav class="site-nav" aria-label="Primary">
+            {navItems.map((item) => (
+              <a href={item.href} aria-current={path === item.href ? 'page' : undefined}>{item.label}</a>
+            ))}
+          </nav>
+
+          <div class="site-search" aria-hidden="true">
+            <span>Search</span>
+            <kbd>Ctrl</kbd>
+            <kbd>K</kbd>
+          </div>
+        </div>
+      </header>
+
+      <main class="site-main">
+        <slot />
+      </main>
+
+      <footer class="site-footer">
+        <div class="site-footer__inner">
+          <span>&copy; 2026 Revenza Docs</span>
+          <div class="site-footer__links">
+            <a href="/">All apps</a>
+            <a href="/contact">Contact</a>
+            <a href="/privacy-policy">Privacy Policy</a>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

@@ -235,9 +235,30 @@ function convertGitBookCards(markdown) {
   });
 }
 
+function convertLegacyDocusaurusTabs(markdown) {
+  return markdown.replace(/(?:<div className="gitbookTabsShell">\s*)?<Tabs[^>]*className="gitbookTabs"[^>]*>([\s\S]*?)<\/Tabs>(?:\s*<\/div>)?/g, (_, block) => {
+    const tabs = [];
+    block.replace(/<TabItem[^>]*label="([^"]+)"[^>]*>([\s\S]*?)<\/TabItem>/g, (match, label, tabContent) => {
+      tabs.push({label, content: convertContentRefs(tabContent).trim()});
+      return match;
+    });
+
+    if (!tabs.length) return '';
+
+    const tabList = tabs
+      .map((tab, index) => '<span className="gitbookTab' + (index === 0 ? ' is-active' : '') + '" role="tab">' + escapeHtmlAttribute(tab.label) + '</span>')
+      .join('\n');
+
+    const panels = tabs
+      .map((tab) => '<section className="gitbookTabPanel">\n\n<strong className="gitbookTabPanelTitle">' + escapeHtmlAttribute(tab.label) + '</strong>\n\n' + tab.content + '\n\n</section>')
+      .join('\n\n');
+
+    return '<div className="gitbookTabsShell">\n\n<div className="gitbookTabs" role="tablist">\n' + tabList + '\n</div>\n\n<div className="gitbookTabPanels">\n\n' + panels + '\n\n</div>\n\n</div>';
+  });
+}
+
 function convertGitBookTabs(markdown) {
-  let convertedTabs = false;
-  const converted = markdown.replace(/\{%\s*tabs\s*%\}([\s\S]*?)\{%\s*endtabs\s*%\}/g, (_, block) => {
+  return markdown.replace(/\{%\s*tabs\s*%\}([\s\S]*?)\{%\s*endtabs\s*%\}/g, (_, block) => {
     const tabs = [];
     block.replace(/\{%\s*tab\s*([^%]*?)%\}([\s\S]*?)\{%\s*endtab\s*%\}/g, (match, attributes, content) => {
       const label = getGitBookAttribute(attributes, 'title') || 'Tab ' + (tabs.length + 1);
@@ -246,23 +267,17 @@ function convertGitBookTabs(markdown) {
     });
 
     if (!tabs.length) return '';
-    convertedTabs = true;
 
-    const tabItems = tabs
-      .map((tab, index) => {
-        const value = slugifyTabValue(tab.label, index);
-        return '<TabItem value=\"' + value + '\" label=\"' + tab.label + '\">\n\n' + tab.content + '\n\n</TabItem>';
-      })
+    const tabList = tabs
+      .map((tab, index) => '<span className="gitbookTab' + (index === 0 ? ' is-active' : '') + '" role="tab">' + escapeHtmlAttribute(tab.label) + '</span>')
+      .join('\n');
+
+    const panels = tabs
+      .map((tab) => '<section className="gitbookTabPanel">\n\n<strong className="gitbookTabPanelTitle">' + escapeHtmlAttribute(tab.label) + '</strong>\n\n' + tab.content + '\n\n</section>')
       .join('\n\n');
 
-    return '<div className=\"gitbookTabsShell\">\n\n<Tabs className=\"gitbookTabs\">\n\n' + tabItems + '\n\n</Tabs>\n\n</div>';
+    return '<div className="gitbookTabsShell">\n\n<div className="gitbookTabs" role="tablist">\n' + tabList + '\n</div>\n\n<div className="gitbookTabPanels">\n\n' + panels + '\n\n</div>\n\n</div>';
   });
-
-  if (!convertedTabs) return converted;
-  return ensureMdxImportSpacing(addMdxImport(
-    addMdxImport(converted, "import Tabs from '@theme/Tabs';"),
-    "import TabItem from '@theme/TabItem';",
-  ));
 }
 
 function convertGitBookSteppers(markdown) {
@@ -384,7 +399,7 @@ export function sanitizeGitBookMarkdown(markdown, options = {}) {
     })
     .replace(/\s*\{%\s*endhint\s*%\}/g, '');
 
-  return collapseDuplicateHintLabels(neutralizeBrokenGitBookLinks(convertRemainingGitBookBlocks(normalizeGitBookMarkdownLinks(convertGitBookButtonLinks(converted, options), options))));
+  return collapseDuplicateHintLabels(neutralizeBrokenGitBookLinks(convertRemainingGitBookBlocks(convertLegacyDocusaurusTabs(normalizeGitBookMarkdownLinks(convertGitBookButtonLinks(converted, options), options)))));
 }
 const upsellOverviewLinkMap = new Map([
   ['/revenza-upsell/customization/design-placement', '/revenza-upsell/settings'],
@@ -576,8 +591,7 @@ export function createSidebarModule(sidebarItems) {
     throw new Error('sidebar.json must contain an array.');
   }
 
-  const normalized = sidebarItems.map(normalizeSidebarItem);
-  return `/** @type {import('@docusaurus/plugin-content-docs').SidebarsConfig} */\nmodule.exports = {\n  upsellSidebar: ${JSON.stringify(normalized, null, 2)}\n};\n`;
+  return JSON.stringify({upsellSidebar: sidebarItems.map(normalizeSidebarItem)}, null, 2) + '\n';
 }
 
 function gitBookLinkToDocId(link) {

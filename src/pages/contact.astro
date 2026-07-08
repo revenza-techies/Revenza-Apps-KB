@@ -1,0 +1,68 @@
+---
+import {EnvelopeSimple, Headset, Timer} from '@phosphor-icons/react';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ContactForm from '../components/ContactForm/index.jsx';
+import styles from './contact.module.css';
+
+const contactSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ContactPage',
+  name: 'Contact Revenza Support',
+  url: 'https://docs.revenza.in/contact',
+  mainEntity: {
+    '@type': 'Organization',
+    name: 'Revenza',
+    email: 'support@revenza.in',
+    url: 'https://revenza.in',
+  },
+};
+---
+
+<BaseLayout
+  title="Contact Revenza Support"
+  description="Contact the Revenza support team for help with Revenza Shopify apps."
+  path="/contact">
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(contactSchema)} />
+  </Fragment>
+
+  <main class={styles.page}>
+    <section class={styles.intro}>
+      <span>Merchant support</span>
+      <h1>Tell us how we can help</h1>
+      <p>
+        Share your app question and store context. We will use it to give you a
+        more useful reply.
+      </p>
+    </section>
+    <div class={styles.layout}>
+      <ContactForm client:load />
+      <aside class={styles.details}>
+        <div class={styles.detail}>
+          <EnvelopeSimple size={26} weight="duotone" />
+          <div>
+            <h2>Prefer email?</h2>
+            <a href="mailto:support@revenza.in">support@revenza.in</a>
+          </div>
+        </div>
+        <div class={styles.detail}>
+          <Headset size={26} weight="duotone" />
+          <div>
+            <h2>Useful details</h2>
+            <p>
+              Include the app name, store URL, affected product, and a screenshot
+              when possible.
+            </p>
+          </div>
+        </div>
+        <div class={styles.detail}>
+          <Timer size={26} weight="duotone" />
+          <div>
+            <h2>Response time</h2>
+            <p>We will reply as soon as a support specialist is available.</p>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </main>
+</BaseLayout>

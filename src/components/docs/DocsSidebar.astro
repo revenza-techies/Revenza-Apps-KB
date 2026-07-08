@@ -1,0 +1,39 @@
+---
+import type {DocsNode} from '../../utils/docs';
+import {isNodeActive} from '../../utils/docs';
+
+interface Props {
+  items: DocsNode[];
+  pathname: string;
+}
+
+const {items, pathname} = Astro.props;
+---
+
+<nav class="docs-sidebar" aria-label="Revenza Upsell navigation">
+  <ul>
+    {items.map((item) => (
+      <li class:list={{'is-active': isNodeActive(item, pathname), 'has-children': item.items.length > 0}}>
+        <a href={item.href}>{item.label}</a>
+        {item.items.length > 0 && (
+          <ul>
+            {item.items.map((child) => (
+              <li class:list={{'is-active': isNodeActive(child, pathname), 'has-children': child.items.length > 0}}>
+                <a href={child.href}>{child.label}</a>
+                {child.items.length > 0 && (
+                  <ul>
+                    {child.items.map((grandchild) => (
+                      <li class:list={{'is-active': isNodeActive(grandchild, pathname)}}>
+                        <a href={grandchild.href}>{grandchild.label}</a>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </li>
+            ))}
+          </ul>
+        )}
+      </li>
+    ))}
+  </ul>
+</nav>
