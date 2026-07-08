@@ -1,0 +1,50 @@
+---
+import {MagnifyingGlass, Sparkle, BookOpenText, Lifebuoy} from '@phosphor-icons/react';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import BrandScene from '../components/BrandScene/index.jsx';
+import AppCard from '../components/AppCard/index.jsx';
+import styles from './index.module.css';
+import homeContent from '../data/homeContent.json';
+import {apps} from '../data/apps.js';
+---
+
+<BaseLayout title="Revenza Docs" description={homeContent.description} path="/">
+  <section class={styles.hero}>
+    <div class={styles.heroInner}>
+      <div class={styles.heroCopy}>
+        <div class={styles.eyebrow}>
+          <Sparkle size={18} weight="fill" aria-hidden="true" />
+          <span>{homeContent.eyebrow}</span>
+        </div>
+        <h1>{homeContent.heroHeading}</h1>
+        <p>{homeContent.heroSubheading}</p>
+        <a class={styles.searchHint} href="#apps">
+          <MagnifyingGlass size={22} aria-hidden="true" />
+          <span>{homeContent.primaryAction}</span>
+          <kbd>Ctrl K</kbd>
+        </a>
+      </div>
+
+      <div class={styles.heroApps}>
+        <BrandScene />
+        <div class={styles.heroAppsHeader}>
+          <span>{homeContent.appsKicker}</span>
+          <strong>{apps.length} knowledge base{apps.length > 1 ? 's' : ''}</strong>
+        </div>
+        <div class={styles.featuredApps} id="apps">
+          {apps.map((app, index) => <AppCard app={app} featured={index === 0} />)}
+        </div>
+        <div class={styles.quickLinks}>
+          <a href="/contact">
+            <Lifebuoy size={18} aria-hidden="true" />
+            Contact support
+          </a>
+          <a href={apps[0]?.href ?? '#'}>
+            <BookOpenText size={18} aria-hidden="true" />
+            Open docs
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

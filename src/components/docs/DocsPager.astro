@@ -1,0 +1,30 @@
+---
+interface LinkItem {
+  label: string;
+  href: string;
+}
+
+interface Props {
+  previous?: LinkItem;
+  next?: LinkItem;
+}
+
+const {previous, next} = Astro.props;
+---
+
+{(previous || next) && (
+  <nav class="docs-pager" aria-label="Page navigation">
+    {previous ? (
+      <a class="docs-pager__link" href={previous.href}>
+        <span>Previous</span>
+        <strong>{previous.label}</strong>
+      </a>
+    ) : <span></span>}
+    {next ? (
+      <a class="docs-pager__link docs-pager__link--next" href={next.href}>
+        <span>Next</span>
+        <strong>{next.label}</strong>
+      </a>
+    ) : <span></span>}
+  </nav>
+)}

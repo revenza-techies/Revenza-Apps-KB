@@ -1,0 +1,81 @@
+{
+  "upsellSidebar": [
+    {
+      "type": "doc",
+      "id": "intro",
+      "label": "Overview"
+    },
+    {
+      "type": "category",
+      "label": "Getting Started",
+      "collapsed": false,
+      "link": {
+        "type": "doc",
+        "id": "getting-started"
+      },
+      "items": [
+        {
+          "type": "doc",
+          "id": "getting-started/upsell-product-preview",
+          "label": "Upsell Product Preview"
+        },
+        {
+          "type": "doc",
+          "id": "getting-started/enable-widget-on",
+          "label": "Show Widget On"
+        }
+      ]
+    },
+    {
+      "type": "doc",
+      "id": "pre-build-upsell-sets",
+      "label": "Pre-Build Upsell sets"
+    },
+    {
+      "type": "doc",
+      "id": "custom-upsell-sets",
+      "label": "Upsell Sets"
+    },
+    {
+      "type": "doc",
+      "id": "mapping",
+      "label": "Mapping"
+    },
+    {
+      "type": "category",
+      "label": "Settings",
+      "collapsed": false,
+      "link": {
+        "type": "doc",
+        "id": "settings"
+      },
+      "items": [
+        {
+          "type": "doc",
+          "id": "settings/product-page",
+          "label": "Product Page Settings"
+        },
+        {
+          "type": "doc",
+          "id": "settings/cart-page",
+          "label": "Cart page"
+        },
+        {
+          "type": "doc",
+          "id": "settings/global-settings",
+          "label": "Global Settings"
+        }
+      ]
+    },
+    {
+      "type": "doc",
+      "id": "integration",
+      "label": "Integration"
+    },
+    {
+      "type": "doc",
+      "id": "billing",
+      "label": "Billing"
+    }
+  ]
+}

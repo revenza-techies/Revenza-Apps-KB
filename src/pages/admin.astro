@@ -1,0 +1,71 @@
+---
+import {ArrowSquareOut, ImageSquare, LockKey, PencilSimpleLine} from '@phosphor-icons/react';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import adminWorkflowModule from '../data/adminWorkflow.js';
+import styles from './admin.module.css';
+
+const {adminWorkflow} = adminWorkflowModule;
+---
+
+<BaseLayout
+  title="Admin Publishing Workflow"
+  description="Private workflow guidance for Revenza Docs administrators.">
+  <Fragment slot="head">
+    <meta name="robots" content="noindex,nofollow" />
+  </Fragment>
+
+  <main class={styles.page}>
+    <section class={styles.hero}>
+      <span class={styles.eyebrow}>Revenza admins</span>
+      <h1>{adminWorkflow.title}</h1>
+      <p>
+        This page keeps admin instructions away from the customer navigation
+        while preserving a secure workflow. Admin access still happens on
+        GitHub, not through a password form on the public docs site.
+      </p>
+      <a class={styles.primaryAction} href={adminWorkflow.repositoryUrl}>
+        Open GitHub repository
+        <ArrowSquareOut size={18} weight="bold" />
+      </a>
+    </section>
+
+    <section class={styles.grid} aria-label="Admin workflow details">
+      <article class={styles.card}>
+        <PencilSimpleLine size={30} weight="duotone" />
+        <h2>Edit help content</h2>
+        <p>
+          Use Markdown files in <code>{adminWorkflow.docsPath}</code> for
+          app guides and <code>{adminWorkflow.changelogPath}</code> for
+          release updates.
+        </p>
+        <ol class={styles.steps}>
+          {adminWorkflow.editingSteps.map((item) => <li>{item}</li>)}
+        </ol>
+      </article>
+
+      <article class={styles.card}>
+        <ImageSquare size={30} weight="duotone" />
+        <h2>Upload article images</h2>
+        <p>
+          Place screenshots and tutorial images in <code>{adminWorkflow.imageUploadPath}</code>,
+          then reference them from any Markdown article.
+        </p>
+        <ol class={styles.steps}>
+          {adminWorkflow.imageSteps.map((item) => <li>{item}</li>)}
+        </ol>
+      </article>
+
+      <article class={styles.card}>
+        <LockKey size={30} weight="duotone" />
+        <h2>Security rules</h2>
+        <p>
+          The public site must never collect GitHub credentials or expose
+          repository tokens. Use GitHub's own authentication and permissions.
+        </p>
+        <ul class={styles.notes}>
+          {adminWorkflow.securityNotes.map((note) => <li>{note}</li>)}
+        </ul>
+      </article>
+    </section>
+  </main>
+</BaseLayout>

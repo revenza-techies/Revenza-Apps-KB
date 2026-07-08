@@ -19,7 +19,7 @@ supportUrl: /contact
 });
 
 
-test('creates a Docusaurus sidebar module from GitBook sidebar JSON', async () => {
+test('creates a neutral sidebar module from GitBook sidebar JSON', async () => {
   const {createSidebarModule} = await import('../../scripts/content-sync-utils.mjs');
   const moduleText = createSidebarModule([
     {type: 'doc', id: 'intro', label: 'Overview'},
@@ -38,7 +38,7 @@ test('creates a Docusaurus sidebar module from GitBook sidebar JSON', async () =
   assert.match(moduleText, /"getting-started\/install"/);
 });
 
-test('normalizes GitBook markdown that Docusaurus MDX cannot parse', async () => {
+test('normalizes GitBook markdown that neutral MDX cannot parse', async () => {
   const {sanitizeGitBookMarkdown} = await import('../../scripts/content-sync-utils.mjs');
   const sanitized = sanitizeGitBookMarkdown(`{% hint style="info" %}
 Remember to save the theme.
@@ -53,7 +53,7 @@ Remember to save the theme.
   assert.doesNotMatch(sanitized, /<\/figure>/);
 });
 
-test('keeps overview content editable while moving styling to Docusaurus', async () => {
+test('keeps overview content editable while moving styling to neutral', async () => {
   const {sanitizeUpsellOverviewMarkdown} = await import('../../scripts/content-sync-utils.mjs');
   const sanitized = sanitizeUpsellOverviewMarkdown(`<section className="startSection">
   <div className="journey">
@@ -130,7 +130,7 @@ Map your Pre-built sets to Specific **Products**.
   assert.doesNotMatch(sanitized, /fa-link/);
 });
 
-test('converts GitBook steppers into reusable Docusaurus markup', async () => {
+test('converts GitBook steppers into reusable neutral markup', async () => {
   const {sanitizeGitBookMarkdown} = await import('../../scripts/content-sync-utils.mjs');
   const sanitized = sanitizeGitBookMarkdown(`{% stepper %}
 {% step %}
@@ -156,7 +156,7 @@ This name will help you identify the set.
   assert.doesNotMatch(sanitized, /{%\s*step/);
 });
 
-test('converts GitBook tabs and content refs into Docusaurus tabs', async () => {
+test('converts GitBook tabs and content refs into neutral tabs', async () => {
   const {sanitizeGitBookMarkdown} = await import('../../scripts/content-sync-utils.mjs');
   const sanitized = sanitizeGitBookMarkdown(`{% tabs %}
 {% tab title="Product Page" icon="product-hunt" %}
@@ -175,10 +175,10 @@ Customize cart recommendations.
 {% endtab %}
 {% endtabs %}`);
 
-  assert.match(sanitized, /import Tabs from '@theme\/Tabs';/);
-  assert.match(sanitized, /import Tabs from '@theme\/Tabs';\r?\n\r?\n<div className="gitbookTabsShell">/);
-  assert.match(sanitized, /<Tabs className="gitbookTabs">/);
-  assert.match(sanitized, /<TabItem value="product-page" label="Product Page">/);
+  assert.doesNotMatch(sanitized, /<Tabs className=/);
+  assert.match(sanitized, /<div className="gitbookTabs" role="tablist">/);
+  assert.match(sanitized, /className="gitbookTab is-active" role="tab">Product Page/);
+  assert.match(sanitized, /className="gitbookTabPanelTitle">Product Page/);
   assert.match(sanitized, /className="gitbookContentRef" href="settings\/product-page"/);
   assert.match(sanitized, /className="gitbookContentRefIcon"/);
   assert.doesNotMatch(sanitized, /{%/);
@@ -218,7 +218,7 @@ test('updates overview popular guides from GitBook README without changing the d
 });
 
 
-test('converts common GitBook blocks into stable Docusaurus markup', async () => {
+test('converts common GitBook blocks into stable neutral markup', async () => {
   const {sanitizeGitBookMarkdown} = await import('../../scripts/content-sync-utils.mjs');
   const sanitized = sanitizeGitBookMarkdown(`{% cards %}
 {% card title="Install the app" href="getting-started/install.md" icon="download" %}
@@ -270,7 +270,7 @@ Sketch placeholder.
   assert.doesNotMatch(sanitized, /{%/);
 });
 
-test('rewrites GitBook asset references to public Docusaurus content URLs', async () => {
+test('rewrites GitBook asset references to public neutral content URLs', async () => {
   const {sanitizeGitBookMarkdown} = await import('../../scripts/content-sync-utils.mjs');
   const sanitized = sanitizeGitBookMarkdown('<img src="../.gitbook/assets/App Embed-1.png" alt="">');
 
@@ -293,7 +293,7 @@ sidebar_label: Welcome
   assert.doesNotMatch(sanitized, /sidebar_label: Welcome/);
 });
 
-test('normalizes nested GitBook links to app-root Docusaurus routes', async () => {
+test('normalizes nested GitBook links to app-root neutral routes', async () => {
   const {sanitizeGitBookMarkdown} = await import('../../scripts/content-sync-utils.mjs');
   const sanitized = sanitizeGitBookMarkdown(
     '[Product Page](../settings/product-page.md) [Integration](../integration.md#product-page-integration)',
@@ -316,7 +316,7 @@ test('keeps GitBook button cards available from folder landing pages', async () 
 });
 
 
-test('adds Overview front matter when GitBook README has no Docusaurus metadata', async () => {
+test('adds Overview front matter when GitBook README has no neutral metadata', async () => {
   const {sanitizeUpsellOverviewMarkdown} = await import('../../scripts/content-sync-utils.mjs');
   const sanitized = sanitizeUpsellOverviewMarkdown('# Overview\n\nWelcome from GitBook.');
 
@@ -346,4 +346,35 @@ test('neutralizes GitBook unresolved placeholder links', async () => {
 
   assert.match(sanitized, /\[Create your first upsell\]\(#\)/);
   assert.doesNotMatch(sanitized, /\/broken\/pages/);
+});
+
+
+test('converts legacy Docusaurus Tabs markup into neutral Astro-safe tabs', async () => {
+  const {sanitizeGitBookMarkdown} = await import('../../scripts/content-sync-utils.mjs');
+  const input = String.raw`<Tabs className="gitbookTabs">
+
+<TabItem value="product-page" label="Product Page">
+
+<a className="gitbookContentRef" href="settings/product-page"><span className="gitbookContentRefIcon" aria-hidden="true"></span><span>Product Page</span></a>
+
+Configure product page recommendations.
+
+</TabItem>
+
+<TabItem value="cart-page" label="Cart Page">
+
+<a className="gitbookContentRef" href="settings/cart-page"><span className="gitbookContentRefIcon" aria-hidden="true"></span><span>Cart Page</span></a>
+
+Customize cart recommendations.
+
+</TabItem>
+
+</Tabs>`;
+  const sanitized = sanitizeGitBookMarkdown(input);
+
+  assert.match(sanitized, /className="gitbookTabs" role="tablist"/);
+  assert.match(sanitized, /className="gitbookTab is-active" role="tab">Product Page/);
+  assert.match(sanitized, /className="gitbookTabPanelTitle">Cart Page/);
+  assert.doesNotMatch(sanitized, /<Tabs className=/);
+  assert.doesNotMatch(sanitized, /<TabItem/);
 });

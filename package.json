@@ -5,21 +5,20 @@
   "scripts": {
     "test": "node --test src/**/*.test.js",
     "sync:content": "node scripts/sync-content.mjs",
-    "start": "docusaurus start",
-    "build": "npm run sync:content && docusaurus build",
-    "serve": "docusaurus serve",
-    "clear": "docusaurus clear"
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
   },
   "dependencies": {
-    "@docusaurus/core": "^3.10.1",
-    "@docusaurus/preset-classic": "^3.10.1",
-    "@easyops-cn/docusaurus-search-local": "0.52.1",
+    "@astrojs/mdx": "^7.0.2",
+    "@astrojs/react": "^6.0.1",
     "@mdx-js/react": "3.1.1",
     "@phosphor-icons/react": "2.1.10",
+    "astro": "^7.0.6",
     "clsx": "2.1.1",
-    "prism-react-renderer": "2.4.1",
     "react": "19.1.1",
-    "react-dom": "19.1.1"
+    "react-dom": "19.1.1",
+    "typescript": "^6.0.3"
   },
   "engines": {
     "node": ">=20.0"

@@ -1,0 +1,42 @@
+---
+import '../styles/docs.css';
+import BaseLayout from './BaseLayout.astro';
+import DocsSidebar from '../components/docs/DocsSidebar.astro';
+import DocsToc from '../components/docs/DocsToc.astro';
+import DocsPager from '../components/docs/DocsPager.astro';
+import sidebarData from '../data/upsellSidebar.json';
+import {
+  findCurrentLink,
+  findPrevNext,
+  normalizePathname,
+  normalizeSidebar,
+} from '../utils/docs';
+
+const pathname = normalizePathname(Astro.url.pathname);
+const sidebar = normalizeSidebar(sidebarData.upsellSidebar || []);
+const currentLink = findCurrentLink(sidebar, pathname);
+const {previous, next} = findPrevNext(sidebar, pathname);
+const frontmatter = Astro.props.frontmatter || {};
+const headings = Astro.props.headings || [];
+const title = frontmatter.title || currentLink?.label || 'Revenza Upsell';
+const description = frontmatter.description || 'Revenza Upsell documentation';
+---
+
+<BaseLayout title={title} description={description}>
+  <div class="docs-shell">
+    <aside class="docs-shell__sidebar">
+      <DocsSidebar items={sidebar} pathname={pathname} />
+    </aside>
+
+    <section class="docs-shell__content">
+      <article>
+        <slot />
+      </article>
+      <DocsPager previous={previous} next={next} />
+    </section>
+
+    <div class="docs-shell__toc">
+      <DocsToc headings={headings} />
+    </div>
+  </div>
+</BaseLayout>

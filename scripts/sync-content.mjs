@@ -9,6 +9,7 @@ import {
   sanitizeGitBookMarkdown,
   sanitizeUpsellOverviewMarkdown,
 } from './content-sync-utils.mjs';
+import {generateAstroDocsPages} from './generate-astro-docs.mjs';
 
 const root = process.cwd();
 
@@ -181,13 +182,13 @@ function syncHomeContent(source) {
 function syncUpsellSidebar(appRoot) {
   const summaryPath = path.join(appRoot, 'SUMMARY.md');
   if (fs.existsSync(summaryPath)) {
-    writeText('sidebars.js', createSidebarFromSummaryMarkdown(fs.readFileSync(summaryPath, 'utf8')));
+    writeText('src/data/upsellSidebar.json', createSidebarFromSummaryMarkdown(fs.readFileSync(summaryPath, 'utf8')));
     return true;
   }
 
   const sidebarPath = path.join(appRoot, 'sidebar.json');
   if (fs.existsSync(sidebarPath)) {
-    writeText('sidebars.js', createSidebarModule(JSON.parse(fs.readFileSync(sidebarPath, 'utf8'))));
+    writeText('src/data/upsellSidebar.json', createSidebarModule(JSON.parse(fs.readFileSync(sidebarPath, 'utf8'))));
     return true;
   }
 
@@ -286,5 +287,7 @@ function syncUpsellContent(source) {
 
 const homeCopied = syncHomeContent(homeSource);
 const upsellCopied = syncUpsellContent(upsellSource);
+const astroDocsGenerated = generateAstroDocsPages();
 console.log('[sync-content] Synced ' + homeCopied + ' home content group(s) from ' + homeSource + '.');
 console.log('[sync-content] Synced ' + upsellCopied + ' Revenza Upsell content group(s)' + (upsellSource ? ' from ' + upsellSource : '') + '.');
+console.log('[sync-content] Generated ' + astroDocsGenerated + ' Astro docs page(s).');
