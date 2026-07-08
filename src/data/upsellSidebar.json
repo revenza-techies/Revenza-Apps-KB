@@ -8,23 +8,18 @@
     {
       "type": "category",
       "label": "Getting Started",
-      "collapsed": false,
-      "link": {
-        "type": "doc",
-        "id": "getting-started"
-      },
       "items": [
-        {
-          "type": "doc",
-          "id": "getting-started/upsell-product-preview",
-          "label": "Upsell Product Preview"
-        },
         {
           "type": "doc",
           "id": "getting-started/enable-widget-on",
           "label": "Show Widget On"
         }
-      ]
+      ],
+      "link": {
+        "type": "doc",
+        "id": "getting-started"
+      },
+      "collapsed": true
     },
     {
       "type": "doc",
@@ -34,7 +29,7 @@
     {
       "type": "doc",
       "id": "custom-upsell-sets",
-      "label": "Upsell Sets"
+      "label": "Custom Upsell Sets"
     },
     {
       "type": "doc",
@@ -44,16 +39,11 @@
     {
       "type": "category",
       "label": "Settings",
-      "collapsed": false,
-      "link": {
-        "type": "doc",
-        "id": "settings"
-      },
       "items": [
         {
           "type": "doc",
           "id": "settings/product-page",
-          "label": "Product Page Settings"
+          "label": "Product Page"
         },
         {
           "type": "doc",
@@ -65,7 +55,12 @@
           "id": "settings/global-settings",
           "label": "Global Settings"
         }
-      ]
+      ],
+      "link": {
+        "type": "doc",
+        "id": "settings"
+      },
+      "collapsed": true
     },
     {
       "type": "doc",

@@ -5,15 +5,28 @@ const {
   title = 'Revenza Docs',
   description = 'Revenza Shopify app documentation and help center.',
   path = '/',
+  hideFooter = false,
 } = Astro.props;
 
 const navItems = [
-  {href: '/', label: 'All apps'},
+  {href: '/', label: 'Home'},
+  {href: '/revenza-upsell/overview', label: 'Revenza Upsell'},
   {href: '/contact', label: 'Contact'},
   {href: '/privacy-policy', label: 'Privacy Policy'},
 ];
 
+const socialItems = [
+  {label: 'Facebook', href: '#', icon: 'facebook'},
+  {label: 'Instagram', href: '#', icon: 'instagram'},
+  {label: 'WhatsApp', href: '#', icon: 'whatsapp'},
+];
+
 const pageTitle = title === 'Revenza Docs' ? title : `${title} | Revenza Docs`;
+
+function isCurrent(itemHref) {
+  if (itemHref === '/') return path === '/';
+  return path === itemHref || path.startsWith(itemHref + '/');
+}
 ---
 
 <!doctype html>
@@ -37,7 +50,7 @@ const pageTitle = title === 'Revenza Docs' ? title : `${title} | Revenza Docs`;
 
           <nav class="site-nav" aria-label="Primary">
             {navItems.map((item) => (
-              <a href={item.href} aria-current={path === item.href ? 'page' : undefined}>{item.label}</a>
+              <a href={item.href} aria-current={isCurrent(item.href) ? 'page' : undefined}>{item.label}</a>
             ))}
           </nav>
 
@@ -53,16 +66,38 @@ const pageTitle = title === 'Revenza Docs' ? title : `${title} | Revenza Docs`;
         <slot />
       </main>
 
-      <footer class="site-footer">
-        <div class="site-footer__inner">
-          <span>&copy; 2026 Revenza Docs</span>
-          <div class="site-footer__links">
-            <a href="/">All apps</a>
-            <a href="/contact">Contact</a>
-            <a href="/privacy-policy">Privacy Policy</a>
+      {!hideFooter && (
+        <footer class="site-footer">
+          <div class="site-footer__inner">
+            <div class="site-footer__meta">
+              <span>&copy; 2026 Revenza Docs</span>
+            </div>
+
+            <div class="site-footer__links">
+              <a href="/">Home</a>
+              <a href="/revenza-upsell/overview">Revenza Upsell</a>
+              <a href="/contact">Contact</a>
+              <a href="/privacy-policy">Privacy Policy</a>
+            </div>
+
+            <div class="site-footer__socials" aria-label="Social media links">
+              {socialItems.map((item) => (
+                <a href={item.href} aria-label={item.label} title={item.label} class="site-footer__socialLink">
+                  {item.icon === 'facebook' && (
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.5 22v-8h2.7l.5-3h-3.2V9.1c0-.9.3-1.6 1.7-1.6H17V4.8c-.3 0-1.3-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.4V11H7.5v3h2.8v8h3.2Z"/></svg>
+                  )}
+                  {item.icon === 'instagram' && (
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5Zm0 2.2A2.8 2.8 0 0 0 4.2 7v10A2.8 2.8 0 0 0 7 19.8h10a2.8 2.8 0 0 0 2.8-2.8V7A2.8 2.8 0 0 0 17 4.2H7Zm10.3 1.6a1.1 1.1 0 1 1 0 2.2 1.1 1.1 0 0 1 0-2.2ZM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 2.2A2.8 2.8 0 1 0 12 14.8 2.8 2.8 0 0 0 12 9.2Z"/></svg>
+                  )}
+                  {item.icon === 'whatsapp' && (
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5.1-1.3A10 10 0 1 0 12 2Zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 20Zm4.4-6c-.2-.1-1.3-.7-1.4-.8-.2-.1-.3-.1-.4.1l-.6.8c-.1.1-.2.2-.4.1a6.5 6.5 0 0 1-3.2-2.8c-.1-.2 0-.3.1-.4l.3-.4.2-.3c.1-.1 0-.3 0-.4l-.7-1.7c-.1-.2-.2-.2-.4-.2h-.3c-.1 0-.4 0-.6.3s-.8.8-.8 1.9.8 2.2.9 2.4a9 9 0 0 0 3.4 3.2c2 .9 2 .6 2.4.6s1.3-.5 1.5-1 .2-.9.1-1Z"/></svg>
+                  )}
+                </a>
+              ))}
+            </div>
           </div>
-        </div>
-      </footer>
+        </footer>
+      )}
     </div>
   </body>
 </html>

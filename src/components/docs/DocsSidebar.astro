@@ -5,12 +5,13 @@ import {isNodeActive} from '../../utils/docs';
 interface Props {
   items: DocsNode[];
   pathname: string;
+  ariaLabel?: string;
 }
 
-const {items, pathname} = Astro.props;
+const {items, pathname, ariaLabel = 'Documentation navigation'} = Astro.props;
 ---
 
-<nav class="docs-sidebar" aria-label="Revenza Upsell navigation">
+<nav class="docs-sidebar" aria-label={ariaLabel}>
   <ul>
     {items.map((item) => (
       <li class:list={{'is-active': isNodeActive(item, pathname), 'has-children': item.items.length > 0}}>

@@ -9,6 +9,8 @@ type RawDocItem =
       items?: RawDocItem[];
     };
 
+export type DocsSection = 'home' | 'upsell';
+
 export type DocsNode = {
   label: string;
   href: string;
@@ -30,22 +32,28 @@ function humanize(value: string) {
     .replace(/\b\w/g, (letter) => letter.toUpperCase()) ?? value;
 }
 
-export function docIdToHref(id = '') {
-  if (!id || id === 'intro' || id === 'overview') return '/revenza-upsell/overview';
-  return '/revenza-upsell/' + id.replace(/^\/+|\/+$/g, '');
+export function docIdToHref(id = '', section: DocsSection = 'upsell') {
+  const normalized = id.replace(/^\/+|\/+$/g, '');
+  const isOverview = !normalized || normalized === 'intro' || normalized === 'overview' || normalized === 'readme';
+
+  if (section === 'home') {
+    return isOverview ? '/' : '/' + normalized;
+  }
+
+  return isOverview ? '/revenza-upsell/overview' : '/revenza-upsell/' + normalized;
 }
 
-function mapRawItem(item: RawDocItem): DocsNode {
+function mapRawItem(item: RawDocItem, section: DocsSection): DocsNode {
   if (typeof item === 'string') {
-    return {label: humanize(item), href: docIdToHref(item), items: []};
+    return {label: humanize(item), href: docIdToHref(item, section), items: []};
   }
 
   if (item.type === 'category') {
-    const href = item.link?.id ? docIdToHref(item.link.id) : docIdToHref(item.id || '');
+    const href = item.link?.id ? docIdToHref(item.link.id, section) : docIdToHref(item.id || '', section);
     return {
       label: item.label || humanize(item.id || 'section'),
       href,
-      items: (item.items || []).map(mapRawItem),
+      items: (item.items || []).map((child) => mapRawItem(child, section)),
       collapsed: item.collapsed,
     };
   }
@@ -53,13 +61,13 @@ function mapRawItem(item: RawDocItem): DocsNode {
   const id = item.id || item.link?.id || '';
   return {
     label: item.label || humanize(id),
-    href: docIdToHref(id),
+    href: docIdToHref(id, section),
     items: [],
   };
 }
 
-export function normalizeSidebar(rawSidebar: RawDocItem[] = []) {
-  return rawSidebar.map(mapRawItem);
+export function normalizeSidebar(rawSidebar: RawDocItem[] = [], section: DocsSection = 'upsell') {
+  return rawSidebar.map((item) => mapRawItem(item, section));
 }
 
 export function normalizePathname(pathname = '/') {

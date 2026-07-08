@@ -1,0 +1,62 @@
+---
+import GitBookDocsLayout from '../layouts/GitBookDocsLayout.astro';
+import homeSidebarData from '../data/homeSidebar.json';
+
+const homeModules = {
+  ...import.meta.glob('../../docs/revenza-home/**/*.md'),
+  ...import.meta.glob('../../docs/revenza-home/**/*.mdx'),
+};
+
+const reservedRoots = new Set(['contact', 'privacy-policy', 'admin', 'revenza-upsell']);
+
+export function getStaticPaths() {
+  const modules = {
+    ...import.meta.glob('../../docs/revenza-home/**/*.md'),
+    ...import.meta.glob('../../docs/revenza-home/**/*.mdx'),
+  };
+
+  return Object.keys(modules)
+    .map((key) => {
+      const normalized = key
+        .replace('../../docs/revenza-home/', '')
+        .replace(/\.mdx?$/, '');
+
+      let slug;
+      if (normalized === 'README') {
+        return undefined;
+      } else if (normalized.endsWith('/README')) {
+        slug = normalized.slice(0, -'/README'.length);
+      } else {
+        slug = normalized;
+      }
+
+      if (!slug || reservedRoots.has(slug.split('/')[0])) return undefined;
+      return {
+        params: {slug},
+        props: {modulePath: key, pathname: '/' + slug},
+      };
+    })
+    .filter(Boolean);
+}
+
+const {modulePath, pathname} = Astro.props;
+const loader = homeModules[modulePath];
+
+if (!loader) {
+  throw new Error(`Missing synced Home doc for route ${pathname}`);
+}
+
+const module = await loader();
+const {Content, frontmatter = {}} = module;
+const headings = typeof module.getHeadings === 'function' ? await module.getHeadings() : (module.headings || []);
+---
+
+<GitBookDocsLayout
+  sidebarData={homeSidebarData.homeSidebar || []}
+  section="home"
+  pathname={pathname}
+  title={frontmatter.title || 'Revenza Docs'}
+  description={frontmatter.description || 'Revenza documentation'}
+  headings={headings}>
+  <Content />
+</GitBookDocsLayout>

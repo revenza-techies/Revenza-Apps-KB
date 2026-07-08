@@ -18,7 +18,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Docusaurus website
+      - name: Checkout website repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
@@ -64,7 +64,7 @@ jobs:
 
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: build
+          path: dist
 
   deploy:
     environment:

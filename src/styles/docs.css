@@ -1,11 +1,10 @@
 :root {
-  --docs-sidebar-width: 280px;
-  --docs-toc-width: 240px;
+  --docs-sidebar-width: 292px;
+  --docs-toc-width: 248px;
 }
 
 .docs-shell {
-  width: min(1440px, 100%);
-  margin: 0 auto;
+  width: 100%;
   display: grid;
   grid-template-columns: var(--docs-sidebar-width) minmax(0, 1fr) var(--docs-toc-width);
   min-height: calc(100vh - var(--header-height));
@@ -17,24 +16,24 @@
   height: calc(100vh - var(--header-height));
   padding: 18px 14px 24px;
   overflow-y: auto;
-  background: var(--revenza-surface-alt);
+  background: #fbfbf8;
   border-right: 1px solid var(--revenza-line);
 }
 
 .docs-shell__content {
   min-width: 0;
-  padding: clamp(32px, 5vw, 56px) clamp(22px, 4vw, 40px) 72px;
+  padding: 34px clamp(22px, 4vw, 44px) 72px;
 }
 
 .docs-shell__content article {
-  width: min(820px, 100%);
+  width: min(860px, 100%);
 }
 
 .docs-shell__toc {
   position: sticky;
   top: var(--header-height);
   height: calc(100vh - var(--header-height));
-  padding: 32px 20px;
+  padding: 30px 22px;
   overflow-y: auto;
   border-left: 1px solid var(--revenza-line);
 }
@@ -47,13 +46,13 @@
 
 .docs-sidebar > ul {
   display: grid;
-  gap: 4px;
+  gap: 6px;
 }
 
 .docs-sidebar li.has-children > ul {
-  margin: 6px 0 10px 16px;
   display: grid;
-  gap: 4px;
+  gap: 6px;
+  margin: 8px 0 12px 16px;
 }
 
 .docs-sidebar a {
@@ -62,8 +61,8 @@
   min-height: 38px;
   padding: 8px 12px;
   color: var(--revenza-ink);
-  font-size: 0.96rem;
-  font-weight: 600;
+  font-size: 0.98rem;
+  font-weight: 500;
   border-radius: 10px;
 }
 
@@ -74,35 +73,43 @@
   background: var(--revenza-lemon-soft);
 }
 
-.docs-shell__content h1 {
-  margin: 0 0 1.25rem;
+.gitbook-docs h1 {
+  margin: 0 0 1.4rem;
   color: var(--revenza-ink);
   font-family: 'Manrope', 'DM Sans', sans-serif;
-  font-size: clamp(2.35rem, 5vw, 4rem);
-  line-height: 1.04;
+  font-size: clamp(2.5rem, 4.8vw, 4.6rem);
+  line-height: 1.02;
   letter-spacing: -0.05em;
 }
 
-.docs-shell__content h2 {
-  margin-top: 2.4rem;
-  margin-bottom: .9rem;
-  font-size: 1.7rem;
+.gitbook-docs h2 {
+  margin: 2.4rem 0 .9rem;
+  color: var(--revenza-ink);
+  font-size: 1.85rem;
   line-height: 1.2;
 }
 
-.docs-shell__content h3 {
-  margin-top: 1.85rem;
-  margin-bottom: .75rem;
-  font-size: 1.2rem;
+.gitbook-docs h3 {
+  margin: 1.75rem 0 .75rem;
+  color: var(--revenza-ink);
+  font-size: 1.15rem;
+  line-height: 1.35;
 }
 
-.docs-shell__content p,
-.docs-shell__content li {
+.gitbook-docs p,
+.gitbook-docs li {
   color: var(--revenza-ink);
+  font-size: 1rem;
   line-height: 1.72;
 }
 
-.docs-shell__content blockquote {
+.gitbook-docs hr {
+  margin: 2rem 0;
+  border: 0;
+  border-top: 1px solid var(--revenza-line);
+}
+
+.gitbook-docs blockquote {
   margin: 1.4rem 0;
   padding: 1rem 1.1rem;
   background: #f1f7ff;
@@ -110,17 +117,59 @@
   border-radius: 8px;
 }
 
-.docs-shell__content blockquote p {
+.gitbook-docs blockquote p {
   margin: 0;
 }
 
-.docs-shell__content .gitbookStepper {
+.gitbook-docs .gitbookGuideList {
+  display: grid;
+  gap: 0;
+  margin: 1.35rem 0 2rem;
+}
+
+.gitbook-docs .gitbookGuideLink {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: .85rem;
+  align-items: center;
+  padding: .95rem 0;
+  color: var(--revenza-ink);
+  border-bottom: 1px solid var(--revenza-line);
+}
+
+.gitbook-docs .gitbookGuideLink:hover {
+  color: var(--revenza-forest);
+  text-decoration: none;
+}
+
+.gitbook-docs .gitbookGuideIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: .55rem;
+  color: var(--revenza-forest);
+  background: var(--revenza-lemon-soft);
+  border-radius: 10px;
+}
+
+.gitbook-docs .gitbookGuideLink small {
+  display: block;
+  margin-top: .18rem;
+  color: var(--revenza-muted);
+}
+
+.gitbook-docs .gitbookGuideArrow {
+  color: var(--revenza-forest);
+  font-size: 1.2rem;
+}
+
+.gitbook-docs .gitbookStepper {
   display: grid;
   gap: 0;
   margin: 1.5rem 0 2rem;
 }
 
-.docs-shell__content .gitbookStep {
+.gitbook-docs .gitbookStep {
   position: relative;
   display: grid;
   grid-template-columns: 42px minmax(0, 1fr);
@@ -128,7 +177,7 @@
   padding-bottom: 1.8rem;
 }
 
-.docs-shell__content .gitbookStep:not(:last-child)::before {
+.gitbook-docs .gitbookStep:not(:last-child)::before {
   content: "";
   position: absolute;
   top: 36px;
@@ -138,7 +187,7 @@
   background: var(--revenza-line);
 }
 
-.docs-shell__content .gitbookStepMarker {
+.gitbook-docs .gitbookStepMarker {
   display: grid;
   width: 34px;
   height: 34px;
@@ -151,28 +200,32 @@
   border-radius: 999px;
 }
 
-.docs-shell__content .gitbookTabsShell,
-.docs-shell__content .gitbookButtonCard,
-.docs-shell__content .gitbookCard,
-.docs-shell__content .gitbookExpandable,
-.docs-shell__content .gitbookColumn,
-.docs-shell__content .gitbookEmbed,
-.docs-shell__content .gitbookFile,
-.docs-shell__content .gitbookBlock,
-.docs-shell__content .gitbookContentRef {
+.gitbook-docs .gitbookTabsShell,
+.gitbook-docs .gitbookButtonCard,
+.gitbook-docs .gitbookCard,
+.gitbook-docs .gitbookExpandable,
+.gitbook-docs .gitbookColumn,
+.gitbook-docs .gitbookEmbed,
+.gitbook-docs .gitbookFile,
+.gitbook-docs .gitbookBlock,
+.gitbook-docs .gitbookContentRef {
   background: var(--revenza-surface);
   border: 1px solid var(--revenza-line);
   border-radius: 12px;
 }
 
-.docs-shell__content .gitbookTabs {
+.gitbook-docs .gitbookTabsShell {
+  margin: 1.5rem 0 2rem;
+}
+
+.gitbook-docs .gitbookTabs {
   display: flex;
   flex-wrap: wrap;
   gap: 0;
   border-bottom: 1px solid var(--revenza-line);
 }
 
-.docs-shell__content .gitbookTab {
+.gitbook-docs .gitbookTab {
   display: inline-flex;
   align-items: center;
   min-height: 44px;
@@ -182,13 +235,23 @@
   border-right: 1px solid var(--revenza-line);
 }
 
-.docs-shell__content .gitbookTabPanels,
-.docs-shell__content .gitbookButtonCardBody,
-.docs-shell__content .gitbookTabPanel {
+.gitbook-docs .gitbookTab.is-active {
+  color: var(--revenza-forest);
+  background: var(--revenza-lemon-soft);
+}
+
+.gitbook-docs .gitbookTabPanels,
+.gitbook-docs .gitbookButtonCardBody,
+.gitbook-docs .gitbookTabPanel {
   padding: 1.1rem 1.2rem;
 }
 
-.docs-shell__content .gitbookButtonCard {
+.gitbook-docs .gitbookTabPanelTitle {
+  display: block;
+  margin-bottom: .9rem;
+}
+
+.gitbook-docs .gitbookButtonCard {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -197,7 +260,7 @@
   padding: 1rem 1.1rem;
 }
 
-.docs-shell__content .gitbookButtonCardIcon {
+.gitbook-docs .gitbookButtonCardIcon {
   width: 18px;
   height: 18px;
   border-right: 1.5px solid var(--revenza-muted);
@@ -205,46 +268,53 @@
   transform: rotate(-45deg);
 }
 
-.docs-shell__content .gitbookButton {
+.gitbook-docs .gitbookButtonCardBody {
+  flex: 1 1 100%;
+  padding: 0 0 0 2rem;
+}
+
+.gitbook-docs .gitbookButton {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   min-height: 38px;
   padding: .55rem .95rem;
-  color: #fff;
+  color: #fff !important;
   font-weight: 700;
   background: #4169e1;
   border-radius: 8px;
 }
 
-.docs-shell__content .gitbookButton:hover {
-  color: #fff;
+.gitbook-docs .gitbookButton:hover {
+  color: #fff !important;
   text-decoration: none;
+  background: #3058d6;
 }
 
-.docs-shell__content .gitbookCards,
-.docs-shell__content .gitbookColumns {
+.gitbook-docs .gitbookCards,
+.gitbook-docs .gitbookColumns {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 1rem;
   margin: 1.5rem 0;
 }
 
-.docs-shell__content .gitbookCard,
-.docs-shell__content .gitbookColumn,
-.docs-shell__content .gitbookBlock {
+.gitbook-docs .gitbookCard,
+.gitbook-docs .gitbookColumn,
+.gitbook-docs .gitbookBlock {
   padding: 1rem 1.1rem;
 }
 
-.docs-shell__content .gitbookContentRef {
+.gitbook-docs .gitbookContentRef {
   display: flex;
   align-items: center;
   gap: .8rem;
   padding: .9rem 1rem;
   margin-bottom: 1rem;
+  color: var(--revenza-ink);
 }
 
-.docs-shell__content .gitbookContentRefIcon {
+.gitbook-docs .gitbookContentRefIcon {
   width: 22px;
   height: 26px;
   border: 1.5px solid var(--revenza-muted);

@@ -122,8 +122,8 @@ Map your Pre-built sets to Specific **Products**.
 </details>`);
 
   assert.match(sanitized, /className="gitbookButtonCard"/);
-  assert.match(sanitized, /className="gitbookButton gitbookButton--primary" href="custom-upsell-sets#creating-custom-upsell-sets">Create Custom Upsell Sets<\/a>/);
-  assert.match(sanitized, /href="mapping">Map Prebuilt sets<\/a>/);
+  assert.match(sanitized, /className="gitbookButton gitbookButton--primary" href="\/revenza-upsell\/custom-upsell-sets#creating-custom-upsell-sets">Create Custom Upsell Sets<\/a>/);
+  assert.match(sanitized, /href="\/revenza-upsell\/mapping">Map Prebuilt sets<\/a>/);
   assert.match(sanitized, /className="gitbookButtonCardBody"/);
   assert.doesNotMatch(sanitized, /class="button primary"/);
   assert.doesNotMatch(sanitized, /<summary>/);
@@ -179,44 +179,36 @@ Customize cart recommendations.
   assert.match(sanitized, /<div className="gitbookTabs" role="tablist">/);
   assert.match(sanitized, /className="gitbookTab is-active" role="tab">Product Page/);
   assert.match(sanitized, /className="gitbookTabPanelTitle">Product Page/);
-  assert.match(sanitized, /className="gitbookContentRef" href="settings\/product-page"/);
+  assert.match(sanitized, /className="gitbookContentRef" href="\/revenza-upsell\/settings\/product-page"/);
   assert.match(sanitized, /className="gitbookContentRefIcon"/);
   assert.doesNotMatch(sanitized, /{%/);
 });
 
 
 
-test('updates overview popular guides from GitBook README without changing the design shell', async () => {
+test('keeps Upsell Overview fully GitBook-driven while normalizing neutral metadata', async () => {
   const {sanitizeUpsellOverviewMarkdown} = await import('../../scripts/content-sync-utils.mjs');
-  const overview = `<div className="docsHomeGrid">
-  <section aria-labelledby="popular-guides">
-    <h2 id="popular-guides">Popular guides</h2>
-    <div className="guideList">
-      <Link to="/revenza-upsell/custom-upsell-sets">
-        <ShoppingCartSimple size={22}/>
-        <span><strong>Create your first upsell</strong><small>Build an offer in a few clear steps.</small></span>
-        <ArrowRight size={18}/>
-      </Link>
-    </div>
-  </section>
-</div>`;
-  const readme = `### Popular guides
+  const sanitized = sanitizeUpsellOverviewMarkdown(`---
+id: intro
+slug: /
+title: Welcome to Revenza Upsell
+sidebar_label: Welcome
+---
+
+### Popular guides
 
 * [**Pre-build options**](pre-build-upsell-sets.md) — Display pre-build upsell options on products.
 * [**Create Upsell Set**](custom-upsell-sets.md) — Build an offer in a few clear steps.
 * [**Customize the experience**](settings/global-settings.md) — Match colors, text, and placement to your store.
-`;
+`);
 
-  const sanitized = sanitizeUpsellOverviewMarkdown(overview, {popularGuidesSource: readme});
-
-  assert.match(sanitized, /className="docsHomeGrid"/);
-  assert.match(sanitized, /className="guideList"/);
-  assert.match(sanitized, /<strong>Pre-build options<\/strong>/);
-  assert.match(sanitized, /<strong>Create Upsell Set<\/strong>/);
+  assert.match(sanitized, /title: Overview/);
+  assert.match(sanitized, /sidebar_label: Overview/);
+  assert.match(sanitized, /Pre-build options/);
+  assert.match(sanitized, /Create Upsell Set/);
   assert.match(sanitized, /\/revenza-upsell\/settings\/global-settings/);
-  assert.doesNotMatch(sanitized, /Create your first upsell/);
+  assert.doesNotMatch(sanitized, /className="docsHomeGrid"/);
 });
-
 
 test('converts common GitBook blocks into stable neutral markup', async () => {
   const {sanitizeGitBookMarkdown} = await import('../../scripts/content-sync-utils.mjs');
@@ -245,7 +237,7 @@ Right column.
 `);
 
   assert.match(sanitized, /className="gitbookCards"/);
-  assert.match(sanitized, /className="gitbookCard" href="getting-started\/install"/);
+  assert.match(sanitized, /className="gitbookCard" href="\/revenza-upsell\/getting-started\/install"/);
   assert.match(sanitized, /className="gitbookExpandable"/);
   assert.match(sanitized, /<summary>Advanced details<\/summary>/);
   assert.match(sanitized, /className="gitbookColumns"/);
@@ -311,7 +303,7 @@ test('keeps GitBook button cards available from folder landing pages', async () 
     {currentDocPath: 'getting-started.md'},
   );
 
-  assert.match(sanitized, /href="custom-upsell-sets#creating-custom-upsell-sets"/);
+  assert.match(sanitized, /href="\/revenza-upsell\/custom-upsell-sets#creating-custom-upsell-sets"/);
   assert.match(sanitized, /Create Custom Upsell Sets/);
 });
 
@@ -355,7 +347,7 @@ test('converts legacy Docusaurus Tabs markup into neutral Astro-safe tabs', asyn
 
 <TabItem value="product-page" label="Product Page">
 
-<a className="gitbookContentRef" href="settings/product-page"><span className="gitbookContentRefIcon" aria-hidden="true"></span><span>Product Page</span></a>
+<a className="gitbookContentRef" href="/revenza-upsell/settings/product-page"><span className="gitbookContentRefIcon" aria-hidden="true"></span><span>Product Page</span></a>
 
 Configure product page recommendations.
 
@@ -378,3 +370,6 @@ Customize cart recommendations.
   assert.doesNotMatch(sanitized, /<Tabs className=/);
   assert.doesNotMatch(sanitized, /<TabItem/);
 });
+
+
+

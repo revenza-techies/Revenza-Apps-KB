@@ -1,0 +1,57 @@
+---
+import GitBookDocsLayout from '../../layouts/GitBookDocsLayout.astro';
+import upsellSidebarData from '../../data/upsellSidebar.json';
+
+const upsellModules = {
+  ...import.meta.glob('../../../docs/revenza-upsell/**/*.md'),
+  ...import.meta.glob('../../../docs/revenza-upsell/**/*.mdx'),
+};
+
+export function getStaticPaths() {
+  const modules = {
+    ...import.meta.glob('../../../docs/revenza-upsell/**/*.md'),
+    ...import.meta.glob('../../../docs/revenza-upsell/**/*.mdx'),
+  };
+
+  return Object.keys(modules).map((key) => {
+    const normalized = key
+      .replace('../../../docs/revenza-upsell/', '')
+      .replace(/\.mdx?$/, '');
+
+    let slug;
+    if (normalized === 'overview') {
+      slug = 'overview';
+    } else if (normalized.endsWith('/README')) {
+      slug = normalized.slice(0, -'/README'.length);
+    } else {
+      slug = normalized;
+    }
+
+    return {
+      params: {slug},
+      props: {modulePath: key, pathname: '/revenza-upsell/' + slug},
+    };
+  });
+}
+
+const {modulePath, pathname} = Astro.props;
+const loader = upsellModules[modulePath];
+
+if (!loader) {
+  throw new Error(`Missing synced Upsell doc for route ${pathname}`);
+}
+
+const module = await loader();
+const {Content, frontmatter = {}} = module;
+const headings = typeof module.getHeadings === 'function' ? await module.getHeadings() : (module.headings || []);
+---
+
+<GitBookDocsLayout
+  sidebarData={upsellSidebarData.upsellSidebar || []}
+  section="upsell"
+  pathname={pathname}
+  title={frontmatter.title || 'Revenza Upsell'}
+  description={frontmatter.description || 'Revenza Upsell documentation'}
+  headings={headings}>
+  <Content />
+</GitBookDocsLayout>

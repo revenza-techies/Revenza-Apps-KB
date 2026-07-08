@@ -1,0 +1,52 @@
+---
+import '../styles/docs.css';
+import BaseLayout from './BaseLayout.astro';
+import DocsSidebar from '../components/docs/DocsSidebar.astro';
+import DocsToc from '../components/docs/DocsToc.astro';
+import DocsPager from '../components/docs/DocsPager.astro';
+import {
+  findCurrentLink,
+  findPrevNext,
+  normalizePathname,
+  normalizeSidebar,
+} from '../utils/docs';
+
+const {
+  sidebarData = [],
+  section = 'upsell',
+  pathname = Astro.url.pathname,
+  title = 'Revenza Docs',
+  description = 'Revenza documentation',
+  headings = [],
+} = Astro.props;
+
+const normalizedPath = normalizePathname(pathname);
+const sidebar = normalizeSidebar(sidebarData, section);
+const currentLink = findCurrentLink(sidebar, normalizedPath);
+const {previous, next} = findPrevNext(sidebar, normalizedPath);
+const pageTitle = currentLink?.label || title;
+---
+
+<BaseLayout title={pageTitle} description={description} path={section === 'home' ? '/' : '/'} hideFooter={false}>
+  <div class="docs-shell">
+    <aside class="docs-shell__sidebar">
+      <DocsSidebar
+        items={sidebar}
+        pathname={normalizedPath}
+        ariaLabel={section === 'home' ? 'Revenza Home navigation' : 'Revenza Upsell navigation'}
+      />
+    </aside>
+
+    <section class="docs-shell__content">
+      <article class="gitbook-docs">
+        <slot />
+      </article>
+      <DocsPager previous={previous} next={next} />
+    </section>
+
+    <div class="docs-shell__toc">
+      <DocsToc headings={headings} />
+    </div>
+  </div>
+</BaseLayout>
+
