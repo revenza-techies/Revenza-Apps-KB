@@ -1,44 +1,166 @@
+/**
+ * ============================================================
+ * Revenza Design System
+ * ============================================================
+ * Single source of truth for colors, typography, spacing,
+ * borders, shadows and component styling.
+ */
+
+/* ------------------------------------------------------------
+   Color System
+------------------------------------------------------------- */
+
 :root {
 
-  /*
-  |--------------------------------------------------------------------------
-  | Revenza Brand Colors
-  |--------------------------------------------------------------------------
-  */
+  /* Brand */
+  --ifm-color-primary: #0F766E;
+  --ifm-color-primary-dark: #115E59;
+  --ifm-color-primary-darker: #134E4A;
+  --ifm-color-primary-light: #14B8A6;
+  --ifm-color-primary-lighter: #2DD4BF;
 
-  --ifm-color-primary: #0f766e;
-  --ifm-color-primary-dark: #115e59;
-  --ifm-color-primary-light: #14b8a6;
+  --revenza-secondary: #1E3A5F;
+  --revenza-accent: #F59E0B;
 
-  /*
-  |--------------------------------------------------------------------------
-  | Layout
-  |--------------------------------------------------------------------------
-  */
+  /* Backgrounds */
+  --revenza-background: #F8FAFC;
+  --revenza-surface: #FFFFFF;
+
+  /* Borders */
+  --revenza-border: #E2E8F0;
+
+  /* Text */
+  --revenza-text: #0F172A;
+  --revenza-text-light: #64748B;
+
+  /* Success */
+  --revenza-success: #10B981;
+
+  /* Warning */
+  --revenza-warning: #F59E0B;
+
+  /* Error */
+  --revenza-danger: #DC2626;
+
+  /* ------------------------------------------------------------
+     Typography
+  ------------------------------------------------------------- */
+
+  --ifm-font-family-base:
+    Inter,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+
+  --ifm-heading-font-family: var(--ifm-font-family-base);
+
+  --ifm-code-font-size: 95%;
+
+  /* ------------------------------------------------------------
+     Radius
+  ------------------------------------------------------------- */
+
+  --revenza-radius-sm: 8px;
+  --revenza-radius-md: 12px;
+  --revenza-radius-lg: 18px;
+
+  /* ------------------------------------------------------------
+     Shadows
+  ------------------------------------------------------------- */
+
+  --revenza-shadow-sm:
+    0 2px 6px rgba(15,23,42,.05);
+
+  --revenza-shadow-md:
+    0 8px 24px rgba(15,23,42,.08);
+
+  --revenza-shadow-lg:
+    0 16px 40px rgba(15,23,42,.12);
+
+  /* ------------------------------------------------------------
+     Layout
+  ------------------------------------------------------------- */
 
   --ifm-container-width: 1200px;
 
-  /*
-  |--------------------------------------------------------------------------
-  | Border Radius
-  |--------------------------------------------------------------------------
-  */
+  --ifm-global-radius: var(--revenza-radius-md);
 
-  --ifm-global-radius: 12px;
+}
 
-  /*
-  |--------------------------------------------------------------------------
-  | Buttons
-  |--------------------------------------------------------------------------
-  */
+/* ------------------------------------------------------------
+   Global Styles
+------------------------------------------------------------- */
 
-  --ifm-button-border-radius: 10px;
+html {
 
-  /*
-  |--------------------------------------------------------------------------
-  | Code Blocks
-  |--------------------------------------------------------------------------
-  */
+  scroll-behavior: smooth;
 
-  --ifm-code-font-size: 95%;
+}
+
+body {
+
+  background: var(--revenza-background);
+
+  color: var(--revenza-text);
+
+}
+
+/* ------------------------------------------------------------
+   Links
+------------------------------------------------------------- */
+
+a {
+
+  transition: all .2s ease;
+
+}
+
+a:hover {
+
+  text-decoration: none;
+
+}
+
+/* ------------------------------------------------------------
+   Buttons
+------------------------------------------------------------- */
+
+.button {
+
+  border-radius: var(--revenza-radius-md);
+
+  font-weight: 600;
+
+  transition: .25s ease;
+
+}
+
+.button:hover {
+
+  transform: translateY(-2px);
+
+}
+
+/* ------------------------------------------------------------
+   Cards
+------------------------------------------------------------- */
+
+.revenza-card {
+
+  background: var(--revenza-surface);
+
+  border: 1px solid var(--revenza-border);
+
+  border-radius: var(--revenza-radius-md);
+
+  box-shadow: var(--revenza-shadow-sm);
+
+}
+
+.revenza-card:hover {
+
+  box-shadow: var(--revenza-shadow-md);
+
 }

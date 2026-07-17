@@ -1,0 +1,42 @@
+.searchSection {
+
+  text-align:center;
+  padding:80px 24px;
+
+}
+
+.searchSection h2 {
+
+  font-size:2.4rem;
+  margin-bottom:16px;
+
+}
+
+.searchSection p {
+
+  max-width:650px;
+  margin:auto;
+  margin-bottom:32px;
+  color:var(--revenza-text-light);
+
+}
+
+.searchBox{
+
+  display:flex;
+  justify-content:center;
+  gap:16px;
+  flex-wrap:wrap;
+
+}
+
+.searchBox input{
+
+  width:420px;
+  max-width:100%;
+  padding:16px 20px;
+  border-radius:12px;
+  border:1px solid var(--revenza-border);
+  font-size:16px;
+
+}

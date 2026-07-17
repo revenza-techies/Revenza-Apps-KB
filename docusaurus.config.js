@@ -47,7 +47,22 @@ const config = {
       }),
     ],
   ],
-
+plugins: [
+  [
+    require.resolve("@easyops-cn/docusaurus-search-local"),
+    {
+      hashed: true,
+      language: ["en"],
+      docsRouteBasePath: "/docs",
+      indexDocs: true,
+      indexBlog: false,
+      indexPages: true,
+      highlightSearchTermsOnTargetPage: true,
+      searchBarPosition: "right",
+      explicitSearchResultPath: true,
+    },
+  ],
+],
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
@@ -58,40 +73,45 @@ const config = {
       },
 
       navbar: {
-        title: "Revenza Knowledge Base",
-
-        logo: {
-          alt: "Revenza Logo",
-          src: "img/logo.svg",
+  title: "",
+  hideOnScroll: false,
+  logo: {
+    alt: "Revenza",
+    src: "img/brand/revenza-logo.png",
+    href: "/",
+  },
+  items: [
+    {
+      type: "docSidebar",
+      sidebarId: "tutorialSidebar",
+      position: "left",
+      label: "Documentation",
+    },
+    {
+      label: "Website",
+      href: "https://revenza.in",
+      position: "left",
+    },
+    {
+      label: "Support",
+      position: "right",
+      items: [
+        {
+          label: "Live Chat",
+          href: "#",
         },
-
-        items: [
-          {
-            type: "docSidebar",
-            sidebarId: "tutorialSidebar",
-            position: "left",
-            label: "Documentation",
-          },
-
-          {
-            to: "/",
-            label: "Home",
-            position: "left",
-          },
-
-          {
-            href: "https://revenza.in",
-            label: "Website",
-            position: "right",
-          },
-
-          {
-            href: "https://github.com/revenza",
-            label: "GitHub",
-            position: "right",
-          },
-        ],
-      },
+        {
+          label: "Knowledge Base",
+          to: "/docs",
+        },
+      ],
+    },
+    {
+      type: "search",
+      position: "right",
+    },
+  ],
+},
 
       footer: {
         style: "dark",
@@ -135,7 +155,13 @@ const config = {
         theme: prismThemes.github,
         darkTheme: prismThemes.dracula,
       },
-    }),
-};
+     }),
+     scripts: [
+  {
+    src: "//in.fw-cdn.com/32934803/1713602.js",
+    async: true,
+  },
+],
+    };
 
 export default config;

@@ -1,0 +1,30 @@
+.section {
+
+  padding:100px 24px;
+  text-align:center;
+
+}
+
+.container{
+
+  max-width:900px;
+  margin:auto;
+
+}
+
+.container p{
+
+  margin:24px auto 40px;
+  color:var(--revenza-text-light);
+  max-width:650px;
+
+}
+
+.actions{
+
+  display:flex;
+  justify-content:center;
+  gap:20px;
+  flex-wrap:wrap;
+
+}

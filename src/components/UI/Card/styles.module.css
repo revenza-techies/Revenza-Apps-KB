@@ -1,0 +1,21 @@
+.card {
+
+  background: white;
+
+  border-radius: var(--revenza-radius-md);
+
+  border: 1px solid var(--revenza-border);
+
+  box-shadow: var(--revenza-shadow-sm);
+
+  padding: 32px;
+
+  transition: .25s;
+
+}
+
+.card:hover {
+
+  box-shadow: var(--revenza-shadow-md);
+
+}

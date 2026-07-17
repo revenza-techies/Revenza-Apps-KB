@@ -1,8 +1,11 @@
 import React from "react";
 import Layout from "@theme/Layout";
 
-import Hero from "../components/Hero";
-import FeaturedApp from "../components/FeaturedApp";
+import Hero from "../components/Home/Hero";
+import FeaturedApps from "../components/Home/FeaturedApps";
+import LatestDocumentation from "../components/Home/LatestDocumentation";
+import SupportSection from "../components/Home/SupportSection";
+import CTA from "../components/Home/CTA";
 
 export default function Home() {
   return (
@@ -10,15 +13,12 @@ export default function Home() {
       title="Revenza Knowledge Base"
       description="Everything you need to get the most from Revenza apps"
     >
-      <main
-        style={{
-          maxWidth: "1100px",
-          margin: "0 auto",
-          padding: "2rem",
-        }}
-      >
+      <main>
         <Hero />
-        <FeaturedApp />
+        <FeaturedApps />
+        <LatestDocumentation />
+        <SupportSection />
+        <CTA />
       </main>
     </Layout>
   );
