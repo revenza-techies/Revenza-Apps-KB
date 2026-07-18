@@ -21,7 +21,7 @@ export default function SearchSection() {
 
         <Link
           className="button button--primary"
-          to="/docs"
+          to="/docs/revenza-upsell/"
         >
           Browse Docs
         </Link>

@@ -7,9 +7,9 @@ const apps = [
     description:
       "Create high-converting upsell and cross-sell offers for Shopify stores.",
 
-    docs: "/docs/home",
+    docs: "/docs/revenza-upsell/",
 
-    icon: "/img/brand/revenza-logo.png",
+    icon: "/img/brand/revenza-upsell-logo.png",
 
     featured: true,
   },

@@ -67,9 +67,10 @@ plugins: [
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       image: "img/social-card.jpg",
-
       colorMode: {
-        respectPrefersColorScheme: true,
+        defaultMode: "light",
+        disableSwitch: false,
+        respectPrefersColorScheme: false,
       },
 
       navbar: {
@@ -82,30 +83,16 @@ plugins: [
   },
   items: [
     {
-      type: "docSidebar",
-      sidebarId: "tutorialSidebar",
+      label: "Home",
       position: "left",
-      label: "Documentation",
+      to: "/",
     },
     {
-      label: "Website",
-      href: "https://revenza.in",
+      label: "Revenza Upsell",
       position: "left",
+      to: "/docs/revenza-upsell/",
     },
-    {
-      label: "Support",
-      position: "right",
-      items: [
-        {
-          label: "Live Chat",
-          href: "#",
-        },
-        {
-          label: "Knowledge Base",
-          to: "/docs",
-        },
-      ],
-    },
+
     {
       type: "search",
       position: "right",
@@ -122,7 +109,7 @@ plugins: [
             items: [
               {
                 label: "Home",
-                to: "/docs/home",
+                to: "/",
               },
             ],
           },
@@ -132,7 +119,7 @@ plugins: [
             items: [
               {
                 label: "Contact Us",
-                href: "https://revenza.in/contact",
+                href: "https://www.revenza.in/contact",
               },
             ],
           },
@@ -141,8 +128,8 @@ plugins: [
             title: "Company",
             items: [
               {
-                label: "Website",
-                href: "https://revenza.in",
+                label: "Privacy",
+                href: "https://www.revenza.in/privacy",
               },
             ],
           },

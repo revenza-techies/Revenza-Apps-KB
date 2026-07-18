@@ -6,10 +6,10 @@ import styles from "./styles.module.css";
 export default function FeaturedApps() {
   return (
     <section className={styles.section}>
-      <h2>Featured Applications</h2>
+      <h2>Revenza Apps</h2>
 
       <p>
-        Browse documentation for Revenza Shopify applications.
+        Browse documentation for Revenza Apps.
       </p>
 
       <div className={styles.grid}>

@@ -36,7 +36,7 @@ const support = {
 
         label: "Browse Docs",
 
-        link: "/docs",
+        link: "/docs/revenza-upsell/",
 
       },
 

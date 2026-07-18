@@ -164,3 +164,25 @@ a:hover {
   box-shadow: var(--revenza-shadow-md);
 
 }
+[data-theme="dark"] {
+
+  --ifm-color-primary: #2DD4BF;
+  --ifm-color-primary-dark: #14B8A6;
+  --ifm-color-primary-darker: #0F766E;
+  --ifm-color-primary-light: #5EEAD4;
+  --ifm-color-primary-lighter: #99F6E4;
+
+  --revenza-background: #0F172A;
+  --revenza-surface: #111827;
+  --revenza-border: #243244;
+  --revenza-text: #E2E8F0;
+  --revenza-text-light: #94A3B8;
+
+  --ifm-background-color: var(--revenza-background);
+  --ifm-background-surface-color: var(--revenza-surface);
+  --ifm-font-color-base: var(--revenza-text);
+  --ifm-heading-color: var(--revenza-text);
+  --ifm-navbar-background-color: #111827;
+  --ifm-footer-background-color: #0B1120;
+  --ifm-card-background-color: var(--revenza-surface);
+}

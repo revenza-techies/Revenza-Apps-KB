@@ -6,7 +6,7 @@ const site = {
 
   website: "https://revenza.in",
 
-  docs: "/docs",
+  docs: "/docs/revenza-upsell/",
 
   support: "#",
 

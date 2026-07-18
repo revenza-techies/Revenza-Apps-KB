@@ -1,0 +1,53 @@
+---
+description: >-
+  Configure settings that apply to the upsell widget across your entire store.
+  These options control the widget's global behavior, formatting, and styling.
+---
+# Global Settings
+
+#### Enable Widget
+
+Enable or disable the upsell widget across all supported pages.
+
+* **Enabled:** The widget is available wherever it has been configured.
+* **Disabled:** The widget is hidden on all pages.
+
+:::info
+**Note:** This setting acts as a global switch for the upsell widget.
+:::
+
+---
+
+#### Show Money with Currency Format
+
+Choose how product prices are displayed in the upsell widget.
+
+* **Enabled:** Displays prices with the currency symbol or code (e.g., **$10 USD**).
+* **Disabled:** Displays only the product price.
+
+---
+
+#### Use Set's Name as Heading
+
+Use the name of the assigned upsell set as the widget heading.
+
+* **Enabled:** The widget heading is automatically taken from the selected upsell set.
+* **Disabled:** The heading configured in the Product Page or Cart Page settings is used.
+
+:::info
+**Note:** When enabled, this setting overrides the custom heading configured for individual pages.
+:::
+
+---
+
+#### Custom CSS
+
+Add custom CSS to personalize the appearance of the upsell widget.
+
+The styles entered here are applied globally wherever the widget is displayed.
+
+:::info
+**Note:** This option is intended for users familiar with CSS.
+:::
+
+---
