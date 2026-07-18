@@ -22,18 +22,12 @@ jobs:
       - name: Checkout KB
         uses: actions/checkout@v4
 
-      - name: Checkout revenza-home
-        uses: actions/checkout@v4
-        with:
-          repository: revenza-techies/revenza-home
-          token: ${{ secrets.CONTENT-REPO-TOKEN }}
-          path: repositories/revenza-home
 
       - name: Checkout revenza-upsell
         uses: actions/checkout@v4
         with:
           repository: revenza-techies/revenza-upsell
-          token: ${{ secrets.CONTENT-REPO-TOKEN }}
+          token: ${{ secrets.CONTENT_REPO_TOKEN }}
           path: repositories/revenza-upsell
 
       - name: Setup Node
