@@ -1,23 +1,119 @@
-/**
- * CSS files with the .module.css suffix will be treated as CSS modules
- * and scoped locally.
- */
-
-.heroBanner {
-  padding: 4rem 0;
-  text-align: center;
+.homeMain {
   position: relative;
   overflow: hidden;
+  isolation: isolate;
 }
 
-@media screen and (max-width: 996px) {
-  .heroBanner {
-    padding: 2rem;
+.homeContent {
+  position: relative;
+  z-index: 1;
+}
+
+.natureBackdrop {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.natureBackdrop::before,
+.natureBackdrop::after {
+  content: '';
+  position: absolute;
+  width: 1px;
+  height: 520px;
+  background: color-mix(in srgb, var(--ifm-color-primary) 16%, transparent);
+  transform: rotate(28deg);
+}
+
+.natureBackdrop::before {
+  top: 70px;
+  left: 7%;
+}
+
+.natureBackdrop::after {
+  right: 9%;
+  bottom: 90px;
+  transform: rotate(-32deg);
+}
+
+.leaf {
+  --leaf-size: 34px;
+  --leaf-left: 10%;
+  --leaf-delay: 0s;
+  --leaf-duration: 14s;
+  position: absolute;
+  top: -80px;
+  left: var(--leaf-left);
+  width: var(--leaf-size);
+  height: calc(var(--leaf-size) * 0.56);
+  border: 1px solid color-mix(in srgb, var(--ifm-color-primary) 34%, transparent);
+  border-radius: 100% 0 100% 0;
+  background: color-mix(in srgb, var(--ifm-color-primary) 8%, transparent);
+  opacity: 0.72;
+  transform-origin: center;
+  animation: leafDrift var(--leaf-duration) linear var(--leaf-delay) infinite;
+}
+
+.leaf::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 14%;
+  width: 72%;
+  height: 1px;
+  background: color-mix(in srgb, var(--ifm-color-primary) 28%, transparent);
+  transform: rotate(-22deg);
+  transform-origin: left center;
+}
+
+.leaf:nth-child(2) { --leaf-left: 22%; --leaf-size: 24px; --leaf-delay: -8s; --leaf-duration: 17s; }
+.leaf:nth-child(3) { --leaf-left: 34%; --leaf-size: 42px; --leaf-delay: -3s; --leaf-duration: 19s; }
+.leaf:nth-child(4) { --leaf-left: 46%; --leaf-size: 28px; --leaf-delay: -12s; --leaf-duration: 16s; }
+.leaf:nth-child(5) { --leaf-left: 58%; --leaf-size: 36px; --leaf-delay: -6s; --leaf-duration: 21s; }
+.leaf:nth-child(6) { --leaf-left: 68%; --leaf-size: 22px; --leaf-delay: -14s; --leaf-duration: 18s; }
+.leaf:nth-child(7) { --leaf-left: 77%; --leaf-size: 40px; --leaf-delay: -10s; --leaf-duration: 22s; }
+.leaf:nth-child(8) { --leaf-left: 87%; --leaf-size: 30px; --leaf-delay: -4s; --leaf-duration: 15s; }
+.leaf:nth-child(9) { --leaf-left: 94%; --leaf-size: 25px; --leaf-delay: -16s; --leaf-duration: 20s; }
+.leaf:nth-child(10) { --leaf-left: 4%; --leaf-size: 32px; --leaf-delay: -11s; --leaf-duration: 23s; }
+
+@keyframes leafDrift {
+  0% {
+    transform: translate3d(-18px, -90px, 0) rotate(12deg);
+  }
+
+  45% {
+    transform: translate3d(44px, 48vh, 0) rotate(190deg);
+  }
+
+  100% {
+    transform: translate3d(-24px, calc(100vh + 150px), 0) rotate(380deg);
   }
 }
 
-.buttons {
-  display: flex;
+.introShell {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(300px, 420px);
   align-items: center;
-  justify-content: center;
+  gap: 40px;
+  width: min(1320px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 56px 0 64px;
+}
+
+@media (max-width: 996px) {
+  .introShell {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    width: min(760px, calc(100% - 24px));
+    padding: 44px 0 52px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .leaf {
+    animation: none;
+    opacity: 0.35;
+  }
 }

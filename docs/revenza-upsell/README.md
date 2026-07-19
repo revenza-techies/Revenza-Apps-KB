@@ -41,7 +41,7 @@ Follow these steps to launch your first upsell.
 
 * [**Pre-build options**](/docs/revenza-upsell/pre-build-upsell-sets) — Display pre-build upsell options on products.
 * [**Create Upsell Set**](/docs/revenza-upsell/custom-upsell-sets) — Build an offer in a few clear steps.
-* [**Customize the experience**](/docs/revenza-upsell/settings/global-settings) — Match colors, text, and placement to your store.
+* [**Customize the experience**](/docs/revenza-upsell/settings/#global-settings) — Match colors, text, and placement to your store.
 
 ### Video tutorial
 

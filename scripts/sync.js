@@ -240,6 +240,26 @@ function transformGitBookDirectives(markdown) {
         output.push("", "</Step>", "");
         break;
       }
+      case "columns": {
+        imports.add("Columns");
+        imports.add("Column");
+        output.push("", "<Columns>", "");
+        break;
+      }
+      case "endcolumns": {
+        output.push("", "</Columns>", "");
+        break;
+      }
+      case "column": {
+        imports.add("Columns");
+        imports.add("Column");
+        output.push("", "<Column>", "");
+        break;
+      }
+      case "endcolumn": {
+        output.push("", "</Column>", "");
+        break;
+      }
       case "tabs": {
         imports.add("Tabs");
         imports.add("TabItem");
@@ -306,6 +326,10 @@ function insertMdxImports(markdown, imports) {
 
   if (imports.has("Stepper") || imports.has("Step")) {
     importLines.push("import Stepper, { Step } from '@site/src/components/Docs/Stepper';");
+  }
+
+  if (imports.has("Columns") || imports.has("Column")) {
+    importLines.push("import Columns, { Column } from '@site/src/components/Docs/Columns';");
   }
 
   if (imports.has("Tabs")) {
@@ -583,7 +607,14 @@ async function main() {
 
   console.log("Synchronization complete.");
 }
-main().catch((error) => {
-  console.error(error.message);
-  process.exit(1);
-});
+if (require.main === module) {
+  main().catch((error) => {
+    console.error(error.message);
+    process.exit(1);
+  });
+}
+
+module.exports = {
+  rewrite,
+  transformGitBookDirectives,
+};

@@ -13,7 +13,7 @@ const sidebars = {
         {
           "type": "doc",
           "id": "revenza-upsell/getting-started/upsell-product-preview",
-          "label": "Upsell Product Preview"
+          "label": "Upsell Review"
         },
         {
           "type": "doc",
@@ -68,14 +68,35 @@ const sidebars = {
       }
     },
     {
-      "type": "doc",
-      "id": "revenza-upsell/integration",
-      "label": "Integration"
+      "type": "category",
+      "label": "Integration",
+      "collapsed": true,
+      "items": [
+        {
+          "type": "doc",
+          "id": "revenza-upsell/integration/app-block-integration-product-page",
+          "label": "App Block Integration - Product Page"
+        },
+        {
+          "type": "doc",
+          "id": "revenza-upsell/integration/app-block-integration-cart-page",
+          "label": "App Block Integration - Cart Page"
+        }
+      ],
+      "link": {
+        "type": "doc",
+        "id": "revenza-upsell/integration/README"
+      }
     },
     {
       "type": "doc",
       "id": "revenza-upsell/billing",
       "label": "Billing"
+    },
+    {
+      "type": "doc",
+      "id": "revenza-upsell/faqs",
+      "label": "Faqs"
     }
   ]
 };

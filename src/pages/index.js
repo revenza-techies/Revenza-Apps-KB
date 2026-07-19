@@ -4,7 +4,9 @@ import Layout from "@theme/Layout";
 import Hero from "../components/Home/Hero";
 import FeaturedApps from "../components/Home/FeaturedApps";
 import SupportSection from "../components/Home/SupportSection";
-import CTA from "../components/Home/CTA";
+import styles from "./index.module.css";
+
+const leaves = Array.from({ length: 10 }, (_, index) => index);
 
 export default function Home() {
   return (
@@ -12,11 +14,19 @@ export default function Home() {
       title="Revenza Knowledge Base"
       description="Everything you need to get the most from Revenza apps"
     >
-      <main>
-        <Hero />
-        <FeaturedApps />
-        <SupportSection />
-        <CTA />
+      <main className={styles.homeMain}>
+        <div className={styles.natureBackdrop} aria-hidden="true">
+          {leaves.map((leaf) => (
+            <span key={leaf} className={styles.leaf} />
+          ))}
+        </div>
+        <div className={styles.homeContent}>
+          <div className={styles.introShell}>
+            <Hero />
+            <FeaturedApps />
+          </div>
+          <SupportSection />
+        </div>
       </main>
     </Layout>
   );
