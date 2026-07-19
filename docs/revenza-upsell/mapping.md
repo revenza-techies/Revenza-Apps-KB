@@ -1,3 +1,7 @@
+---
+description: "Learn how to map Revenza Upsell custom and pre-built product sets to Shopify products and collections."
+keywords: ["Revenza Upsell","Shopify upsell app","Mapping guide"]
+---
 import Stepper, { Step } from '@site/src/components/Docs/Stepper';
 
 # Mapping

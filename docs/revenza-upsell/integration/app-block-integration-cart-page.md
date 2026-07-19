@@ -1,3 +1,7 @@
+---
+description: "Add the Revenza Upsell app block to your Shopify cart page and verify that cart upsell offers display correctly."
+keywords: ["Revenza Upsell","Shopify upsell app","App Block Integration - Cart Page guide"]
+---
 import Stepper, { Step } from '@site/src/components/Docs/Stepper';
 
 # App Block Integration - Cart Page

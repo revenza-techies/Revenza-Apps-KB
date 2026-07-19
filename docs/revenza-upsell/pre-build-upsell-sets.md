@@ -1,7 +1,6 @@
 ---
-description: >-
-  Display dynamic upsell products based on predefined criteria like bestsellers,
-  newest arrivals, recently updated, and price.
+description: "Display dynamic upsell products based on predefined criteria like bestsellers, newest arrivals, recently updated, and price."
+keywords: ["Revenza Upsell","Shopify upsell app","Pre-Build Upsell sets guide"]
 ---
 import Link from '@docusaurus/Link';
 import Stepper, { Step } from '@site/src/components/Docs/Stepper';

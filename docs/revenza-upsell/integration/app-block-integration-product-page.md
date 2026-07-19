@@ -1,3 +1,7 @@
+---
+description: "Add the Revenza Upsell app block to your Shopify product page and verify that product upsell offers display correctly."
+keywords: ["Revenza Upsell","Shopify upsell app","App Block Integration - Product Page guide"]
+---
 import Stepper, { Step } from '@site/src/components/Docs/Stepper';
 
 # App Block Integration - Product Page

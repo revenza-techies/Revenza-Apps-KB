@@ -1,3 +1,7 @@
+---
+description: "Configure Revenza Upsell product-page, cart-page, and global settings to match your Shopify store and merchandising strategy."
+keywords: ["Revenza Upsell","Shopify upsell app","Settings guide"]
+---
 import Link from '@docusaurus/Link';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';

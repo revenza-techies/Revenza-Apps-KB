@@ -1,8 +1,6 @@
 ---
-description: >-
-  Configure how the upsell widget is displayed and behaves on your cart page.
-  Customize the content, display, and product recommendations to match your
-  store's requirements.
+description: "Configure how the upsell widget is displayed and behaves on your cart page."
+keywords: ["Revenza Upsell","Shopify upsell app","Cart page guide"]
 ---
 # Cart page
 

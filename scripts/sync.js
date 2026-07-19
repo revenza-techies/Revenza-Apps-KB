@@ -24,6 +24,36 @@ const HINT_TYPES = {
   danger: "danger",
 };
 
+const LEGACY_DOC_URLS = {
+  "/docs/revenza-upsell/settings/#global-settings":
+    "/docs/revenza-upsell/settings/global-settings",
+  "/docs/revenza-upsell/integration/#product-page-integration":
+    "/docs/revenza-upsell/integration/app-block-integration-product-page",
+  "/docs/revenza-upsell/integration/#cart-page-integration":
+    "/docs/revenza-upsell/integration/app-block-integration-cart-page",
+};
+
+const SEO_DESCRIPTION_OVERRIDES = {
+  overview:
+    "Learn how Revenza Upsell helps Shopify merchants create product offers, configure settings, and launch upsells across their online store.",
+  billing:
+    "Understand Revenza Upsell billing, subscription charges, plan management, and common payment questions for your Shopify store.",
+  faqs:
+    "Find answers to common Revenza Upsell questions about setup, integrations, product recommendations, billing, and troubleshooting.",
+  mapping:
+    "Learn how to map Revenza Upsell custom and pre-built product sets to Shopify products and collections.",
+  "upsell review":
+    "Preview Revenza Upsell offers on Shopify product and cart pages before publishing them to customers.",
+  "app block integration - cart page":
+    "Add the Revenza Upsell app block to your Shopify cart page and verify that cart upsell offers display correctly.",
+  "app block integration - product page":
+    "Add the Revenza Upsell app block to your Shopify product page and verify that product upsell offers display correctly.",
+  integration:
+    "Connect Revenza Upsell to Shopify product and cart pages using app blocks without editing your theme code.",
+  settings:
+    "Configure Revenza Upsell product-page, cart-page, and global settings to match your Shopify store and merchandising strategy.",
+};
+
 const VALIDATION_PATTERNS = [
   { pattern: "{%", label: "GitBook opening tag" },
   { pattern: "%}", label: "GitBook closing tag" },
@@ -93,11 +123,12 @@ function normalizeDocusaurusDocUrl(url, app, sourceRelativePath = "") {
   if (!url || /^(?:https?:|mailto:|tel:|#)/i.test(url)) return url;
 
   const normalizedUrl = normalizeGitBookUrl(url);
-  if (normalizedUrl.startsWith("/docs/") || /^(?:https?:|mailto:|tel:|#)/i.test(normalizedUrl)) {
-    return normalizedUrl;
+  const canonicalUrl = LEGACY_DOC_URLS[normalizedUrl] || normalizedUrl;
+  if (canonicalUrl.startsWith("/docs/") || /^(?:https?:|mailto:|tel:|#)/i.test(canonicalUrl)) {
+    return canonicalUrl;
   }
 
-  if (normalizedUrl.startsWith("/")) return normalizedUrl;
+  if (canonicalUrl.startsWith("/")) return canonicalUrl;
 
   const [rawPath, hash = ""] = normalizedUrl.split("#");
   const sourceDir = path.posix.dirname(toPosixPath(sourceRelativePath));
@@ -108,7 +139,8 @@ function normalizeDocusaurusDocUrl(url, app, sourceRelativePath = "") {
     .replace(/\.md$/i, "");
 
   const safeHash = hash === "creating-custom-upsell-sets" ? "" : hash;
-  return safeHash ? `${docsPath}#${safeHash}` : docsPath;
+  const resolvedUrl = safeHash ? `${docsPath}#${safeHash}` : docsPath;
+  return LEGACY_DOC_URLS[resolvedUrl] || resolvedUrl;
 }
 
 function convertGitBookButtons(markdown, app, sourceRelativePath = "") {
@@ -363,6 +395,128 @@ function splitFrontmatter(markdown) {
     body: markdown.slice(match[0].length),
   };
 }
+function stripMarkdownForDescription(value) {
+  return value
+    .replace(/!\[[^\]]*\]\([^)]*\)/g, "")
+    .replace(/\[([^\]]+)\]\([^)]*\)/g, "$1")
+    .replace(/<[^>]+>/g, "")
+    .replace(/[*_>#\\]/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function trimSeoDescription(value, maxLength = 155) {
+  if (value.length <= maxLength) return value;
+
+  const completeSentence = value.slice(0, maxLength + 1).match(/^(.{50,}?[.!?])(?:\s|$)/);
+  if (completeSentence) return completeSentence[1];
+
+  const contentLimit = maxLength - 3;
+  const shortened = value.slice(0, contentLimit + 1);
+  const lastSpace = shortened.lastIndexOf(" ");
+  return shortened
+    .slice(0, lastSpace > 110 ? lastSpace : contentLimit)
+    .trim()
+    .concat("...");
+}
+
+function normalizeDescriptionFrontmatter(markdown) {
+  const { frontmatter, body } = splitFrontmatter(markdown);
+  if (!frontmatter) return markdown;
+
+  const blockPattern = /^description:\s*[>|]-?\s*\n((?:[ \t]+[^\n]*(?:\n|$))*)/m;
+  let updatedFrontmatter = frontmatter.replace(blockPattern, (_, lines) => {
+    const description = lines
+      .split(/\r?\n/)
+      .map((line) => line.trim())
+      .filter(Boolean)
+      .join(" ");
+    return "description: " + JSON.stringify(trimSeoDescription(description)) + "\n";
+  });
+
+  const inlinePattern = /^description:\s*(?![>|]\s*$)(.+)$/m;
+  updatedFrontmatter = updatedFrontmatter.replace(inlinePattern, (line, rawValue) => {
+    let description = rawValue.trim();
+    if (
+      (description.startsWith('"') && description.endsWith('"')) ||
+      (description.startsWith("'") && description.endsWith("'"))
+    ) {
+      description = description.slice(1, -1);
+    }
+
+    if (description.length <= 155) return line;
+    return "description: " + JSON.stringify(trimSeoDescription(description));
+  });
+
+  return updatedFrontmatter + body;
+}
+
+function inferSeoMetadata(markdown, app, sourceRelativePath = "") {
+  const { body } = splitFrontmatter(markdown);
+  const titleMatch = body.match(/^#\s+(.+)$/m);
+  const title = stripMarkdownForDescription(
+    titleMatch?.[1] || humanizeContentRefLabel(sourceRelativePath)
+  );
+  const paragraphs = body
+    .replace(/^import\s+.*;\s*$/gm, "")
+    .replace(/\x60\x60\x60[\s\S]*?\x60\x60\x60/g, "")
+    .split(/\n\s*\n/)
+    .map(stripMarkdownForDescription)
+    .filter((paragraph) => paragraph && !/^(?:import|export)\s/.test(paragraph));
+  const candidate =
+    paragraphs.find((paragraph) => paragraph.length >= 70) ||
+    paragraphs.find((paragraph) => paragraph.length >= 35);
+  const productName = app === "revenza-upsell" ? "Revenza Upsell" : "Revenza Apps";
+  const fallback =
+    "Learn how to use " +
+    productName +
+    " with this " +
+    (title || "documentation") +
+    " guide for Shopify merchants.";
+  const authoredOverride = SEO_DESCRIPTION_OVERRIDES[title.toLowerCase()];
+  const contextual = authoredOverride || candidate || fallback;
+  const description = /revenza/i.test(contextual)
+    ? contextual
+    : productName + ": " + contextual;
+
+  return {
+    description: trimSeoDescription(description),
+    keywords: [productName, "Shopify upsell app", (title || "Shopify app") + " guide"],
+  };
+}
+
+function ensureSeoFrontmatter(markdown, app, sourceRelativePath = "") {
+  const { frontmatter } = splitFrontmatter(markdown);
+  const hasDescription = /^description:\s*(?:[>|].*|["'].*|\S.*)$/m.test(frontmatter);
+  const hasKeywords = /^keywords:\s*(?:\[.*|\S.*)$/m.test(frontmatter);
+
+  if (hasDescription && hasKeywords) return normalizeDescriptionFrontmatter(markdown);
+
+  const metadata = inferSeoMetadata(markdown, app, sourceRelativePath);
+  const additions = [];
+  if (!hasDescription) {
+    additions.push("description: " + JSON.stringify(metadata.description));
+  }
+  if (!hasKeywords) {
+    additions.push("keywords: " + JSON.stringify(metadata.keywords));
+  }
+
+  if (!frontmatter) {
+    return normalizeDescriptionFrontmatter(
+      "---\n" + additions.join("\n") + "\n---\n" + markdown
+    );
+  }
+
+  const closingIndex = frontmatter.lastIndexOf("\n---");
+  const updatedFrontmatter =
+    frontmatter.slice(0, closingIndex) +
+    "\n" +
+    additions.join("\n") +
+    frontmatter.slice(closingIndex);
+  return normalizeDescriptionFrontmatter(
+    updatedFrontmatter + markdown.slice(frontmatter.length)
+  );
+}
 async function normalizeMarkdown(markdown, app, sourceRelativePath = "") {
   const [{ unified }, remarkParse, remarkMdx, remarkGfm, remarkStringify, { visit }] =
     await Promise.all([
@@ -410,6 +564,8 @@ async function normalizeMarkdown(markdown, app, sourceRelativePath = "") {
 async function rewrite(markdown, app, sourceRelativePath = "") {
   const withoutHtmlEntities = normalizeGitBookUrls(markdown)
     .replace(/&#x20;/g, " ")
+    .replace(/ÃƒÂ¢Ã¢â‚¬Â Ã¢â‚¬â„¢/g, " to ")
+    .replace(/ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â/g, " - ")
     .replace(/<br\s*\/?\>/gi, "\n");
   const figuresConverted = convertFigures(withoutHtmlEntities, app);
   const buttonConverted = convertGitBookButtons(figuresConverted, app, sourceRelativePath);
@@ -422,7 +578,8 @@ async function rewrite(markdown, app, sourceRelativePath = "") {
     transformed.imports.add(importedComponent);
   }  const withImports = insertMdxImports(transformed.markdown, transformed.imports);
 
-  return normalizeMarkdown(withImports, app, sourceRelativePath);
+  const normalized = await normalizeMarkdown(withImports, app, sourceRelativePath);
+  return ensureSeoFrontmatter(normalized, app, sourceRelativePath);
 }
 
 function validateOutput(markdown, outputFile) {
@@ -600,7 +757,7 @@ async function main() {
     copyAssets(path.join(src, ".gitbook", "assets"), assets);
     syncedRepositories.push({ repo, sourceDir: src });
 
-    console.log(`✓ ${repo.name}`);
+    console.log(`Ã¢Å“â€œ ${repo.name}`);
   }
 
   writeSidebars(syncedRepositories);
@@ -615,6 +772,7 @@ if (require.main === module) {
 }
 
 module.exports = {
+  ensureSeoFrontmatter,
   rewrite,
   transformGitBookDirectives,
 };

@@ -1,3 +1,7 @@
+---
+description: "Connect Revenza Upsell to Shopify product and cart pages using app blocks without editing your theme code."
+keywords: ["Revenza Upsell","Shopify upsell app","Integration guide"]
+---
 import Link from '@docusaurus/Link';
 import Columns, { Column } from '@site/src/components/Docs/Columns';
 

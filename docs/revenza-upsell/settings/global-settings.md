@@ -1,7 +1,6 @@
 ---
-description: >-
-  Configure settings that apply to the upsell widget across your entire store.
-  These options control the widget's global behavior, formatting, and styling.
+description: "Configure settings that apply to the upsell widget across your entire store. These options control the widget's global behavior, formatting, and styling."
+keywords: ["Revenza Upsell","Shopify upsell app","Global Settings guide"]
 ---
 # Global Settings
 

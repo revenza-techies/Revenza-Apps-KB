@@ -12,7 +12,7 @@ export default function Home() {
   return (
     <Layout
       title="Revenza Knowledge Base"
-      description="Everything you need to get the most from Revenza apps"
+      description="Official Revenza Apps help center for Shopify merchants. Find Revenza Upsell setup, integration, billing, customization, and troubleshooting guides."
     >
       <main className={styles.homeMain}>
         <div className={styles.natureBackdrop} aria-hidden="true">

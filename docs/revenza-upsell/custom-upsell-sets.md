@@ -1,7 +1,6 @@
 ---
-description: >-
-  Use this setup to create a custom upsell product set, then map that set to the
-  products or collections where it should appear.
+description: "Use this setup to create a custom upsell product set, then map that set to the products or collections where it should appear."
+keywords: ["Revenza Upsell","Shopify upsell app","Upsell Sets guide"]
 ---
 import Stepper, { Step } from '@site/src/components/Docs/Stepper';
 

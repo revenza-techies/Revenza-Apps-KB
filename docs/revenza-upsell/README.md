@@ -1,3 +1,7 @@
+---
+description: "Learn how Revenza Upsell helps Shopify merchants create product offers, configure settings, and launch upsells across their online store."
+keywords: ["Revenza Upsell","Shopify upsell app","Overview guide"]
+---
 import Stepper, { Step } from '@site/src/components/Docs/Stepper';
 
 # Overview
@@ -33,7 +37,7 @@ Follow these steps to launch your first upsell.
     ### Go Live
 
     Upsell are now active on the store front.\
-    [Pre-built sets](/docs/revenza-upsell/pre-build-upsell-sets)
+    [Preview the Pre-built sets](/docs/revenza-upsell/getting-started/upsell-product-preview)
   </Step>
 </Stepper>
 
@@ -41,7 +45,7 @@ Follow these steps to launch your first upsell.
 
 * [**Pre-build options**](/docs/revenza-upsell/pre-build-upsell-sets) — Display pre-build upsell options on products.
 * [**Create Upsell Set**](/docs/revenza-upsell/custom-upsell-sets) — Build an offer in a few clear steps.
-* [**Customize the experience**](/docs/revenza-upsell/settings/#global-settings) — Match colors, text, and placement to your store.
+* [**Customize the experience**](/docs/revenza-upsell/settings/global-settings) — Match colors, text, and placement to your store.
 
 ### Video tutorial
 

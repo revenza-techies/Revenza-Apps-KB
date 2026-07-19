@@ -1,5 +1,6 @@
 ---
 description: This setting allows you to Enable or Disable widget on the store pages.
+keywords: ["Revenza Upsell","Shopify upsell app","Show Widget On guide"]
 ---
 # Show Widget On
 

@@ -1,7 +1,6 @@
 ---
-description: >-
-  Manage the appearance and behavior of the upsell widget on your product pages
-  to create a seamless shopping experience.
+description: "Manage the appearance and behavior of the upsell widget on your product pages to create a seamless shopping experience."
+keywords: ["Revenza Upsell","Shopify upsell app","Product Page Settings guide"]
 ---
 # Product Page Settings
 
