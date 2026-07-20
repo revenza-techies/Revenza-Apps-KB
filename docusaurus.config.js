@@ -122,7 +122,7 @@ const config = {
         {
           name: "keywords",
           content:
-            "Revenza Apps, Revenza Upsell, Shopify upsell app, Shopify app documentation, ecommerce help center",
+            "Revenza Apps, Upsell, Addon, Upsell and Cross-Selling, Revenza Upsell, Shopify upsell app, Shopify app documentation, Revenza, Revenza india, ecommerce help center",
         },
         { name: "author", content: "Revenza Techies" },
         { name: "theme-color", content: "#0F766E" },
