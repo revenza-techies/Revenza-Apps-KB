@@ -47,8 +47,12 @@
 }
 
 .icon {
-  font-size: 48px;
+  display: grid;
+  width: 64px;
+  height: 64px;
   margin-bottom: 24px;
+  place-items: center;
+  color: var(--revenza-primary);
 }
 
 .card h3 {

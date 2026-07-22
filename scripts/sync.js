@@ -573,8 +573,8 @@ async function normalizeMarkdown(markdown, app, sourceRelativePath = "") {
 async function rewrite(markdown, app, sourceRelativePath = "") {
   const withoutHtmlEntities = normalizeGitBookUrls(markdown)
     .replace(/&#x20;/g, " ")
-    .replace(/ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â‚¬Å¾Ã‚Â¢/g, " to ")
-    .replace(/ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â/g, " - ")
+    .replace(/\u00e2\u2020\u2019/g, " to ")
+    .replace(/\u00e2\u20ac\u201d/g, " - ")
     .replace(/<br\s*\/?\>/gi, "\n");
   const figuresConverted = convertFigures(withoutHtmlEntities, app);
   const buttonConverted = convertGitBookButtons(figuresConverted, app, sourceRelativePath);
@@ -765,8 +765,7 @@ async function main() {
     await copyDocs(src, docs, repo.docsDestination, repo);
     copyAssets(path.join(src, ".gitbook", "assets"), assets);
     syncedRepositories.push({ repo, sourceDir: src });
-
-    console.log(`ÃƒÆ’Ã‚Â¢Ãƒâ€¦Ã¢â‚¬Å“ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œ ${repo.name}`);
+    console.log(`[ok] ${repo.name}`);
   }
 
   writeSidebars(syncedRepositories);
