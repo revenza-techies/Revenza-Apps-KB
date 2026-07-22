@@ -12,12 +12,12 @@ By default these setting comes enabled in the app. You can control them accordin
 
 ### **1. Product Page**
 
-By default this setting is enabled. To access more setting for Product page, go to [**Product Page settings**](/docs/revenza-upsell/settings/product-page).
+By default this setting is enabled. To access more setting for Product page, go to [**Product Page settings**](/revenza-upsell/settings/product-page).
 
 ### **2. Cart Page**
 
-By default this setting is enabled. To access more setting for Cart page, go to [**Cart Page settings**](/docs/revenza-upsell/settings/cart-page).
+By default this setting is enabled. To access more setting for Cart page, go to [**Cart Page settings**](/revenza-upsell/settings/cart-page).
 
 ### 3. Global Setting
 
-By default this setting is enabled. To access more Global App setting, go to [**Global settings**](/docs/revenza-upsell/settings/global-settings).
+By default this setting is enabled. To access more Global App setting, go to [**Global settings**](/revenza-upsell/settings/global-settings).

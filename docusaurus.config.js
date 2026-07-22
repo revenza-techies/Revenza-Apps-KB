@@ -82,7 +82,7 @@ const config = {
       "classic",
       {
         docs: {
-          routeBasePath: "docs",
+          routeBasePath: "/",
           sidebarPath: "./sidebars.js",
         },
         blog: false,
@@ -100,11 +100,25 @@ const config = {
   ],
   plugins: [
     [
+      require.resolve("@docusaurus/plugin-client-redirects"),
+      {
+        createRedirects(existingPath) {
+          if (
+            existingPath === "/revenza-upsell" ||
+            existingPath.startsWith("/revenza-upsell/")
+          ) {
+            return `/docs${existingPath}`;
+          }
+          return undefined;
+        },
+      },
+    ],
+    [
       require.resolve("@easyops-cn/docusaurus-search-local"),
       {
         hashed: true,
         language: ["en"],
-        docsRouteBasePath: "/docs",
+        docsRouteBasePath: "/",
         indexDocs: true,
         indexBlog: false,
         indexPages: true,
@@ -149,7 +163,7 @@ const config = {
           {
             label: "Revenza Upsell",
             position: "left",
-            to: "/docs/revenza-upsell/",
+            to: "/revenza-upsell/",
           },
           {
             type: "search",

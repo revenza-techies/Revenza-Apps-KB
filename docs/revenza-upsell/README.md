@@ -28,7 +28,7 @@ Follow these steps to launch your first upsell.
     ### Activate App
 
     Build your first upsell offer.\
-    [Enable App](/docs/revenza-upsell/getting-started/)
+    [Enable App](/revenza-upsell/getting-started/)
 
     ![](/gitbook/revenza-upsell/Image%201.png)
   </Step>
@@ -37,15 +37,15 @@ Follow these steps to launch your first upsell.
     ### Go Live
 
     Upsell are now active on the store front.\
-    [Preview the Pre-built sets](/docs/revenza-upsell/getting-started/upsell-product-preview)
+    [Preview the Pre-built sets](/revenza-upsell/getting-started/upsell-product-preview)
   </Step>
 </Stepper>
 
 ### Popular guides
 
-* [**Pre-build options**](/docs/revenza-upsell/pre-build-upsell-sets) — Display pre-build upsell options on products.
-* [**Create Upsell Set**](/docs/revenza-upsell/custom-upsell-sets) — Build an offer in a few clear steps.
-* [**Customize the experience**](/docs/revenza-upsell/settings/global-settings) — Match colors, text, and placement to your store.
+* [**Pre-build options**](/revenza-upsell/pre-build-upsell-sets) — Display pre-build upsell options on products.
+* [**Create Upsell Set**](/revenza-upsell/custom-upsell-sets) — Build an offer in a few clear steps.
+* [**Customize the experience**](/revenza-upsell/settings/global-settings) — Match colors, text, and placement to your store.
 
 ### Video tutorial
 

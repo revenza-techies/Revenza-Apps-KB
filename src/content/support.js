@@ -11,7 +11,7 @@ const support = {
       description:
         "Chat instantly with our support team using Freshchat.",
 
-      icon: "💬",
+      icon: "ðŸ’¬",
 
       action: {
 
@@ -30,13 +30,13 @@ const support = {
       description:
         "Browse detailed guides, FAQs and troubleshooting articles.",
 
-      icon: "📖",
+      icon: "ðŸ“–",
 
       action: {
 
         label: "Browse Docs",
 
-        link: "/docs/revenza-upsell/",
+        link: "/revenza-upsell/",
 
       },
 
@@ -49,7 +49,7 @@ const support = {
       description:
         "Watch step-by-step tutorials to get started faster.",
 
-      icon: "🎥",
+      icon: "ðŸŽ¥",
 
       action: {
 

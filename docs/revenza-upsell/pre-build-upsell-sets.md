@@ -50,7 +50,7 @@ By default, **'Recently Launched → Created: Newest first'** is selected, to sw
 
 ---
 
-<Link className="button button--primary" to="/docs/revenza-upsell/mapping">Map Prebuilt sets</Link>
+<Link className="button button--primary" to="/revenza-upsell/mapping">Map Prebuilt sets</Link>
 
 Map your Pre-built sets to Specific **Products**, **Collections** or based on specific **Tags**.
 

@@ -7,7 +7,7 @@ const homepage = {
 
     primaryButton: {
       label: "Browse Documentation",
-      link: "/docs/revenza-upsell/",
+      link: "/revenza-upsell/",
     },
 
     secondaryButton: {

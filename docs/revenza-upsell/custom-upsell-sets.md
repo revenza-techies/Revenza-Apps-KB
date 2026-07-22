@@ -60,4 +60,4 @@ For complete instructions on creating and mapping custom upsell sets, follow the
 
 Your upsell set is now created.
 
-Next step is to [**Map the sets**](/docs/revenza-upsell/mapping) with Products, Collections or tags based on your requirements.
+Next step is to [**Map the sets**](/revenza-upsell/mapping) with Products, Collections or tags based on your requirements.

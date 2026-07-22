@@ -1,6 +1,6 @@
 <Link
   className="button button--primary button--lg"
-  to="/docs/revenza-upsell/"
+  to="/revenza-upsell/"
 >
   Browse Documentation
 </Link>

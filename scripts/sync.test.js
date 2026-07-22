@@ -20,8 +20,8 @@ test("converts GitBook columns and buttons to Docusaurus MDX", async () => {
   assert.match(output, /import Columns, \{ Column \} from '@site\/src\/components\/Docs\/Columns';/);
   assert.match(output, /<Columns>/);
   assert.match(output, /<Column>/);
-  assert.match(output, /to="\/docs\/revenza-upsell\/integration\/app-block-integration-product-page"/);
-  assert.match(output, /to="\/docs\/revenza-upsell\/integration\/app-block-integration-cart-page"/);
+  assert.match(output, /to="\/revenza-upsell\/integration\/app-block-integration-product-page"/);
+  assert.match(output, /to="\/revenza-upsell\/integration\/app-block-integration-cart-page"/);
   assert.doesNotMatch(output, /\{%|%\}/);
   assert.match(output, /^---\ndescription: /);
   assert.match(
@@ -60,17 +60,29 @@ test("rewrites obsolete GitBook anchors to canonical documentation routes", asyn
   ].join("\n");
   const output = await rewrite(input, "revenza-upsell", "getting-started/links.md");
 
-  assert.match(output, /\/docs\/revenza-upsell\/settings\/global-settings/);
+  assert.match(output, /\/revenza-upsell\/settings\/global-settings/);
   assert.match(
     output,
-    /\/docs\/revenza-upsell\/integration\/app-block-integration-product-page/
+    /\/revenza-upsell\/integration\/app-block-integration-product-page/
   );
   assert.match(
     output,
-    /\/docs\/revenza-upsell\/integration\/app-block-integration-cart-page/
+    /\/revenza-upsell\/integration\/app-block-integration-cart-page/
   );
   assert.doesNotMatch(output, /#global-settings|#product-page-integration|#cart-page-integration/);
 });
+
+test("migrates legacy absolute docs links to clean routes", async () => {
+  const output = await rewrite(
+    "[Settings](/docs/revenza-upsell/settings/)",
+    "revenza-upsell",
+    "README.md"
+  );
+
+  assert.match(output, /\(\/revenza-upsell\/settings\/\)/);
+  assert.doesNotMatch(output, /\/docs\/revenza-upsell/);
+});
+
 test("limits overlong authored descriptions to search snippet length", async () => {
   const input = [
     "---",

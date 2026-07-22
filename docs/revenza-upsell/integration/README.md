@@ -15,11 +15,11 @@ This no-code integration method allows you to quickly add upsell widgets to your
 
 <Columns>
   <Column>
-    <Link className="button button--primary" to="/docs/revenza-upsell/integration/app-block-integration-product-page">Product Page Integration</Link>
+    <Link className="button button--primary" to="/revenza-upsell/integration/app-block-integration-product-page">Product Page Integration</Link>
   </Column>
 
   <Column>
-    <Link className="button button--primary" to="/docs/revenza-upsell/integration/app-block-integration-cart-page">Cart Page Integration</Link>
+    <Link className="button button--primary" to="/revenza-upsell/integration/app-block-integration-cart-page">Cart Page Integration</Link>
   </Column>
 </Columns>
 

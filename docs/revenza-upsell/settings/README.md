@@ -23,19 +23,19 @@ From this page, you can:
 
 <Tabs>
   <TabItem value="product-page" label="Product Page">
-    <Link className="button button--secondary" to="/docs/revenza-upsell/settings/product-page">Product Page</Link>
+    <Link className="button button--secondary" to="/revenza-upsell/settings/product-page">Product Page</Link>
 
     Configure how upsell recommendations appear on individual product pages, including layout, product selection, display style, and add-to-cart behavior.
   </TabItem>
 
   <TabItem value="cart-page" label="Cart Page">
-    <Link className="button button--secondary" to="/docs/revenza-upsell/settings/cart-page">Cart Page</Link>
+    <Link className="button button--secondary" to="/revenza-upsell/settings/cart-page">Cart Page</Link>
 
     Customize upsell recommendations shown in the shopping cart, including product set selection, display options, and cart-specific behavior.
   </TabItem>
 
   <TabItem value="global-settings" label="Global Settings">
-    <Link className="button button--secondary" to="/docs/revenza-upsell/settings/global-settings">Global Settings</Link>
+    <Link className="button button--secondary" to="/revenza-upsell/settings/global-settings">Global Settings</Link>
 
     Manage app-wide preferences that apply across all widgets, such as global enablement, currency formatting, heading behavior, and custom CSS.
   </TabItem>

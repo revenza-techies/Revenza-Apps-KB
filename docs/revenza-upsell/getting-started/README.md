@@ -34,7 +34,7 @@ The setup takes less than a minute.
   <Step>
     ### Preview Upsells
 
-    Click [**Preview**](/docs/revenza-upsell/getting-started/upsell-product-preview) in the **Product Page** section to view the default **Pre-built Upsells** on your product pages.
+    Click [**Preview**](/revenza-upsell/getting-started/upsell-product-preview) in the **Product Page** section to view the default **Pre-built Upsells** on your product pages.
   </Step>
 </Stepper>
 

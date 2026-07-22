@@ -25,12 +25,12 @@ const HINT_TYPES = {
 };
 
 const LEGACY_DOC_URLS = {
-  "/docs/revenza-upsell/settings/#global-settings":
-    "/docs/revenza-upsell/settings/global-settings",
-  "/docs/revenza-upsell/integration/#product-page-integration":
-    "/docs/revenza-upsell/integration/app-block-integration-product-page",
-  "/docs/revenza-upsell/integration/#cart-page-integration":
-    "/docs/revenza-upsell/integration/app-block-integration-cart-page",
+  "/revenza-upsell/settings/#global-settings":
+    "/revenza-upsell/settings/global-settings",
+  "/revenza-upsell/integration/#product-page-integration":
+    "/revenza-upsell/integration/app-block-integration-product-page",
+  "/revenza-upsell/integration/#cart-page-integration":
+    "/revenza-upsell/integration/app-block-integration-cart-page",
 };
 
 const SEO_DESCRIPTION_OVERRIDES = {
@@ -103,8 +103,12 @@ function normalizeGitBookUrl(url) {
   if (!url) return url;
   if (url.startsWith("/broken/pages/")) return "#";
   if (url === "/contact") return "https://revenza.in/contact";
-  if (url === "/revenza-upsell") return "/docs/revenza-upsell/";
-  if (url.startsWith("/revenza-upsell/")) return `/docs${url}`;
+  if (url === "/docs/revenza-upsell" || url === "/docs/revenza-upsell/") {
+    return "/revenza-upsell/";
+  }
+  if (url.startsWith("/docs/revenza-upsell/")) return url.slice("/docs".length);
+  if (url === "/revenza-upsell") return "/revenza-upsell/";
+  if (url.startsWith("/revenza-upsell/")) return url;
 
   return url;
 }
@@ -124,7 +128,12 @@ function normalizeDocusaurusDocUrl(url, app, sourceRelativePath = "") {
 
   const normalizedUrl = normalizeGitBookUrl(url);
   const canonicalUrl = LEGACY_DOC_URLS[normalizedUrl] || normalizedUrl;
-  if (canonicalUrl.startsWith("/docs/") || /^(?:https?:|mailto:|tel:|#)/i.test(canonicalUrl)) {
+  const appBasePath = `/${app}`;
+  if (
+    canonicalUrl === appBasePath ||
+    canonicalUrl.startsWith(`${appBasePath}/`) ||
+    /^(?:https?:|mailto:|tel:|#)/i.test(canonicalUrl)
+  ) {
     return canonicalUrl;
   }
 
@@ -134,7 +143,7 @@ function normalizeDocusaurusDocUrl(url, app, sourceRelativePath = "") {
   const sourceDir = path.posix.dirname(toPosixPath(sourceRelativePath));
   const relativeBase = sourceDir === "." ? "" : sourceDir;
   const docsPath = path.posix
-    .normalize(path.posix.join("/docs", app, relativeBase, rawPath))
+    .normalize(path.posix.join("/", app, relativeBase, rawPath))
     .replace(/\/README\.md$/i, "/")
     .replace(/\.md$/i, "");
 
@@ -564,8 +573,8 @@ async function normalizeMarkdown(markdown, app, sourceRelativePath = "") {
 async function rewrite(markdown, app, sourceRelativePath = "") {
   const withoutHtmlEntities = normalizeGitBookUrls(markdown)
     .replace(/&#x20;/g, " ")
-    .replace(/ÃƒÂ¢Ã¢â‚¬Â Ã¢â‚¬â„¢/g, " to ")
-    .replace(/ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â/g, " - ")
+    .replace(/ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â‚¬Å¾Ã‚Â¢/g, " to ")
+    .replace(/ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â/g, " - ")
     .replace(/<br\s*\/?\>/gi, "\n");
   const figuresConverted = convertFigures(withoutHtmlEntities, app);
   const buttonConverted = convertGitBookButtons(figuresConverted, app, sourceRelativePath);
@@ -757,7 +766,7 @@ async function main() {
     copyAssets(path.join(src, ".gitbook", "assets"), assets);
     syncedRepositories.push({ repo, sourceDir: src });
 
-    console.log(`Ã¢Å“â€œ ${repo.name}`);
+    console.log(`ÃƒÆ’Ã‚Â¢Ãƒâ€¦Ã¢â‚¬Å“ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œ ${repo.name}`);
   }
 
   writeSidebars(syncedRepositories);
