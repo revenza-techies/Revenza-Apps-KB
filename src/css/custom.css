@@ -186,3 +186,8 @@ a:hover {
   --ifm-footer-background-color: #0B1120;
   --ifm-card-background-color: var(--revenza-surface);
 }
+
+/* Keep the first-party close control above Freshchat's cross-origin frame. */
+#fc_frame {
+  z-index: 2147483646 !important;
+}

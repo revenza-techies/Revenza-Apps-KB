@@ -1,0 +1,30 @@
+.closeButton {
+  position: fixed;
+  display: grid;
+  width: 40px;
+  height: 28px;
+  padding: 0;
+  place-items: center;
+  color: #ffffff;
+  background: #475569;
+  border: 0;
+  border-radius: 14px;
+  box-shadow: 0 2px 8px rgb(15 23 42 / 25%);
+  cursor: pointer;
+  z-index: 2147483647;
+}
+
+.closeButton:hover {
+  background: #334155;
+}
+
+.closeButton:focus-visible {
+  outline: 3px solid #2dd4bf;
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .closeButton {
+    transition: background-color 150ms ease, box-shadow 150ms ease;
+  }
+}

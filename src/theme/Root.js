@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-
+import FreshchatCloseButton from "../components/FreshchatCloseButton";
 import { openFreshchat } from "../utils/freshchat";
 
 export default function Root({ children }) {
@@ -7,9 +7,7 @@ export default function Root({ children }) {
     function handleClick(event) {
       const link = event.target.closest("a.freshchat-trigger");
 
-      if (!link) {
-        return;
-      }
+      if (!link) return;
 
       event.preventDefault();
       openFreshchat();
@@ -19,5 +17,10 @@ export default function Root({ children }) {
     return () => document.removeEventListener("click", handleClick);
   }, []);
 
-  return <div id="contact">{children}</div>;
+  return (
+    <div id="contact">
+      {children}
+      <FreshchatCloseButton />
+    </div>
+  );
 }
